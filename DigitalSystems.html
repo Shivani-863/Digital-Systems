@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Electronics — GATE & HPCL Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161e;
+    --surface2: #1a1e2a;
+    --border: #252b3b;
+    --accent: #00e5ff;
+    --accent2: #ff6b35;
+    --accent3: #7c3aed;
+    --gold: #f59e0b;
+    --green: #10b981;
+    --red: #ef4444;
+    --text: #e2e8f0;
+    --text-muted: #64748b;
+    --text-dim: #94a3b8;
+    --trick-bg: #1a1e2a;
+    --trick-border: #f59e0b;
+    --note-bg: #0d1f2d;
+    --note-border: #00e5ff;
+    --formula-bg: #1a0d2e;
+    --formula-border: #7c3aed;
+  }
+  .light-mode {
+    --bg: #f0f4f8;
+    --surface: #ffffff;
+    --surface2: #e8eef5;
+    --border: #cbd5e1;
+    --accent: #0284c7;
+    --accent2: #ea580c;
+    --accent3: #7c3aed;
+    --gold: #d97706;
+    --green: #059669;
+    --red: #dc2626;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --text-dim: #475569;
+    --trick-bg: #fffbeb;
+    --trick-border: #d97706;
+    --note-bg: #eff6ff;
+    --note-border: #0284c7;
+    --formula-bg: #f5f3ff;
+    --formula-border: #7c3aed;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Lora', Georgia, serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  /* HEADER */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .header-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .header-title span { color: var(--accent2); }
+  .header-actions { display: flex; gap: 10px; align-items: center; }
+  .btn {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .btn:hover { background: var(--accent); color: #000; border-color: var(--accent); }
+  .btn-pdf {
+    background: var(--accent2);
+    color: #fff;
+    border-color: var(--accent2);
+  }
+  .btn-pdf:hover { background: #ff4500; color: #fff; border-color: #ff4500; }
+  /* HERO */
+  .hero {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 24px 40px;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--accent3);
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p {
+    color: var(--text-dim);
+    max-width: 620px;
+    margin: 0 auto;
+    font-size: 1rem;
+  }
+  .hero-tags {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .tag {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+  /* LAYOUT */
+  .layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  /* SIDEBAR */
+  .sidebar {
+    position: sticky;
+    top: 72px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .sidebar-header {
+    background: var(--surface2);
+    padding: 14px 18px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-nav { padding: 10px 0; }
+  .nav-item {
+    display: block;
+    padding: 9px 18px;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: all 0.15s;
+    border-left: 3px solid transparent;
+  }
+  .nav-item:hover { color: var(--accent); background: var(--surface2); border-left-color: var(--accent); }
+  .nav-item.active { color: var(--accent); background: var(--surface2); border-left-color: var(--accent); }
+  .nav-item .num {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: var(--surface2);
+    border-radius: 4px;
+    font-size: 0.68rem;
+    text-align: center;
+    line-height: 20px;
+    margin-right: 8px;
+    color: var(--accent2);
+  }
+  /* MAIN CONTENT */
+  .main { display: flex; flex-direction: column; gap: 40px; }
+  /* SECTION */
+  .section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .section-header {
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--accent3);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .section-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  .section-body { padding: 28px; display: flex; flex-direction: column; gap: 22px; }
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--accent2);
+    margin-bottom: 4px;
+  }
+  p { color: var(--text); line-height: 1.8; }
+  strong { color: var(--text); font-weight: 600; }
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+  }
+  thead { background: var(--surface2); }
+  thead th {
+    padding: 10px 14px;
+    text-align: left;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+  }
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  tbody tr:hover { background: var(--surface2); }
+  tbody td { padding: 9px 14px; color: var(--text); }
+  tbody td:first-child { color: var(--accent); font-weight: 600; }
+  /* TRICK BOX */
+  .trick {
+    background: var(--trick-bg);
+    border-left: 4px solid var(--trick-border);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+  }
+  .trick-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .trick p { color: var(--text); font-size: 0.93rem; }
+  /* NOTE BOX */
+  .note {
+    background: var(--note-bg);
+    border-left: 4px solid var(--note-border);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+  }
+  .note-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  /* FORMULA BOX */
+  .formula {
+    background: var(--formula-bg);
+    border: 1px solid var(--formula-border);
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+  .formula-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent3);
+    margin-bottom: 10px;
+  }
+  .formula code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--text);
+    display: block;
+    line-height: 2;
+  }
+  /* CODE BLOCK */
+  .code-block {
+    background: #0a0c10;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: #e2e8f0;
+    overflow-x: auto;
+    line-height: 1.8;
+  }
+  .light-mode .code-block { background: #1e293b; }
+  .code-block .c-cyan { color: #00e5ff; }
+  .code-block .c-green { color: #10b981; }
+  .code-block .c-yellow { color: #f59e0b; }
+  .code-block .c-purple { color: #a78bfa; }
+  /* GRID */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .card h3 { font-size: 0.88rem; margin-bottom: 8px; }
+  .card p { font-size: 0.88rem; }
+  /* LIST */
+  ul.styled, ol.styled {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  ul.styled li, ol.styled li { color: var(--text); font-size: 0.93rem; }
+  ul.styled li::marker { color: var(--accent); }
+  ol.styled li::marker { color: var(--accent2); font-family: 'Syne', sans-serif; font-weight: 700; }
+  /* HIGHLIGHT */
+  .hl { color: var(--accent); font-weight: 600; }
+  .hl2 { color: var(--accent2); font-weight: 600; }
+  .hl3 { color: var(--gold); font-weight: 600; }
+  .hl-green { color: var(--green); font-weight: 600; }
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 0 2px;
+  }
+  .badge-blue { background: rgba(0,229,255,0.15); color: var(--accent); }
+  .badge-orange { background: rgba(255,107,53,0.15); color: var(--accent2); }
+  .badge-purple { background: rgba(124,58,237,0.15); color: #a78bfa; }
+  .badge-green { background: rgba(16,185,129,0.15); color: var(--green); }
+  .badge-gold { background: rgba(245,158,11,0.15); color: var(--gold); }
+  /* DIVIDER */
+  .div { border: none; border-top: 1px dashed var(--border); margin: 4px 0; }
+  /* PROGRESS BAR */
+  .progress-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .progress-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    width: 100px;
+    flex-shrink: 0;
+  }
+  .progress-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--accent3), var(--accent));
+  }
+  .progress-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    width: 30px;
+    text-align: right;
+  }
+  /* PRINT */
+  @media print {
+    .header, .sidebar, .hero-tags, .header-actions { display: none !important; }
+    body { background: #fff !important; color: #000 !important; font-size: 11pt; }
+    .layout { display: block !important; padding: 0 !important; max-width: 100% !important; }
+    .main { gap: 20px !important; }
+    .section { break-inside: avoid; border: 1px solid #ccc !important; background: #fff !important; }
+    .section-header { background: #f5f5f5 !important; }
+    .trick, .note, .formula { background: #f9f9f9 !important; }
+    .code-block { background: #f4f4f4 !important; color: #000 !important; }
+    h2 { color: #1a1a1a !important; }
+    h3 { color: #333 !important; }
+    .hl { color: #0066cc !important; }
+    .hl2 { color: #cc4400 !important; }
+    .badge-blue { background: #e8f4fd !important; color: #0066cc !important; }
+    .badge-orange { background: #fff0e8 !important; color: #cc4400 !important; }
+    a { color: inherit !important; text-decoration: none !important; }
+    .hero { padding: 20px !important; text-align: left !important; }
+    .hero h1 { font-size: 20pt !important; }
+  }
+  @media (max-width: 800px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .grid2, .grid3 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-title">⚡ Digital Electronics — <span>GATE & HPCL</span></div>
+    <div class="header-actions">
+      <button class="btn" onclick="toggleTheme()" id="theme-btn">☀ Light Mode</button>
+      <button class="btn btn-pdf" onclick="window.print()">⬇ Download PDF</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📘 Complete Study Notes — Beginner to Advanced</div>
+  <h1>Digital <em>Electronics</em><br>Master Notes</h1>
+  <p>All topics covered from scratch — Number systems to Sequential circuits. Written in simple, exam-ready language with short tricks and formulas.</p>
+  <div class="hero-tags">
+    <span class="tag">GATE CSE</span>
+    <span class="tag">HPCL</span>
+    <span class="tag">Number Systems</span>
+    <span class="tag">Logic Gates</span>
+    <span class="tag">Boolean Algebra</span>
+    <span class="tag">K-Map</span>
+    <span class="tag">Combinational Circuits</span>
+    <span class="tag">Sequential Circuits</span>
+    <span class="tag">Flip-Flops</span>
+    <span class="tag">ADC/DAC</span>
+  </div>
+</div>
+
+<div class="layout">
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-header">📑 Topics</div>
+  <nav class="sidebar-nav">
+    <a href="#s1" class="nav-item active"><span class="num">1</span>Number Systems</a>
+    <a href="#s2" class="nav-item"><span class="num">2</span>Codes & BCD</a>
+    <a href="#s3" class="nav-item"><span class="num">3</span>Logic Gates</a>
+    <a href="#s4" class="nav-item"><span class="num">4</span>Boolean Algebra</a>
+    <a href="#s5" class="nav-item"><span class="num">5</span>K-Map</a>
+    <a href="#s6" class="nav-item"><span class="num">6</span>Combinational Ckt</a>
+    <a href="#s7" class="nav-item"><span class="num">7</span>Sequential Circuits</a>
+    <a href="#s8" class="nav-item"><span class="num">8</span>Flip-Flops</a>
+    <a href="#s9" class="nav-item"><span class="num">9</span>Registers & Counters</a>
+    <a href="#s10" class="nav-item"><span class="num">10</span>Memory & ADC/DAC</a>
+    <a href="#s11" class="nav-item"><span class="num">11</span>Quick Tricks Sheet</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- ===== SECTION 1: NUMBER SYSTEMS ===== -->
+<section class="section" id="s1">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <div>
+      <div class="section-title">Number Systems</div>
+      <div class="section-subtitle">Binary · Octal · Decimal · Hexadecimal</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div>
+      <h2>What is a Number System?</h2>
+      <p>A number system is a way to represent numbers. Computers only understand <span class="hl">0s and 1s</span> (binary). So we need to convert between different systems.</p>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>System</th><th>Base</th><th>Digits Used</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Binary</td><td>2</td><td>0, 1</td><td>1011₂</td></tr>
+          <tr><td>Octal</td><td>8</td><td>0–7</td><td>13₈</td></tr>
+          <tr><td>Decimal</td><td>10</td><td>0–9</td><td>11₁₀</td></tr>
+          <tr><td>Hexadecimal</td><td>16</td><td>0–9, A–F</td><td>B₁₆</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <h2>🔁 Conversions — The Most Important Skill</h2>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Decimal → Binary</h3>
+        <p>Keep dividing by 2, write remainders <strong>bottom to top</strong>.</p>
+        <div class="code-block" style="margin-top:10px">
+<span class="c-yellow">13</span> ÷ 2 = 6 rem <span class="c-cyan">1</span>
+<span class="c-yellow">6</span>  ÷ 2 = 3 rem <span class="c-cyan">0</span>
+<span class="c-yellow">3</span>  ÷ 2 = 1 rem <span class="c-cyan">1</span>
+<span class="c-yellow">1</span>  ÷ 2 = 0 rem <span class="c-cyan">1</span>
+Answer: <span class="c-green">1101₂</span> ✓
+        </div>
+      </div>
+      <div class="card">
+        <h3>Binary → Decimal</h3>
+        <p>Multiply each bit by its <strong>power of 2</strong>, add all up.</p>
+        <div class="code-block" style="margin-top:10px">
+1101₂ =
+1×<span class="c-cyan">2³</span> + 1×<span class="c-cyan">2²</span> + 0×<span class="c-cyan">2¹</span> + 1×<span class="c-cyan">2⁰</span>
+= 8 + 4 + 0 + 1
+= <span class="c-green">13₁₀</span> ✓
+        </div>
+      </div>
+      <div class="card">
+        <h3>Binary → Octal</h3>
+        <p>Group bits in <strong>3s from right</strong>, convert each group.</p>
+        <div class="code-block" style="margin-top:10px">
+1 101 011₂
+→ <span class="c-cyan">001</span> <span class="c-yellow">101</span> <span class="c-purple">011</span>
+→  1    5    3
+= <span class="c-green">153₈</span> ✓
+        </div>
+      </div>
+      <div class="card">
+        <h3>Binary → Hex</h3>
+        <p>Group bits in <strong>4s from right</strong>, convert each group.</p>
+        <div class="code-block" style="margin-top:10px">
+1011 0110₂
+→ <span class="c-cyan">1011</span> <span class="c-yellow">0110</span>
+→  B     6
+= <span class="c-green">B6₁₆</span> ✓
+        </div>
+      </div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Short Trick — Powers of 2 (Memorize!)</div>
+      <p>2⁰=1, 2¹=2, 2²=4, 2³=8, 2⁴=16, 2⁵=32, 2⁶=64, 2⁷=128, 2⁸=256, 2⁹=512, 2¹⁰=1024</p>
+    </div>
+
+    <div>
+      <h2>➕ Binary Arithmetic</h2>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Binary Addition Rules</h3>
+        <div class="code-block">
+0+0 = <span class="c-cyan">0</span>
+0+1 = <span class="c-cyan">1</span>
+1+0 = <span class="c-cyan">1</span>
+1+1 = <span class="c-cyan">0</span>, carry <span class="c-yellow">1</span>
+1+1+1 = <span class="c-cyan">1</span>, carry <span class="c-yellow">1</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>2's Complement (for Subtraction)</h3>
+        <p>Step 1: Find 1's complement (flip all bits)<br>Step 2: Add 1</p>
+        <div class="code-block" style="margin-top:8px">
+0110 → flip → <span class="c-cyan">1001</span>
+1001 + 1 = <span class="c-green">1010</span> (2's comp)
+        </div>
+      </div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Short Trick — 2's Complement Fast Method</div>
+      <p>Start from the <strong>rightmost bit</strong>. Keep all bits same <strong>up to and including the first 1</strong>. Then <strong>flip all remaining bits</strong> to the left.</p>
+    </div>
+
+    <div>
+      <h3>Signed Number Representation</h3>
+      <div class="tbl-wrap" style="margin-top:8px">
+        <table>
+          <thead><tr><th>Type</th><th>Range (n bits)</th><th>Example (4-bit)</th></tr></thead>
+          <tbody>
+            <tr><td>Sign-Magnitude</td><td>-(2ⁿ⁻¹-1) to +(2ⁿ⁻¹-1)</td><td>-7 to +7</td></tr>
+            <tr><td>1's Complement</td><td>-(2ⁿ⁻¹-1) to +(2ⁿ⁻¹-1)</td><td>-7 to +7</td></tr>
+            <tr><td>2's Complement</td><td>-2ⁿ⁻¹ to +(2ⁿ⁻¹-1)</td><td>-8 to +7</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="note">
+      <div class="note-label">📌 Exam Tip</div>
+      <p><strong>2's complement is used in all modern computers.</strong> It has only one representation of zero and allows subtraction using addition. GATE frequently tests range of signed numbers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 2: CODES ===== -->
+<section class="section" id="s2">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <div>
+      <div class="section-title">Codes — BCD, Gray, Excess-3, ASCII</div>
+      <div class="section-subtitle">Digital Encoding Schemes</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div>
+      <h2>BCD — Binary Coded Decimal</h2>
+      <p>Each decimal digit is represented separately using <span class="hl">4 binary bits</span>.</p>
+      <div class="code-block" style="margin-top:10px">
+Decimal <span class="c-yellow">29</span>  →  BCD: <span class="c-cyan">0010</span> <span class="c-green">1001</span>
+         ↑          ↑      ↑
+         29        2=0010  9=1001
+      </div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Trick — BCD Addition</div>
+      <p>If sum of two BCD digits <strong>exceeds 9 or produces a carry</strong>, add <span class="hl">6 (0110)</span> to correct it. Example: 8+5=13 → 1101 (invalid BCD!) → 1101+0110 = 1 0011 → BCD 13 ✓</p>
+    </div>
+
+    <div>
+      <h2>Gray Code</h2>
+      <p>In Gray code, <strong>only 1 bit changes between consecutive numbers</strong>. Used in shaft encoders to avoid errors during transitions.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Decimal</th><th>Binary</th><th>Gray Code</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>000</td><td>000</td></tr>
+            <tr><td>1</td><td>001</td><td>001</td></tr>
+            <tr><td>2</td><td>010</td><td>011</td></tr>
+            <tr><td>3</td><td>011</td><td>010</td></tr>
+            <tr><td>4</td><td>100</td><td>110</td></tr>
+            <tr><td>5</td><td>101</td><td>111</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="formula">
+      <div class="formula-label">📐 Conversion Formula</div>
+      <code>Binary → Gray: MSB same. Each next Gray bit = (Binary bit XOR previous Binary bit)</code>
+      <code>Gray → Binary: MSB same. Each next Binary bit = (Gray bit XOR previous Binary bit)</code>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Excess-3 (XS-3) Code</h3>
+        <p>BCD + 3 (0011). Used in arithmetic. Self-complementing — 9's complement of a digit gives the complement code.</p>
+        <div class="code-block" style="margin-top:8px">
+5 in BCD = 0101
+5 in XS-3 = 0101+0011 = <span class="c-green">1000</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>ASCII Code</h3>
+        <p>Uses <strong>7 bits</strong> (128 characters). Extended ASCII uses 8 bits (256 characters).</p>
+        <div class="code-block" style="margin-top:8px">
+'A' = <span class="c-cyan">65</span> = 1000001₂
+'a' = <span class="c-cyan">97</span> = 1100001₂
+'0' = <span class="c-cyan">48</span> = 0110000₂
+        </div>
+      </div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Trick — ASCII Memory Shortcut</div>
+      <p>'A'=65, 'a'=97 → difference is 32. So uppercase + 32 = lowercase. 'A' to 'Z' = 65 to 90. '0' to '9' = 48 to 57.</p>
+    </div>
+
+    <div>
+      <h2>Error Detection — Parity Bit & Hamming Code</h2>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Parity Bit</h3>
+        <p><strong>Even Parity:</strong> Total 1s in data+parity = even.<br><strong>Odd Parity:</strong> Total 1s = odd.<br>Detects only single-bit errors. Cannot correct.</p>
+      </div>
+      <div class="card">
+        <h3>Hamming Code</h3>
+        <p>Can <strong>detect and correct</strong> single-bit errors.<br>For n data bits, parity bits needed: 2ᵖ ≥ n+p+1.<br>Parity bits placed at positions: 1, 2, 4, 8, 16...</p>
+      </div>
+    </div>
+    <div class="trick">
+      <div class="trick-label">⚡ Trick — Minimum Parity Bits</div>
+      <p>For 4 data bits → need 3 parity bits (since 2³=8 ≥ 4+3+1=8 ✓). For 8 data bits → need 4 parity bits (2⁴=16 ≥ 8+4+1=13 ✓).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 3: LOGIC GATES ===== -->
+<section class="section" id="s3">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div>
+      <div class="section-title">Logic Gates</div>
+      <div class="section-subtitle">AND · OR · NOT · NAND · NOR · XOR · XNOR</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div>
+      <h2>Basic Gates — Truth Tables</h2>
+    </div>
+    <div class="grid3">
+      <div class="card">
+        <h3>AND Gate</h3>
+        <p>Output is 1 only when <strong>ALL inputs are 1</strong>.</p>
+        <div class="code-block" style="margin-top:8px;font-size:0.78rem">
+A B | Y
+0 0 | <span class="c-yellow">0</span>
+0 1 | <span class="c-yellow">0</span>
+1 0 | <span class="c-yellow">0</span>
+1 1 | <span class="c-green">1</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>OR Gate</h3>
+        <p>Output is 1 when <strong>at least ONE input is 1</strong>.</p>
+        <div class="code-block" style="margin-top:8px;font-size:0.78rem">
+A B | Y
+0 0 | <span class="c-yellow">0</span>
+0 1 | <span class="c-green">1</span>
+1 0 | <span class="c-green">1</span>
+1 1 | <span class="c-green">1</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>NOT Gate</h3>
+        <p>Inverts the input. Also called <strong>inverter</strong>.</p>
+        <div class="code-block" style="margin-top:8px;font-size:0.78rem">
+A  | Y
+0  | <span class="c-green">1</span>
+1  | <span class="c-yellow">0</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>NAND Gate</h3>
+        <p>NOT AND. Output is 0 only when <strong>ALL inputs are 1</strong>. Called <strong>Universal Gate</strong>.</p>
+        <div class="code-block" style="margin-top:8px;font-size:0.78rem">
+A B | Y
+0 0 | <span class="c-green">1</span>
+0 1 | <span class="c-green">1</span>
+1 0 | <span class="c-green">1</span>
+1 1 | <span class="c-yellow">0</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>NOR Gate</h3>
+        <p>NOT OR. Output is 1 only when <strong>ALL inputs are 0</strong>. Also <strong>Universal Gate</strong>.</p>
+        <div class="code-block" style="margin-top:8px;font-size:0.78rem">
+A B | Y
+0 0 | <span class="c-green">1</span>
+0 1 | <span class="c-yellow">0</span>
+1 0 | <span class="c-yellow">0</span>
+1 1 | <span class="c-yellow">0</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>XOR Gate</h3>
+        <p>Output is 1 when inputs are <strong>different</strong>. A⊕B</p>
+        <div class="code-block" style="margin-top:8px;font-size:0.78rem">
+A B | Y
+0 0 | <span class="c-yellow">0</span>
+0 1 | <span class="c-green">1</span>
+1 0 | <span class="c-green">1</span>
+1 1 | <span class="c-yellow">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Trick — Remember NAND & NOR</div>
+      <p><strong>NAND</strong> = AND + bubble on output (bubble = NOT). <strong>NOR</strong> = OR + bubble. <strong>XNOR</strong> = XOR + bubble = output 1 when inputs are SAME.</p>
+    </div>
+
+    <div>
+      <h2>Universal Gates — NAND and NOR</h2>
+      <p>Both NAND and NOR are called <span class="hl">Universal Gates</span> because any other gate (AND, OR, NOT, XOR) can be built using only NAND or only NOR gates.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Build NOT using NAND</h3>
+        <div class="code-block">A → NAND(A,A) → A'</div>
+      </div>
+      <div class="card">
+        <h3>Build AND using NAND</h3>
+        <div class="code-block">NAND(A,B) → NOT → AND</div>
+      </div>
+      <div class="card">
+        <h3>Build OR using NAND</h3>
+        <div class="code-block">NOT(A) NAND NOT(B) → OR
+(De Morgan's theorem)</div>
+      </div>
+      <div class="card">
+        <h3>Build NOT using NOR</h3>
+        <div class="code-block">A → NOR(A,A) → A'</div>
+      </div>
+    </div>
+
+    <div>
+      <h2>XOR Properties (Very Important for GATE!)</h2>
+      <div class="formula">
+        <div class="formula-label">📐 XOR Key Properties</div>
+        <code>A ⊕ 0 = A &nbsp;&nbsp;&nbsp;&nbsp; (XOR with 0 gives same)</code>
+        <code>A ⊕ 1 = A' &nbsp;&nbsp;&nbsp; (XOR with 1 gives complement)</code>
+        <code>A ⊕ A = 0 &nbsp;&nbsp;&nbsp;&nbsp; (XOR with itself = 0)</code>
+        <code>A ⊕ A' = 1 &nbsp;&nbsp;&nbsp; (XOR with complement = 1)</code>
+        <code>A ⊕ B = B ⊕ A &nbsp; (Commutative)</code>
+        <code>A ⊕ (B⊕C) = (A⊕B)⊕C (Associative)</code>
+      </div>
+    </div>
+
+    <div class="note">
+      <div class="note-label">📌 Gate Count Trick</div>
+      <p>In GATE exams, you may be asked "minimum gates needed to build a function." Remember: NAND/NOR-only implementations often require <strong>fewer gates</strong> than using AND/OR/NOT.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 4: BOOLEAN ALGEBRA ===== -->
+<section class="section" id="s4">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div>
+      <div class="section-title">Boolean Algebra</div>
+      <div class="section-subtitle">Laws · Theorems · SOP · POS · De Morgan's</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div>
+      <h2>Basic Laws (Must Memorize!)</h2>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Law</th><th>AND Form</th><th>OR Form</th></tr></thead>
+        <tbody>
+          <tr><td>Identity</td><td>A · 1 = A</td><td>A + 0 = A</td></tr>
+          <tr><td>Null (Domination)</td><td>A · 0 = 0</td><td>A + 1 = 1</td></tr>
+          <tr><td>Idempotent</td><td>A · A = A</td><td>A + A = A</td></tr>
+          <tr><td>Complement</td><td>A · A' = 0</td><td>A + A' = 1</td></tr>
+          <tr><td>Double Negation</td><td colspan="2">(A')' = A</td></tr>
+          <tr><td>Commutative</td><td>A·B = B·A</td><td>A+B = B+A</td></tr>
+          <tr><td>Associative</td><td>A·(B·C) = (A·B)·C</td><td>A+(B+C) = (A+B)+C</td></tr>
+          <tr><td>Distributive</td><td>A·(B+C) = A·B + A·C</td><td>A+(B·C) = (A+B)·(A+C)</td></tr>
+          <tr><td>Absorption</td><td>A·(A+B) = A</td><td>A+(A·B) = A</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="formula">
+      <div class="formula-label">📐 De Morgan's Theorems — Most Asked in GATE!</div>
+      <code>Theorem 1: (A · B)' = A' + B' &nbsp; [NAND = Bubbled OR]</code>
+      <code>Theorem 2: (A + B)' = A' · B' &nbsp; [NOR = Bubbled AND]</code>
+      <code>Memory Trick: "Break the bar, change the sign (· → + or + → ·)"</code>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Trick — De Morgan's Generalization</div>
+      <p>For any expression, to find complement: <strong>(1) Complement each variable, (2) Replace AND with OR and OR with AND.</strong> Example: (AB+C)' = (A'+B')·C'</p>
+    </div>
+
+    <div>
+      <h2>SOP and POS Forms</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>SOP — Sum of Products (Minterms)</h3>
+          <p><strong>Minterm:</strong> A product term that contains ALL variables (in normal or complemented form).<br>
+          <strong>SOP:</strong> OR of all minterms where output = 1.<br>
+          Notation: F = Σm(0,2,5)</p>
+        </div>
+        <div class="card">
+          <h3>POS — Product of Sums (Maxterms)</h3>
+          <p><strong>Maxterm:</strong> A sum term containing ALL variables.<br>
+          <strong>POS:</strong> AND of all maxterms where output = 0.<br>
+          Notation: F = ΠM(1,3,4)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Trick — SOP vs POS Relation</div>
+      <p>If F = Σm(0,2,5) with 3 variables (minterms 0 to 7), then F = ΠM(1,3,4,6,7). The remaining minterms become maxterms!</p>
+    </div>
+
+    <div>
+      <h2>Simplification Using Boolean Algebra</h2>
+      <p>Example: Simplify <strong>AB + AB'</strong></p>
+      <div class="code-block">
+AB + AB'
+= A(B + B')  ← Factor out A
+= A(1)        ← B + B' = 1
+= <span class="c-green">A</span>            ← Simplified!
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 5: K-MAP ===== -->
+<section class="section" id="s5">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <div>
+      <div class="section-title">Karnaugh Map (K-Map)</div>
+      <div class="section-subtitle">Graphical Boolean Simplification</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div>
+      <h2>What is a K-Map?</h2>
+      <p>K-Map is a grid-based tool to <span class="hl">simplify Boolean expressions visually</span>. Adjacent cells in K-Map differ by <strong>only 1 bit</strong> (Gray code order).</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>2-Variable K-Map (2×2)</h3>
+        <div class="code-block" style="font-size:0.78rem">
+      AB
+     00  01  11  10
+    ┌───┬───┬───┬───┐
+  0 | 0 | 1 | 3 | 2 |
+    └───┴───┴───┴───┘
+(2-var: just 4 cells)
+        </div>
+      </div>
+      <div class="card">
+        <h3>3-Variable K-Map (2×4)</h3>
+        <div class="code-block" style="font-size:0.78rem">
+      AB
+   00  01  11  10
+  ┌───┬───┬───┬───┐
+0 | 0 | 1 | 3 | 2 |
+  ├───┼───┼───┼───┤
+1 | 4 | 5 | 7 | 6 |
+  └───┴───┴───┴───┘
+C
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2>K-Map Grouping Rules</h2>
+      <ul class="styled">
+        <li>Group only <span class="hl">1s</span> (for SOP minimization)</li>
+        <li>Group size must be a <span class="hl">power of 2</span>: 1, 2, 4, 8, 16...</li>
+        <li>Groups can be <span class="hl">rectangular or square only</span></li>
+        <li>Groups can <span class="hl">wrap around</span> (the K-map is like a torus — edges are adjacent!)</li>
+        <li>Make <span class="hl">largest possible groups</span> for maximum simplification</li>
+        <li>Every 1 must be covered by <span class="hl">at least one group</span></li>
+        <li>A cell can be part of <span class="hl">multiple groups</span></li>
+      </ul>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Short Trick — K-Map Reading</div>
+      <p>For each group: <strong>variable stays in expression if it doesn't change</strong> in the group. If a variable is always 0 in the group → write as A'. If always 1 → write as A. If it changes (0 and 1 both) → <strong>eliminate that variable!</strong></p>
+    </div>
+
+    <div>
+      <h2>Don't Care Conditions</h2>
+      <p>Marked as <span class="hl">'X'</span> or <span class="hl">'d'</span> in K-Map. These are input combinations that <strong>never occur</strong> in real use. We can treat them as 0 or 1 — choose whichever makes groups bigger (helps in simplification).</p>
+    </div>
+
+    <div class="note">
+      <div class="note-label">📌 Exam Tip — Prime Implicants</div>
+      <p><strong>Prime Implicant (PI):</strong> Largest possible group of 1s.<br>
+      <strong>Essential Prime Implicant (EPI):</strong> A PI that covers at least one minterm not covered by any other PI. EPIs are always included in the final expression!</p>
+    </div>
+
+    <div class="formula">
+      <div class="formula-label">📐 4-Variable K-Map Layout (4×4 = 16 cells)</div>
+      <code>     CD:  00  01  11  10</code>
+      <code>AB:00 → cells: 0  1  3  2</code>
+      <code>AB:01 → cells: 4  5  7  6</code>
+      <code>AB:11 → cells: 12 13 15 14</code>
+      <code>AB:10 → cells: 8  9  11 10</code>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 6: COMBINATIONAL CIRCUITS ===== -->
+<section class="section" id="s6">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <div>
+      <div class="section-title">Combinational Circuits</div>
+      <div class="section-subtitle">Adder · Subtractor · Mux · Decoder · Encoder · Comparator</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div>
+      <h2>What is Combinational Logic?</h2>
+      <p>Output depends <strong>only on current inputs</strong> — no memory, no clock, no feedback. Output changes immediately when input changes.</p>
+    </div>
+
+    <div>
+      <h2>Half Adder</h2>
+      <p>Adds two 1-bit numbers. Two outputs: <span class="hl">Sum (S)</span> and <span class="hl">Carry (C)</span>.</p>
+      <div class="formula">
+        <div class="formula-label">📐 Half Adder Equations</div>
+        <code>Sum (S) = A ⊕ B &nbsp;&nbsp;&nbsp; (XOR gate)</code>
+        <code>Carry (C) = A · B &nbsp; (AND gate)</code>
+        <code>Gates needed: 1 XOR + 1 AND</code>
+      </div>
+    </div>
+
+    <div>
+      <h2>Full Adder</h2>
+      <p>Adds three 1-bit numbers (A, B, and Carry-in Cin). Used in multi-bit addition.</p>
+      <div class="formula">
+        <div class="formula-label">📐 Full Adder Equations</div>
+        <code>Sum (S) = A ⊕ B ⊕ Cin</code>
+        <code>Carry (Cout) = A·B + B·Cin + A·Cin</code>
+        <code>         OR = A·B + Cin·(A⊕B)</code>
+        <code>Gates: 2 XOR + 2 AND + 1 OR = 5 gates</code>
+        <code>Full Adder = 2 Half Adders + 1 OR gate</code>
+      </div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Trick — n-bit Ripple Carry Adder</div>
+      <p>To add two n-bit numbers: use <strong>1 Half Adder + (n-1) Full Adders</strong>. Critical path (delay) = n gate delays. Faster option: <strong>Carry Look-Ahead Adder (CLA)</strong> — parallel carry computation, delay = O(log n).</p>
+    </div>
+
+    <div>
+      <h2>Multiplexer (MUX)</h2>
+      <p>A digital switch — selects one of <span class="hl">2ⁿ inputs</span> based on <span class="hl">n select lines</span> and passes it to one output.</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>2:1 MUX</h3>
+          <p>2 inputs (I0, I1), 1 select (S), 1 output.</p>
+          <div class="code-block" style="margin-top:8px">Y = S'·I0 + S·I1</div>
+        </div>
+        <div class="card">
+          <h3>4:1 MUX</h3>
+          <p>4 inputs (I0-I3), 2 selects (S1,S0), 1 output.</p>
+          <div class="code-block" style="margin-top:8px">Y = S1'S0'·I0 + S1'S0·I1
+  + S1S0'·I2 + S1S0·I3</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ MUX as Function Generator (Exam Favorite!)</div>
+      <p>A <span class="hl2">2ⁿ:1 MUX</span> can implement any Boolean function of n+1 variables without extra gates! Fix one variable to select lines, connect 0/1 or the variable to data inputs.</p>
+    </div>
+
+    <div>
+      <h2>Demultiplexer (DEMUX)</h2>
+      <p>Opposite of MUX. Routes <strong>one input</strong> to one of <span class="hl">2ⁿ outputs</span> based on n select lines.</p>
+    </div>
+
+    <div>
+      <h2>Decoder</h2>
+      <p>Converts <span class="hl">n-bit binary input</span> to <span class="hl">2ⁿ unique output lines</span>. Exactly one output is HIGH at a time.</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>2:4 Decoder</h3>
+          <p>Inputs: A, B → Outputs: Y0=A'B', Y1=A'B, Y2=AB', Y3=AB</p>
+        </div>
+        <div class="card">
+          <h3>Decoder as Minterm Generator</h3>
+          <p>3:8 decoder generates all 8 minterms. Can implement any Boolean function by OR-ing selected outputs!</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2>Encoder</h2>
+      <p>Opposite of decoder. <span class="hl">2ⁿ inputs → n-bit output</span>. Only one input should be HIGH at a time.</p>
+      <p><strong>Priority Encoder:</strong> If multiple inputs are HIGH, the highest-priority (highest numbered) input takes precedence.</p>
+    </div>
+
+    <div>
+      <h2>Comparator</h2>
+      <p>Compares two binary numbers A and B. Three outputs: <span class="hl">A>B</span>, <span class="hl">A=B</span>, <span class="hl">A&lt;B</span>.</p>
+      <div class="code-block">
+For 1-bit comparator:
+A=B:  XNOR(A,B) = A'B' + AB
+A>B:  A·B'
+A&lt;B:  A'·B
+      </div>
+    </div>
+
+    <div class="note">
+      <div class="note-label">📌 Important — ROM as Logic Implementer</div>
+      <p>A <strong>ROM (Read-Only Memory)</strong> with m address bits and n data bits can implement <strong>n Boolean functions</strong> of m variables simultaneously. ROM is programmed during manufacturing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 7: SEQUENTIAL CIRCUITS ===== -->
+<section class="section" id="s7">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <div>
+      <div class="section-title">Sequential Circuits</div>
+      <div class="section-subtitle">Memory · Clock · State Machines</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div>
+      <h2>Combinational vs Sequential</h2>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Feature</th><th>Combinational</th><th>Sequential</th></tr></thead>
+          <tbody>
+            <tr><td>Memory</td><td>No</td><td>Yes</td></tr>
+            <tr><td>Output depends on</td><td>Current inputs only</td><td>Current inputs + past state</td></tr>
+            <tr><td>Clock needed</td><td>No</td><td>Yes (mostly)</td></tr>
+            <tr><td>Examples</td><td>Adder, MUX, Decoder</td><td>Flip-Flops, Counters, Registers</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <h2>Latches vs Flip-Flops</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>Latch</h3>
+          <p>Level-triggered. Output changes whenever <strong>enable/clock is HIGH</strong>. Asynchronous. Example: SR Latch, D Latch.</p>
+        </div>
+        <div class="card">
+          <h3>Flip-Flop</h3>
+          <p>Edge-triggered. Output changes only at <strong>rising or falling edge</strong> of clock. Synchronous. More predictable.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Trick — Latch vs FF Memory</div>
+      <p><strong>Latch</strong> = Level sensitive = like a transparent window (open when high). <strong>Flip-Flop</strong> = Edge sensitive = like a camera shutter (captures only at the click moment).</p>
+    </div>
+
+    <div>
+      <h2>Finite State Machine (FSM)</h2>
+      <p>A mathematical model of sequential logic. Has finite number of states, transitions between states based on inputs.</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>Mealy Machine</h3>
+          <p>Output depends on <strong>current state AND current input</strong>. Reacts faster. Generally fewer states.</p>
+        </div>
+        <div class="card">
+          <h3>Moore Machine</h3>
+          <p>Output depends <strong>only on current state</strong>. More stable output. Generally more states.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula">
+      <div class="formula-label">📐 State Diagram Components</div>
+      <code>Circle = State (Moore output written inside)</code>
+      <code>Arrow = Transition (labeled with input/output for Mealy)</code>
+      <code>Double circle = Initial state marker</code>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 8: FLIP-FLOPS ===== -->
+<section class="section" id="s8">
+  <div class="section-header">
+    <div class="section-num">8</div>
+    <div>
+      <div class="section-title">Flip-Flops</div>
+      <div class="section-subtitle">SR · D · JK · T Flip-Flops</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div>
+      <h2>SR Flip-Flop</h2>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>S</th><th>R</th><th>Q(next)</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>0</td><td>Q (no change)</td><td>Hold</td></tr>
+            <tr><td>0</td><td>1</td><td>0</td><td>Reset</td></tr>
+            <tr><td>1</td><td>0</td><td>1</td><td>Set</td></tr>
+            <tr><td>1</td><td>1</td><td>?? (invalid)</td><td>Forbidden!</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="trick" style="margin-top:12px">
+        <div class="trick-label">⚡ Trick — SR Memory</div>
+        <p><strong>S = Set (Q→1), R = Reset (Q→0).</strong> S=R=1 is forbidden (both outputs try to be 1 and 0 simultaneously = undefined state).</p>
+      </div>
+    </div>
+
+    <div>
+      <h2>D Flip-Flop (Data / Delay)</h2>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>D</th><th>Q(next)</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>0</td><td>Reset</td></tr>
+            <tr><td>1</td><td>1</td><td>Set</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:10px"><strong>Equation: Q(next) = D</strong>. The output simply follows the input D after the clock edge. Most commonly used flip-flop in practice.</p>
+    </div>
+
+    <div>
+      <h2>JK Flip-Flop — Universal Flip-Flop!</h2>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>J</th><th>K</th><th>Q(next)</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>0</td><td>Q</td><td>No Change</td></tr>
+            <tr><td>0</td><td>1</td><td>0</td><td>Reset</td></tr>
+            <tr><td>1</td><td>0</td><td>1</td><td>Set</td></tr>
+            <tr><td>1</td><td>1</td><td>Q'</td><td>Toggle!</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="formula" style="margin-top:12px">
+        <div class="formula-label">📐 JK Flip-Flop Equation</div>
+        <code>Q(next) = J·Q' + K'·Q</code>
+      </div>
+      <div class="trick" style="margin-top:12px">
+        <div class="trick-label">⚡ Trick — JK has no forbidden state!</div>
+        <p>JK solves SR's forbidden state problem. When J=K=1, output <strong>toggles</strong> every clock cycle. "J=Jump (Set), K=Kill (Reset)"</p>
+      </div>
+    </div>
+
+    <div>
+      <h2>T Flip-Flop (Toggle)</h2>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>T</th><th>Q(next)</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>Q</td><td>No Change</td></tr>
+            <tr><td>1</td><td>Q'</td><td>Toggle</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:10px"><strong>Equation: Q(next) = T⊕Q.</strong> Used in counters! Each T-FF divides clock frequency by 2.</p>
+    </div>
+
+    <div>
+      <h2>Flip-Flop Conversions (GATE Favorite!)</h2>
+      <p>To convert one FF to another, find the excitation table and derive the conversion logic using K-Map.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Conversion</th><th>Logic</th></tr></thead>
+          <tbody>
+            <tr><td>JK → D</td><td>J = D, K = D'</td></tr>
+            <tr><td>JK → T</td><td>J = T, K = T</td></tr>
+            <tr><td>D → T</td><td>D = T⊕Q</td></tr>
+            <tr><td>D → JK</td><td>D = JQ' + K'Q</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <h2>Setup Time & Hold Time</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>Setup Time (tsu)</h3>
+          <p>Minimum time the input data must be <strong>stable BEFORE</strong> the clock edge arrives.</p>
+        </div>
+        <div class="card">
+          <h3>Hold Time (th)</h3>
+          <p>Minimum time the input data must remain <strong>stable AFTER</strong> the clock edge.</p>
+        </div>
+      </div>
+      <div class="trick" style="margin-top:12px">
+        <div class="trick-label">⚡ Max Clock Frequency Formula</div>
+        <p>f_max = 1 / (t_propagation + t_setup + t_hold). Violating setup/hold time causes <strong>metastability</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 9: REGISTERS & COUNTERS ===== -->
+<section class="section" id="s9">
+  <div class="section-header">
+    <div class="section-num">9</div>
+    <div>
+      <div class="section-title">Registers & Counters</div>
+      <div class="section-subtitle">Shift Registers · Ripple Counter · Mod-N Counter</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div>
+      <h2>Registers</h2>
+      <p>A group of flip-flops that stores multiple bits. An n-bit register uses <span class="hl">n D flip-flops</span>.</p>
+    </div>
+
+    <div>
+      <h2>Shift Registers</h2>
+      <p>Data is shifted left or right by one position with each clock pulse.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>Input</th><th>Output</th><th>Use</th></tr></thead>
+          <tbody>
+            <tr><td>SISO</td><td>Serial</td><td>Serial</td><td>Time delay</td></tr>
+            <tr><td>SIPO</td><td>Serial</td><td>Parallel</td><td>Serial to Parallel conversion</td></tr>
+            <tr><td>PISO</td><td>Parallel</td><td>Serial</td><td>Parallel to Serial conversion</td></tr>
+            <tr><td>PIPO</td><td>Parallel</td><td>Parallel</td><td>Buffer / Storage</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Trick — Ring Counter vs Johnson Counter</div>
+      <p><strong>Ring Counter:</strong> Single 1 circulates through n FFs → n states, n FFs needed.<br>
+      <strong>Johnson Counter (Twisted Ring):</strong> Complement output fed back → 2n states with n FFs. More efficient!</p>
+    </div>
+
+    <div>
+      <h2>Counters</h2>
+      <p>Sequential circuits that cycle through states in a defined sequence.</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>Asynchronous (Ripple) Counter</h3>
+          <p>FFs are not clocked simultaneously. Output of one FF clocks the next. Simple but has <strong>propagation delay</strong>. n FFs count up to 2ⁿ states.</p>
+        </div>
+        <div class="card">
+          <h3>Synchronous Counter</h3>
+          <p>All FFs clocked simultaneously. <strong>Faster, no ripple delay.</strong> More complex combinational logic needed for large counts.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2>MOD-N Counter (Important!)</h2>
+      <p>A counter that counts from 0 to N-1, then resets to 0. Uses <span class="hl">NAND gate feedback</span> for resetting.</p>
+      <div class="formula">
+        <div class="formula-label">📐 MOD-N Counter Design</div>
+        <code>For MOD-N: minimum FFs = ⌈log₂(N)⌉</code>
+        <code>MOD-5: 3 FFs (2³=8 ≥ 5). Count: 000→001→010→011→100→000</code>
+        <code>MOD-6: 3 FFs. Count: 0→1→2→3→4→5→0</code>
+        <code>MOD-10 (Decade): 4 FFs. Count: 0→...→9→0</code>
+      </div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Frequency Division Trick</div>
+      <p>A <strong>MOD-N counter divides clock frequency by N.</strong> If input clock = 1 MHz and MOD-5 counter used → output = 200 kHz. A single T-FF divides by 2.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 10: MEMORY & ADC/DAC ===== -->
+<section class="section" id="s10">
+  <div class="section-header">
+    <div class="section-num">10</div>
+    <div>
+      <div class="section-title">Memory, ADC & DAC</div>
+      <div class="section-subtitle">ROM · RAM · PLA · ADC · DAC</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div>
+      <h2>Memory Types</h2>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>Full Name</th><th>Volatile?</th><th>Writable?</th></tr></thead>
+          <tbody>
+            <tr><td>ROM</td><td>Read Only Memory</td><td>No</td><td>No (fixed)</td></tr>
+            <tr><td>PROM</td><td>Programmable ROM</td><td>No</td><td>Once only</td></tr>
+            <tr><td>EPROM</td><td>Erasable PROM</td><td>No</td><td>UV erase then write</td></tr>
+            <tr><td>EEPROM</td><td>Electrically Erasable PROM</td><td>No</td><td>Electrically erase/write</td></tr>
+            <tr><td>Flash</td><td>Flash Memory</td><td>No</td><td>Block erase, byte write</td></tr>
+            <tr><td>SRAM</td><td>Static RAM</td><td>Yes</td><td>Yes (fast, 6 transistors)</td></tr>
+            <tr><td>DRAM</td><td>Dynamic RAM</td><td>Yes</td><td>Yes (needs refresh, 1T+1C)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Trick — SRAM vs DRAM</div>
+      <p><strong>SRAM:</strong> Faster, uses 6 transistors per bit, expensive, used as Cache.<br><strong>DRAM:</strong> Slower, uses 1 transistor + 1 capacitor per bit, cheaper, needs periodic refresh, used as Main Memory (RAM).</p>
+    </div>
+
+    <div>
+      <h2>PLA (Programmable Logic Array)</h2>
+      <p>Programmable AND array + Programmable OR array. Used to implement any Boolean function.</p>
+      <div class="note">
+        <div class="note-label">📌 PLA vs ROM vs PAL</div>
+        <p><strong>ROM:</strong> Fixed AND (decoder) + Programmable OR.<br>
+        <strong>PAL:</strong> Programmable AND + Fixed OR.<br>
+        <strong>PLA:</strong> Programmable AND + Programmable OR (most flexible).</p>
+      </div>
+    </div>
+
+    <div>
+      <h2>DAC — Digital to Analog Converter</h2>
+      <p>Converts a binary number (digital) to a proportional analog voltage.</p>
+      <div class="formula">
+        <div class="formula-label">📐 DAC Resolution & Formulas</div>
+        <code>Resolution = 1 / (2ⁿ - 1) × Vref &nbsp;&nbsp; (n = number of bits)</code>
+        <code>Output Voltage = D × Vref / 2ⁿ</code>
+        <code>% Resolution = (1 / 2ⁿ) × 100%</code>
+        <code>8-bit DAC: 256 levels, Resolution = Vref/256</code>
+      </div>
+      <div class="trick" style="margin-top:12px">
+        <div class="trick-label">⚡ Types of DAC</div>
+        <p><strong>R-2R Ladder:</strong> Uses only 2 resistor values (R and 2R). Most practical.<br>
+        <strong>Weighted Resistor DAC:</strong> Uses resistors R, 2R, 4R, 8R... Simple but impractical for many bits.</p>
+      </div>
+    </div>
+
+    <div>
+      <h2>ADC — Analog to Digital Converter</h2>
+      <p>Converts analog voltage to digital binary number.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>ADC Type</th><th>Speed</th><th>Cost</th><th>Method</th></tr></thead>
+          <tbody>
+            <tr><td>Flash ADC</td><td>Fastest</td><td>Highest</td><td>2ⁿ-1 comparators in parallel</td></tr>
+            <tr><td>Successive Approximation (SAR)</td><td>Medium</td><td>Medium</td><td>Binary search approach</td></tr>
+            <tr><td>Dual Slope</td><td>Slow</td><td>Low</td><td>Integration method, high accuracy</td></tr>
+            <tr><td>Sigma-Delta</td><td>Very slow</td><td>Low</td><td>Oversampling + noise shaping</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="trick" style="margin-top:12px">
+        <div class="trick-label">⚡ Trick — SAR ADC</div>
+        <p>SAR ADC takes exactly <strong>n clock cycles</strong> to convert an n-bit result. Works like binary search: tries MSB first, then decides to keep or flip, moves to next bit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 11: QUICK TRICKS SHEET ===== -->
+<section class="section" id="s11">
+  <div class="section-header">
+    <div class="section-num" style="background:var(--gold);color:#000">★</div>
+    <div>
+      <div class="section-title">⚡ Master Quick Tricks Sheet</div>
+      <div class="section-subtitle">All Short Tricks for Exam — Memorize These!</div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div>
+      <h2>🔢 Number System Tricks</h2>
+      <ul class="styled">
+        <li><strong>Hex digit count:</strong> One hex digit = 4 binary bits. 8-bit = 2 hex digits. 32-bit = 8 hex digits.</li>
+        <li><strong>Octal digit count:</strong> One octal digit = 3 binary bits. 9-bit = 3 octal digits.</li>
+        <li><strong>Maximum value:</strong> n-bit binary = 2ⁿ - 1. Example: 8-bit max = 255.</li>
+        <li><strong>2's complement fast:</strong> Start from right, copy until first 1 (inclusive), then flip everything left.</li>
+        <li><strong>Overflow detection (2's complement):</strong> If carry into MSB ≠ carry out of MSB → overflow occurred.</li>
+      </ul>
+    </div>
+
+    <hr class="div"/>
+
+    <div>
+      <h2>🔌 Gate & Boolean Tricks</h2>
+      <ul class="styled">
+        <li><strong>De Morgan's:</strong> "Break the bar, change the operator." (A+B)' = A'·B'</li>
+        <li><strong>Bubble = NOT:</strong> Any inverted gate = same gate with bubble. NAND = AND+bubble = bubble OR.</li>
+        <li><strong>Absorption:</strong> A + AB = A. A(A+B) = A. (Absorb the smaller term)</li>
+        <li><strong>Consensus theorem:</strong> AB + A'C + BC = AB + A'C (BC is redundant!)</li>
+        <li><strong>XOR shortcut:</strong> Count number of 1s in input. XOR = 1 if odd count, 0 if even count.</li>
+        <li><strong>XNOR shortcut:</strong> XNOR = 1 if even count of 1s (same values).</li>
+      </ul>
+    </div>
+
+    <hr class="div"/>
+
+    <div>
+      <h2>🗺️ K-Map Tricks</h2>
+      <ul class="styled">
+        <li><strong>Group of 1 → 4 literals, Group of 2 → 3 literals, Group of 4 → 2 literals, Group of 8 → 1 literal, Group of 16 → 0 literals (constant).</strong></li>
+        <li><strong>Wrap-around:</strong> Four corners of a 4-var K-Map form a valid group of 4!</li>
+        <li><strong>Don't cares:</strong> Always try to include them to make bigger groups. Never need to cover them all.</li>
+        <li><strong>POS simplification:</strong> Group 0s in K-Map, then complement the result.</li>
+        <li><strong>Number of PI check:</strong> In 4-var K-Map, max possible PI = 16 groups.</li>
+      </ul>
+    </div>
+
+    <hr class="div"/>
+
+    <div>
+      <h2>⚡ Flip-Flop Tricks</h2>
+      <ul class="styled">
+        <li><strong>D FF most used:</strong> Eliminates forbidden state. Q(next) = D. Used in registers.</li>
+        <li><strong>T FF for counter:</strong> Toggle on T=1. n T-FFs = MOD-2ⁿ counter.</li>
+        <li><strong>JK is universal:</strong> Can act as D (J=D, K=D') or T (J=K=T) flip-flop.</li>
+        <li><strong>Propagation delay:</strong> n-stage ripple counter delay = n × t_pd.</li>
+        <li><strong>Race condition:</strong> In JK master-slave, output changes only on full clock cycle (no racing).</li>
+      </ul>
+    </div>
+
+    <hr class="div"/>
+
+    <div>
+      <h2>📊 Counter & Register Tricks</h2>
+      <ul class="styled">
+        <li><strong>n FFs in ripple counter → MOD-2ⁿ counter → divides frequency by 2ⁿ.</strong></li>
+        <li><strong>MOD-N counter FFs needed = ⌈log₂N⌉.</strong> MOD-5 → 3 FFs. MOD-10 → 4 FFs.</li>
+        <li><strong>Ring counter:</strong> n FFs → n states (one 1 circulates).</li>
+        <li><strong>Johnson counter:</strong> n FFs → 2n states (most efficient twisted ring).</li>
+        <li><strong>Shift register delay:</strong> n-stage SISO register delays data by n clock cycles.</li>
+      </ul>
+    </div>
+
+    <hr class="div"/>
+
+    <div>
+      <h2>💾 Memory & ADC/DAC Tricks</h2>
+      <ul class="styled">
+        <li><strong>SRAM vs DRAM:</strong> SRAM = 6 transistors = Cache. DRAM = 1T+1C = Main RAM.</li>
+        <li><strong>Flash ADC:</strong> 2ⁿ - 1 comparators, n-bit output. Fastest but most expensive.</li>
+        <li><strong>SAR ADC:</strong> n clock cycles for n bits. Like binary search.</li>
+        <li><strong>DAC resolution improves with more bits:</strong> 1-bit more → error halved.</li>
+        <li><strong>ROM as logic:</strong> 2ⁿ × m ROM implements m Boolean functions of n variables.</li>
+      </ul>
+    </div>
+
+    <hr class="div"/>
+
+    <div>
+      <h2>🎯 GATE Exam Special Topics</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>Always Check These</h3>
+          <ul class="styled">
+            <li>Min gates in a circuit</li>
+            <li>K-Map with don't cares</li>
+            <li>FF excitation tables</li>
+            <li>MOD-N counter design</li>
+            <li>MUX implementing Boolean functions</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Common Mistakes to Avoid</h3>
+          <ul class="styled">
+            <li>K-Map: forgetting wrap-around groups</li>
+            <li>2's comp range: -2ⁿ⁻¹ to +2ⁿ⁻¹-1</li>
+            <li>SR FF: S=R=1 is forbidden!</li>
+            <li>Gray code: only 1 bit changes</li>
+            <li>Latch ≠ Flip-Flop (level vs edge)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula">
+      <div class="formula-label">📐 Golden Formulas Summary</div>
+      <code>n-bit: max value = 2ⁿ - 1 | 2's comp range = [-2ⁿ⁻¹, 2ⁿ⁻¹ - 1]</code>
+      <code>Parity bits: 2ᵖ ≥ n + p + 1 | MOD-N FFs: ⌈log₂N⌉</code>
+      <code>Full Adder: S = A⊕B⊕Cin | Cout = AB + BCin + ACin</code>
+      <code>JK FF: Q(next) = JQ' + K'Q | D FF: Q(next) = D</code>
+      <code>T FF: Q(next) = T⊕Q | DAC: Vout = D × Vref / 2ⁿ</code>
+      <code>De Morgan: (AB)' = A'+B' | (A+B)' = A'·B'</code>
+    </div>
+
+    <div class="note">
+      <div class="note-label">📌 Final Advice for GATE & HPCL</div>
+      <p>Focus on <strong>K-Map minimization, Flip-Flop conversions, Number Systems, and Combinational Circuit design</strong>. These appear most frequently. Practice previous year GATE questions — the same concepts repeat with different numbers. Time yourself while solving problems!</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- TOPIC WEIGHTAGE -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-num" style="background:var(--green);color:#000">%</div>
+    <div>
+      <div class="section-title">Exam Weightage Guide</div>
+      <div class="section-subtitle">Focus areas for GATE & HPCL</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="progress-section"><div class="progress-label">K-Map</div><div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div><div class="progress-pct">90%</div></div>
+    <div class="progress-section"><div class="progress-label">Number Sys</div><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div><div class="progress-pct">85%</div></div>
+    <div class="progress-section"><div class="progress-label">Flip-Flops</div><div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div><div class="progress-pct">80%</div></div>
+    <div class="progress-section"><div class="progress-label">Comb. Ckts</div><div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div><div class="progress-pct">80%</div></div>
+    <div class="progress-section"><div class="progress-label">Counters</div><div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div><div class="progress-pct">70%</div></div>
+    <div class="progress-section"><div class="progress-label">Boolean Alg</div><div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div><div class="progress-pct">70%</div></div>
+    <div class="progress-section"><div class="progress-label">Codes/BCD</div><div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div><div class="progress-pct">60%</div></div>
+    <div class="progress-section"><div class="progress-label">ADC/DAC</div><div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div><div class="progress-pct">50%</div></div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+  let isDark = true;
+  function toggleTheme() {
+    isDark = !isDark;
+    document.body.classList.toggle('light-mode', !isDark);
+    document.getElementById('theme-btn').textContent = isDark ? '☀ Light Mode' : '🌙 Dark Mode';
+  }
+  // Smooth scroll & active nav
+  document.querySelectorAll('.nav-item').forEach(link => {
+    link.addEventListener('click', function(e) {
+      document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+  // Intersection observer for active nav
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const active = document.querySelector(`.nav-item[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
