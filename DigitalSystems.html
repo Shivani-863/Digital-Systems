@@ -3,1656 +3,1811 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Digital Electronics — GATE & HPCL Notes</title>
+<title>Digital Electronics — GATE & PSU Master Notes v2</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0d0f14;
-    --surface: #13161e;
-    --surface2: #1a1e2a;
-    --border: #252b3b;
-    --accent: #00e5ff;
-    --accent2: #ff6b35;
-    --accent3: #7c3aed;
-    --gold: #f59e0b;
-    --green: #10b981;
-    --red: #ef4444;
-    --text: #e2e8f0;
-    --text-muted: #64748b;
-    --text-dim: #94a3b8;
-    --trick-bg: #1a1e2a;
-    --trick-border: #f59e0b;
-    --note-bg: #0d1f2d;
-    --note-border: #00e5ff;
-    --formula-bg: #1a0d2e;
-    --formula-border: #7c3aed;
-  }
-  .light-mode {
-    --bg: #f0f4f8;
-    --surface: #ffffff;
-    --surface2: #e8eef5;
-    --border: #cbd5e1;
-    --accent: #0284c7;
-    --accent2: #ea580c;
-    --accent3: #7c3aed;
-    --gold: #d97706;
-    --green: #059669;
-    --red: #dc2626;
-    --text: #1e293b;
-    --text-muted: #64748b;
-    --text-dim: #475569;
-    --trick-bg: #fffbeb;
-    --trick-border: #d97706;
-    --note-bg: #eff6ff;
-    --note-border: #0284c7;
-    --formula-bg: #f5f3ff;
-    --formula-border: #7c3aed;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Lora', Georgia, serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.75;
-    font-size: 16px;
-    transition: all 0.3s ease;
-  }
-  /* HEADER */
-  .header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-  }
-  .header-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 14px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .header-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--accent);
-    letter-spacing: -0.02em;
-  }
-  .header-title span { color: var(--accent2); }
-  .header-actions { display: flex; gap: 10px; align-items: center; }
-  .btn {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    padding: 8px 16px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    background: var(--surface2);
-    color: var(--text);
-    cursor: pointer;
-    transition: all 0.2s;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-  }
-  .btn:hover { background: var(--accent); color: #000; border-color: var(--accent); }
-  .btn-pdf {
-    background: var(--accent2);
-    color: #fff;
-    border-color: var(--accent2);
-  }
-  .btn-pdf:hover { background: #ff4500; color: #fff; border-color: #ff4500; }
-  /* HERO */
-  .hero {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 48px 24px 40px;
-    text-align: center;
-  }
-  .hero-badge {
-    display: inline-block;
-    background: var(--accent3);
-    color: #fff;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 4px 14px;
-    border-radius: 20px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 18px;
-  }
-  .hero h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    font-weight: 800;
-    color: var(--text);
-    letter-spacing: -0.04em;
-    line-height: 1.1;
-    margin-bottom: 16px;
-  }
-  .hero h1 em { font-style: normal; color: var(--accent); }
-  .hero p {
-    color: var(--text-dim);
-    max-width: 620px;
-    margin: 0 auto;
-    font-size: 1rem;
-  }
-  .hero-tags {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 20px;
-  }
-  .tag {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    color: var(--text-dim);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    padding: 4px 12px;
-    border-radius: 4px;
-  }
-  /* LAYOUT */
-  .layout {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 32px 24px;
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: 32px;
-    align-items: start;
-  }
-  /* SIDEBAR */
-  .sidebar {
-    position: sticky;
-    top: 72px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-  .sidebar-header {
-    background: var(--surface2);
-    padding: 14px 18px;
-    font-family: 'Syne', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-dim);
-    border-bottom: 1px solid var(--border);
-  }
-  .sidebar-nav { padding: 10px 0; }
-  .nav-item {
-    display: block;
-    padding: 9px 18px;
-    color: var(--text-dim);
-    text-decoration: none;
-    font-family: 'Syne', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 600;
-    transition: all 0.15s;
-    border-left: 3px solid transparent;
-  }
-  .nav-item:hover { color: var(--accent); background: var(--surface2); border-left-color: var(--accent); }
-  .nav-item.active { color: var(--accent); background: var(--surface2); border-left-color: var(--accent); }
-  .nav-item .num {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background: var(--surface2);
-    border-radius: 4px;
-    font-size: 0.68rem;
-    text-align: center;
-    line-height: 20px;
-    margin-right: 8px;
-    color: var(--accent2);
-  }
-  /* MAIN CONTENT */
-  .main { display: flex; flex-direction: column; gap: 40px; }
-  /* SECTION */
-  .section {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-  .section-header {
-    padding: 20px 28px;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface2);
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .section-num {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: var(--accent3);
-    color: #fff;
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .section-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 1.15rem;
-    letter-spacing: -0.02em;
-    color: var(--text);
-  }
-  .section-subtitle {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
-  .section-body { padding: 28px; display: flex; flex-direction: column; gap: 22px; }
-  h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--accent);
-    border-bottom: 1px dashed var(--border);
-    padding-bottom: 8px;
-    margin-bottom: 4px;
-    letter-spacing: -0.01em;
-  }
-  h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.92rem;
-    font-weight: 700;
-    color: var(--accent2);
-    margin-bottom: 4px;
-  }
-  p { color: var(--text); line-height: 1.8; }
-  strong { color: var(--text); font-weight: 600; }
-  /* TABLE */
-  .tbl-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.82rem;
-  }
-  thead { background: var(--surface2); }
-  thead th {
-    padding: 10px 14px;
-    text-align: left;
-    font-family: 'Syne', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-dim);
-    border-bottom: 1px solid var(--border);
-  }
-  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
-  tbody tr:hover { background: var(--surface2); }
-  tbody td { padding: 9px 14px; color: var(--text); }
-  tbody td:first-child { color: var(--accent); font-weight: 600; }
-  /* TRICK BOX */
-  .trick {
-    background: var(--trick-bg);
-    border-left: 4px solid var(--trick-border);
-    border-radius: 0 8px 8px 0;
-    padding: 16px 20px;
-  }
-  .trick-label {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--gold);
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .trick p { color: var(--text); font-size: 0.93rem; }
-  /* NOTE BOX */
-  .note {
-    background: var(--note-bg);
-    border-left: 4px solid var(--note-border);
-    border-radius: 0 8px 8px 0;
-    padding: 16px 20px;
-  }
-  .note-label {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--accent);
-    margin-bottom: 6px;
-  }
-  /* FORMULA BOX */
-  .formula {
-    background: var(--formula-bg);
-    border: 1px solid var(--formula-border);
-    border-radius: 8px;
-    padding: 16px 20px;
-  }
-  .formula-label {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--accent3);
-    margin-bottom: 10px;
-  }
-  .formula code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
-    color: var(--text);
-    display: block;
-    line-height: 2;
-  }
-  /* CODE BLOCK */
-  .code-block {
-    background: #0a0c10;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px 20px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.82rem;
-    color: #e2e8f0;
-    overflow-x: auto;
-    line-height: 1.8;
-  }
-  .light-mode .code-block { background: #1e293b; }
-  .code-block .c-cyan { color: #00e5ff; }
-  .code-block .c-green { color: #10b981; }
-  .code-block .c-yellow { color: #f59e0b; }
-  .code-block .c-purple { color: #a78bfa; }
-  /* GRID */
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-  .card {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px;
-  }
-  .card h3 { font-size: 0.88rem; margin-bottom: 8px; }
-  .card p { font-size: 0.88rem; }
-  /* LIST */
-  ul.styled, ol.styled {
-    padding-left: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  ul.styled li, ol.styled li { color: var(--text); font-size: 0.93rem; }
-  ul.styled li::marker { color: var(--accent); }
-  ol.styled li::marker { color: var(--accent2); font-family: 'Syne', sans-serif; font-weight: 700; }
-  /* HIGHLIGHT */
-  .hl { color: var(--accent); font-weight: 600; }
-  .hl2 { color: var(--accent2); font-weight: 600; }
-  .hl3 { color: var(--gold); font-weight: 600; }
-  .hl-green { color: var(--green); font-weight: 600; }
-  /* BADGE */
-  .badge {
-    display: inline-block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin: 0 2px;
-  }
-  .badge-blue { background: rgba(0,229,255,0.15); color: var(--accent); }
-  .badge-orange { background: rgba(255,107,53,0.15); color: var(--accent2); }
-  .badge-purple { background: rgba(124,58,237,0.15); color: #a78bfa; }
-  .badge-green { background: rgba(16,185,129,0.15); color: var(--green); }
-  .badge-gold { background: rgba(245,158,11,0.15); color: var(--gold); }
-  /* DIVIDER */
-  .div { border: none; border-top: 1px dashed var(--border); margin: 4px 0; }
-  /* PROGRESS BAR */
-  .progress-section {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 6px;
-  }
-  .progress-label {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--text-dim);
-    width: 100px;
-    flex-shrink: 0;
-  }
-  .progress-bar {
-    flex: 1;
-    height: 6px;
-    background: var(--surface2);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%;
-    border-radius: 3px;
-    background: linear-gradient(90deg, var(--accent3), var(--accent));
-  }
-  .progress-pct {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    width: 30px;
-    text-align: right;
-  }
-  /* PRINT */
-  @media print {
-    .header, .sidebar, .hero-tags, .header-actions { display: none !important; }
-    body { background: #fff !important; color: #000 !important; font-size: 11pt; }
-    .layout { display: block !important; padding: 0 !important; max-width: 100% !important; }
-    .main { gap: 20px !important; }
-    .section { break-inside: avoid; border: 1px solid #ccc !important; background: #fff !important; }
-    .section-header { background: #f5f5f5 !important; }
-    .trick, .note, .formula { background: #f9f9f9 !important; }
-    .code-block { background: #f4f4f4 !important; color: #000 !important; }
-    h2 { color: #1a1a1a !important; }
-    h3 { color: #333 !important; }
-    .hl { color: #0066cc !important; }
-    .hl2 { color: #cc4400 !important; }
-    .badge-blue { background: #e8f4fd !important; color: #0066cc !important; }
-    .badge-orange { background: #fff0e8 !important; color: #cc4400 !important; }
-    a { color: inherit !important; text-decoration: none !important; }
-    .hero { padding: 20px !important; text-align: left !important; }
-    .hero h1 { font-size: 20pt !important; }
-  }
-  @media (max-width: 800px) {
-    .layout { grid-template-columns: 1fr; }
-    .sidebar { display: none; }
-    .grid2, .grid3 { grid-template-columns: 1fr; }
-  }
+:root{--bg:#0d0f14;--surface:#13161e;--surface2:#1a1e2a;--border:#252b3b;--accent:#00e5ff;--accent2:#ff6b35;--accent3:#7c3aed;--gold:#f59e0b;--green:#10b981;--red:#ef4444;--text:#e2e8f0;--text-muted:#64748b;--text-dim:#94a3b8;--trick-bg:#1c1a0d;--trick-border:#f59e0b;--note-bg:#0d1f2d;--note-border:#00e5ff;--formula-bg:#1a0d2e;--formula-border:#7c3aed;--mcq-bg:#0d1a0f;--mcq-border:#10b981;}
+.light-mode{--bg:#f0f4f8;--surface:#ffffff;--surface2:#e8eef5;--border:#cbd5e1;--accent:#0284c7;--accent2:#ea580c;--accent3:#7c3aed;--gold:#d97706;--green:#059669;--red:#dc2626;--text:#1e293b;--text-muted:#64748b;--text-dim:#475569;--trick-bg:#fffbeb;--trick-border:#d97706;--note-bg:#eff6ff;--note-border:#0284c7;--formula-bg:#f5f3ff;--formula-border:#7c3aed;--mcq-bg:#f0fdf4;--mcq-border:#16a34a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Lora',Georgia,serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:15.5px;transition:background .3s,color .3s;}
+.header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 24px rgba(0,0,0,.4);}
+.header-inner{max-width:1200px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.header-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:800;color:var(--accent);letter-spacing:-.02em;}
+.header-title span{color:var(--accent2);}
+.header-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.btn{font-family:'Syne',sans-serif;font-size:.76rem;font-weight:700;padding:7px 15px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.04em;}
+.btn:hover{background:var(--accent);color:#000;border-color:var(--accent);}
+.btn-pdf{background:var(--accent2);color:#fff;border-color:var(--accent2);}
+.btn-pdf:hover{background:#e05000;color:#fff;}
+.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:44px 24px 36px;text-align:center;}
+.hero-badge{display:inline-block;background:var(--accent3);color:#fff;font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:600;padding:4px 14px;border-radius:20px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(1.9rem,5vw,3rem);font-weight:800;letter-spacing:-.04em;line-height:1.1;margin-bottom:14px;}
+.hero h1 em{font-style:normal;color:var(--accent);}
+.hero p{color:var(--text-dim);max-width:660px;margin:0 auto;font-size:.95rem;}
+.hero-tags{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;margin-top:18px;}
+.tag{background:var(--surface2);border:1px solid var(--border);color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:.69rem;padding:3px 10px;border-radius:4px;}
+.layout{max-width:1200px;margin:0 auto;padding:28px 20px;display:grid;grid-template-columns:255px 1fr;gap:28px;align-items:start;}
+.sidebar{position:sticky;top:68px;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;max-height:calc(100vh - 90px);overflow-y:auto;}
+.sidebar-header{background:var(--surface2);padding:12px 16px;font-family:'Syne',sans-serif;font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);border-bottom:1px solid var(--border);}
+.sidebar-nav{padding:8px 0;}
+.nav-item{display:block;padding:8px 16px;color:var(--text-dim);text-decoration:none;font-family:'Syne',sans-serif;font-size:.79rem;font-weight:600;transition:all .15s;border-left:3px solid transparent;}
+.nav-item:hover,.nav-item.active{color:var(--accent);background:var(--surface2);border-left-color:var(--accent);}
+.nav-item .num{display:inline-block;width:19px;height:19px;background:var(--surface2);border-radius:3px;font-size:.66rem;text-align:center;line-height:19px;margin-right:7px;color:var(--accent2);}
+.main{display:flex;flex-direction:column;gap:36px;}
+.section{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.section-header{padding:18px 26px;border-bottom:1px solid var(--border);background:var(--surface2);display:flex;align-items:center;gap:12px;}
+.section-num{width:34px;height:34px;border-radius:8px;background:var(--accent3);color:#fff;font-family:'Syne',sans-serif;font-weight:800;font-size:.88rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.section-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;letter-spacing:-.02em;}
+.section-subtitle{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text-muted);margin-top:2px;}
+.section-body{padding:26px;display:flex;flex-direction:column;gap:20px;}
+h2{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);border-bottom:1px dashed var(--border);padding-bottom:7px;margin-bottom:2px;letter-spacing:-.01em;}
+h3{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:var(--accent2);margin-bottom:4px;}
+p{color:var(--text);line-height:1.85;}
+strong{color:var(--text);font-weight:600;}
+.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border);}
+table{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:.8rem;}
+thead{background:var(--surface2);}
+thead th{padding:9px 13px;text-align:left;font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--text-dim);border-bottom:1px solid var(--border);}
+tbody tr{border-bottom:1px solid var(--border);transition:background .12s;}
+tbody tr:hover{background:var(--surface2);}
+tbody td{padding:8px 13px;color:var(--text);}
+tbody td:first-child{color:var(--accent);font-weight:600;}
+.trick{background:var(--trick-bg);border-left:4px solid var(--trick-border);border-radius:0 8px 8px 0;padding:14px 18px;}
+.trick-label{font-family:'Syne',sans-serif;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:5px;}
+.trick p{color:var(--text);font-size:.91rem;}
+.note{background:var(--note-bg);border-left:4px solid var(--note-border);border-radius:0 8px 8px 0;padding:14px 18px;}
+.note-label{font-family:'Syne',sans-serif;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:5px;}
+.formula{background:var(--formula-bg);border:1px solid var(--formula-border);border-radius:8px;padding:14px 18px;}
+.formula-label{font-family:'Syne',sans-serif;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent3);margin-bottom:8px;}
+.formula code{font-family:'JetBrains Mono',monospace;font-size:.87rem;color:var(--text);display:block;line-height:2;}
+.code-block{background:#080a0e;border:1px solid var(--border);border-radius:8px;padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:#e2e8f0;overflow-x:auto;line-height:1.9;}
+.light-mode .code-block{background:#1e293b;}
+.code-block .cy{color:#00e5ff;}.code-block .cg{color:#10b981;}.code-block .cy2{color:#f59e0b;}.code-block .cp{color:#a78bfa;}.code-block .cr{color:#ef4444;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+.card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;}
+.card h3{font-size:.85rem;margin-bottom:7px;}
+.card p{font-size:.87rem;}
+ul.styled,ol.styled{padding-left:20px;display:flex;flex-direction:column;gap:5px;}
+ul.styled li,ol.styled li{color:var(--text);font-size:.91rem;}
+ul.styled li::marker{color:var(--accent);}
+ol.styled li::marker{color:var(--accent2);font-family:'Syne',sans-serif;font-weight:700;}
+.hl{color:var(--accent);font-weight:600;}.hl2{color:var(--accent2);font-weight:600;}.hl3{color:var(--gold);font-weight:600;}.hlg{color:var(--green);font-weight:600;}
+.badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:600;padding:2px 7px;border-radius:4px;margin:0 2px;}
+.bb{background:rgba(0,229,255,.13);color:var(--accent);}
+.bo{background:rgba(255,107,53,.13);color:var(--accent2);}
+.bp{background:rgba(124,58,237,.13);color:#a78bfa;}
+.bg{background:rgba(16,185,129,.13);color:var(--green);}
+.bgo{background:rgba(245,158,11,.13);color:var(--gold);}
+.div{border:none;border-top:1px dashed var(--border);margin:2px 0;}
+
+/* MCQ STYLES */
+.mcq-block{background:var(--mcq-bg);border:1px solid var(--mcq-border);border-radius:10px;padding:18px 20px;position:relative;}
+.mcq-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.mcq-badge{background:var(--green);color:#000;font-family:'Syne',sans-serif;font-size:.66rem;font-weight:800;padding:3px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:.08em;}
+.mcq-source{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--text-muted);}
+.mcq-q{font-size:.92rem;color:var(--text);font-weight:600;margin-bottom:11px;line-height:1.7;}
+.mcq-options{display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
+.mcq-opt{display:flex;align-items:flex-start;gap:9px;padding:8px 12px;border-radius:6px;border:1px solid var(--border);background:var(--surface);cursor:pointer;transition:all .2s;font-size:.87rem;color:var(--text);}
+.mcq-opt:hover{border-color:var(--green);background:var(--surface2);}
+.mcq-opt.correct{border-color:var(--green)!important;background:rgba(16,185,129,.12)!important;color:var(--green)!important;}
+.mcq-opt.wrong{border-color:var(--red)!important;background:rgba(239,68,68,.08)!important;color:var(--red)!important;}
+.mcq-opt-key{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.8rem;color:var(--accent);min-width:18px;}
+.mcq-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.mcq-btn{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;padding:6px 14px;border-radius:5px;border:1px solid var(--mcq-border);background:transparent;color:var(--green);cursor:pointer;text-transform:uppercase;letter-spacing:.04em;transition:all .2s;}
+.mcq-btn:hover{background:var(--green);color:#000;}
+.mcq-btn.reset-btn{border-color:var(--text-muted);color:var(--text-muted);}
+.mcq-btn.reset-btn:hover{background:var(--text-muted);color:#000;}
+.mcq-explanation{margin-top:12px;padding:12px;background:var(--surface2);border-radius:6px;font-size:.86rem;color:var(--text-dim);display:none;border-left:3px solid var(--gold);}
+.mcq-explanation strong{color:var(--gold);}
+.mcq-score{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--text-muted);margin-left:auto;}
+.mcq-section-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.mcq-section-title{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:800;color:var(--green);}
+.mcq-grid{display:flex;flex-direction:column;gap:16px;}
+
+/* PROGRESS */
+.prog-row{display:flex;align-items:center;gap:12px;margin-bottom:5px;}
+.prog-lbl{font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;color:var(--text-dim);width:130px;flex-shrink:0;}
+.prog-bar{flex:1;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent3),var(--accent));}
+.prog-pct{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text-muted);width:30px;text-align:right;}
+
+/* FLOATING POINT VISUAL */
+.fp-visual{display:flex;gap:2px;margin:12px 0;font-family:'JetBrains Mono',monospace;font-size:.82rem;}
+.fp-seg{padding:8px 10px;border-radius:5px;text-align:center;line-height:1.4;}
+.fp-sign{background:rgba(239,68,68,.2);border:1px solid var(--red);color:var(--red);}
+.fp-exp{background:rgba(245,158,11,.2);border:1px solid var(--gold);color:var(--gold);}
+.fp-mant{background:rgba(0,229,255,.13);border:1px solid var(--accent);color:var(--accent);}
+.fp-label{font-size:.66rem;display:block;opacity:.75;margin-top:2px;}
+
+@media print{
+  .header,.sidebar,.hero-tags,.header-actions{display:none!important;}
+  body{background:#fff!important;color:#000!important;font-size:10.5pt;}
+  .layout{display:block!important;padding:0!important;max-width:100%!important;}
+  .main{gap:16px!important;}
+  .section{break-inside:avoid;border:1px solid #ccc!important;background:#fff!important;}
+  .section-header{background:#f5f5f5!important;}
+  .trick,.note,.formula,.mcq-block{background:#f9f9f9!important;break-inside:avoid;}
+  .code-block{background:#f4f4f4!important;color:#000!important;}
+  h2{color:#1a1a1a!important;}h3{color:#333!important;}
+  .hl{color:#0066cc!important;}.hl2{color:#cc4400!important;}
+  .mcq-explanation{display:block!important;}
+  .mcq-btn,.mcq-actions{display:none!important;}
+}
+@media(max-width:820px){
+  .layout{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+  .grid2,.grid3{grid-template-columns:1fr;}
+  .fp-visual{flex-wrap:wrap;}
+}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="header">
   <div class="header-inner">
-    <div class="header-title">⚡ Digital Electronics — <span>GATE & HPCL</span></div>
+    <div class="header-title">⚡ Digital Electronics — <span>GATE & PSU Master Notes v2</span></div>
     <div class="header-actions">
       <button class="btn" onclick="toggleTheme()" id="theme-btn">☀ Light Mode</button>
+      <button class="btn" onclick="showAllAnswers()">👁 Show All Answers</button>
       <button class="btn btn-pdf" onclick="window.print()">⬇ Download PDF</button>
     </div>
   </div>
 </header>
 
-<!-- HERO -->
 <div class="hero">
-  <div class="hero-badge">📘 Complete Study Notes — Beginner to Advanced</div>
-  <h1>Digital <em>Electronics</em><br>Master Notes</h1>
-  <p>All topics covered from scratch — Number systems to Sequential circuits. Written in simple, exam-ready language with short tricks and formulas.</p>
+  <div class="hero-badge">📘 Elaborated — Beginner to Advanced + MCQs</div>
+  <h1>Digital <em>Electronics</em> Master Notes</h1>
+  <p>Complete theory · Short tricks · Practice MCQs (GATE/HPCL/BARC/BEL/ISRO style) · Computer Arithmetic · Floating Point · Boolean Algebra · Sequential & Combinational Circuits</p>
   <div class="hero-tags">
-    <span class="tag">GATE CSE</span>
-    <span class="tag">HPCL</span>
-    <span class="tag">Number Systems</span>
-    <span class="tag">Logic Gates</span>
-    <span class="tag">Boolean Algebra</span>
-    <span class="tag">K-Map</span>
-    <span class="tag">Combinational Circuits</span>
-    <span class="tag">Sequential Circuits</span>
-    <span class="tag">Flip-Flops</span>
-    <span class="tag">ADC/DAC</span>
+    <span class="tag">GATE CSE</span><span class="tag">HPCL</span><span class="tag">BARC</span><span class="tag">BEL</span><span class="tag">ISRO</span>
+    <span class="tag">Number Systems</span><span class="tag">Boolean Algebra</span><span class="tag">K-Map</span>
+    <span class="tag">Combinational Ckts</span><span class="tag">Sequential Ckts</span>
+    <span class="tag">Flip-Flops</span><span class="tag">Counters</span><span class="tag">Floating Point</span><span class="tag">Computer Arithmetic</span>
   </div>
 </div>
 
 <div class="layout">
-<!-- SIDEBAR -->
 <aside class="sidebar">
-  <div class="sidebar-header">📑 Topics</div>
+  <div class="sidebar-header">📑 All Topics</div>
   <nav class="sidebar-nav">
     <a href="#s1" class="nav-item active"><span class="num">1</span>Number Systems</a>
-    <a href="#s2" class="nav-item"><span class="num">2</span>Codes & BCD</a>
-    <a href="#s3" class="nav-item"><span class="num">3</span>Logic Gates</a>
-    <a href="#s4" class="nav-item"><span class="num">4</span>Boolean Algebra</a>
-    <a href="#s5" class="nav-item"><span class="num">5</span>K-Map</a>
-    <a href="#s6" class="nav-item"><span class="num">6</span>Combinational Ckt</a>
-    <a href="#s7" class="nav-item"><span class="num">7</span>Sequential Circuits</a>
-    <a href="#s8" class="nav-item"><span class="num">8</span>Flip-Flops</a>
-    <a href="#s9" class="nav-item"><span class="num">9</span>Registers & Counters</a>
-    <a href="#s10" class="nav-item"><span class="num">10</span>Memory & ADC/DAC</a>
-    <a href="#s11" class="nav-item"><span class="num">11</span>Quick Tricks Sheet</a>
+    <a href="#s2" class="nav-item"><span class="num">2</span>Computer Arithmetic</a>
+    <a href="#s3" class="nav-item"><span class="num">3</span>Floating Point</a>
+    <a href="#s4" class="nav-item"><span class="num">4</span>Codes & Error Detect</a>
+    <a href="#s5" class="nav-item"><span class="num">5</span>Logic Gates</a>
+    <a href="#s6" class="nav-item"><span class="num">6</span>Boolean Algebra</a>
+    <a href="#s7" class="nav-item"><span class="num">7</span>Minimization (K-Map)</a>
+    <a href="#s8" class="nav-item"><span class="num">8</span>Combinational Ckts</a>
+    <a href="#s9" class="nav-item"><span class="num">9</span>Sequential Ckts</a>
+    <a href="#s10" class="nav-item"><span class="num">10</span>Flip-Flops</a>
+    <a href="#s11" class="nav-item"><span class="num">11</span>Registers & Counters</a>
+    <a href="#s12" class="nav-item"><span class="num">12</span>Memory & ADC/DAC</a>
+    <a href="#s13" class="nav-item"><span class="num">★</span>Master Tricks Sheet</a>
   </nav>
 </aside>
 
-<!-- MAIN -->
 <main class="main">
 
-<!-- ===== SECTION 1: NUMBER SYSTEMS ===== -->
+<!-- ===================== SECTION 1: NUMBER SYSTEMS ===================== -->
 <section class="section" id="s1">
   <div class="section-header">
     <div class="section-num">1</div>
-    <div>
-      <div class="section-title">Number Systems</div>
-      <div class="section-subtitle">Binary · Octal · Decimal · Hexadecimal</div>
-    </div>
+    <div><div class="section-title">Number Systems & Representations</div>
+    <div class="section-subtitle">Binary · Octal · Decimal · Hexadecimal · Conversions</div></div>
   </div>
   <div class="section-body">
-    <div>
-      <h2>What is a Number System?</h2>
-      <p>A number system is a way to represent numbers. Computers only understand <span class="hl">0s and 1s</span> (binary). So we need to convert between different systems.</p>
-    </div>
-
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th>System</th><th>Base</th><th>Digits Used</th><th>Example</th></tr></thead>
-        <tbody>
-          <tr><td>Binary</td><td>2</td><td>0, 1</td><td>1011₂</td></tr>
-          <tr><td>Octal</td><td>8</td><td>0–7</td><td>13₈</td></tr>
-          <tr><td>Decimal</td><td>10</td><td>0–9</td><td>11₁₀</td></tr>
-          <tr><td>Hexadecimal</td><td>16</td><td>0–9, A–F</td><td>B₁₆</td></tr>
-        </tbody>
-      </table>
-    </div>
 
     <div>
-      <h2>🔁 Conversions — The Most Important Skill</h2>
+      <h2>Why Number Systems?</h2>
+      <p>Digital computers work with <span class="hl">binary (base-2)</span> because electronic circuits have two stable states — ON (1) and OFF (0). All other systems (octal, hex) are just shorthand for binary groups. You need this for every topic that follows.</p>
     </div>
 
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>System</th><th>Base (Radix)</th><th>Digits</th><th>Binary Equivalent</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Binary</td><td>2</td><td>0,1</td><td>Direct</td><td>1011₂ = 11</td></tr>
+        <tr><td>Octal</td><td>8</td><td>0–7</td><td>Group of 3 bits</td><td>13₈ = 1011₂</td></tr>
+        <tr><td>Decimal</td><td>10</td><td>0–9</td><td>Convert via powers</td><td>11₁₀</td></tr>
+        <tr><td>Hexadecimal</td><td>16</td><td>0–9, A–F</td><td>Group of 4 bits</td><td>B₁₆ = 1011₂</td></tr>
+      </tbody>
+    </table></div>
+
+    <div>
+      <h2>Conversion Methods — Step by Step</h2>
+    </div>
     <div class="grid2">
       <div class="card">
-        <h3>Decimal → Binary</h3>
-        <p>Keep dividing by 2, write remainders <strong>bottom to top</strong>.</p>
-        <div class="code-block" style="margin-top:10px">
-<span class="c-yellow">13</span> ÷ 2 = 6 rem <span class="c-cyan">1</span>
-<span class="c-yellow">6</span>  ÷ 2 = 3 rem <span class="c-cyan">0</span>
-<span class="c-yellow">3</span>  ÷ 2 = 1 rem <span class="c-cyan">1</span>
-<span class="c-yellow">1</span>  ÷ 2 = 0 rem <span class="c-cyan">1</span>
-Answer: <span class="c-green">1101₂</span> ✓
-        </div>
+        <h3>Decimal → Binary (Divide by 2)</h3>
+        <div class="code-block">Convert 45₁₀:
+45 ÷ 2 = 22 rem <span class="cy">1</span>  ← LSB
+22 ÷ 2 = 11 rem <span class="cy">0</span>
+11 ÷ 2 =  5 rem <span class="cy">1</span>
+ 5 ÷ 2 =  2 rem <span class="cy">1</span>
+ 2 ÷ 2 =  1 rem <span class="cy">0</span>
+ 1 ÷ 2 =  0 rem <span class="cy">1</span>  ← MSB
+Read bottom to top: <span class="cg">101101₂</span></div>
       </div>
       <div class="card">
-        <h3>Binary → Decimal</h3>
-        <p>Multiply each bit by its <strong>power of 2</strong>, add all up.</p>
-        <div class="code-block" style="margin-top:10px">
-1101₂ =
-1×<span class="c-cyan">2³</span> + 1×<span class="c-cyan">2²</span> + 0×<span class="c-cyan">2¹</span> + 1×<span class="c-cyan">2⁰</span>
-= 8 + 4 + 0 + 1
-= <span class="c-green">13₁₀</span> ✓
-        </div>
+        <h3>Binary → Decimal (Positional Weight)</h3>
+        <div class="code-block">101101₂:
+1×2⁵+0×2⁴+1×2³+1×2²+0×2¹+1×2⁰
+= <span class="cy">32+0+8+4+0+1</span>
+= <span class="cg">45₁₀</span> ✓</div>
       </div>
       <div class="card">
-        <h3>Binary → Octal</h3>
-        <p>Group bits in <strong>3s from right</strong>, convert each group.</p>
-        <div class="code-block" style="margin-top:10px">
-1 101 011₂
-→ <span class="c-cyan">001</span> <span class="c-yellow">101</span> <span class="c-purple">011</span>
-→  1    5    3
-= <span class="c-green">153₈</span> ✓
-        </div>
+        <h3>Binary → Octal (Group 3 bits)</h3>
+        <div class="code-block">101101₂
+→ <span class="cy">101</span> <span class="cy2">101</span>
+→  5     5
+= <span class="cg">55₈</span></div>
       </div>
       <div class="card">
-        <h3>Binary → Hex</h3>
-        <p>Group bits in <strong>4s from right</strong>, convert each group.</p>
-        <div class="code-block" style="margin-top:10px">
-1011 0110₂
-→ <span class="c-cyan">1011</span> <span class="c-yellow">0110</span>
-→  B     6
-= <span class="c-green">B6₁₆</span> ✓
-        </div>
+        <h3>Binary → Hex (Group 4 bits)</h3>
+        <div class="code-block">10110101₂
+→ <span class="cy">1011</span> <span class="cy2">0101</span>
+→   B      5
+= <span class="cg">B5₁₆</span></div>
       </div>
     </div>
 
     <div class="trick">
-      <div class="trick-label">⚡ Short Trick — Powers of 2 (Memorize!)</div>
-      <p>2⁰=1, 2¹=2, 2²=4, 2³=8, 2⁴=16, 2⁵=32, 2⁶=64, 2⁷=128, 2⁸=256, 2⁹=512, 2¹⁰=1024</p>
+      <div class="trick-label">⚡ Power of 2 Table — Memorize!</div>
+      <p>2⁰=1 · 2¹=2 · 2²=4 · 2³=8 · 2⁴=16 · 2⁵=32 · 2⁶=64 · 2⁷=128 · 2⁸=256 · 2⁹=512 · 2¹⁰=1024 · 2¹⁶=65536 · 2²⁰=1M · 2³⁰=1G</p>
     </div>
 
     <div>
-      <h2>➕ Binary Arithmetic</h2>
-    </div>
-
-    <div class="grid2">
-      <div class="card">
-        <h3>Binary Addition Rules</h3>
-        <div class="code-block">
-0+0 = <span class="c-cyan">0</span>
-0+1 = <span class="c-cyan">1</span>
-1+0 = <span class="c-cyan">1</span>
-1+1 = <span class="c-cyan">0</span>, carry <span class="c-yellow">1</span>
-1+1+1 = <span class="c-cyan">1</span>, carry <span class="c-yellow">1</span>
-        </div>
-      </div>
-      <div class="card">
-        <h3>2's Complement (for Subtraction)</h3>
-        <p>Step 1: Find 1's complement (flip all bits)<br>Step 2: Add 1</p>
-        <div class="code-block" style="margin-top:8px">
-0110 → flip → <span class="c-cyan">1001</span>
-1001 + 1 = <span class="c-green">1010</span> (2's comp)
-        </div>
-      </div>
+      <h2>Fractional Conversion</h2>
+      <p>For decimal fractions → binary: <strong>multiply by 2, take integer part each time</strong> (read top to bottom).</p>
+      <div class="code-block">Convert 0.625₁₀ to binary:
+0.625 × 2 = <span class="cy">1</span>.25  → bit = 1
+0.25  × 2 = <span class="cy">0</span>.5   → bit = 0
+0.5   × 2 = <span class="cy">1</span>.0   → bit = 1
+Result: 0.<span class="cg">101</span>₂  (= 1/2 + 1/8 = 0.625 ✓)</div>
     </div>
 
     <div class="trick">
-      <div class="trick-label">⚡ Short Trick — 2's Complement Fast Method</div>
-      <p>Start from the <strong>rightmost bit</strong>. Keep all bits same <strong>up to and including the first 1</strong>. Then <strong>flip all remaining bits</strong> to the left.</p>
+      <div class="trick-label">⚡ Trick — Hex to Decimal Fast</div>
+      <p>For hex AB₁₆: A=10, B=11 → 10×16 + 11 = 160+11 = <strong>171</strong>. Just multiply higher digit by base and add lower. For 3-digit: ABC → A×256 + B×16 + C.</p>
     </div>
 
+    <!-- MCQs Section 1 -->
     <div>
-      <h3>Signed Number Representation</h3>
-      <div class="tbl-wrap" style="margin-top:8px">
-        <table>
-          <thead><tr><th>Type</th><th>Range (n bits)</th><th>Example (4-bit)</th></tr></thead>
-          <tbody>
-            <tr><td>Sign-Magnitude</td><td>-(2ⁿ⁻¹-1) to +(2ⁿ⁻¹-1)</td><td>-7 to +7</td></tr>
-            <tr><td>1's Complement</td><td>-(2ⁿ⁻¹-1) to +(2ⁿ⁻¹-1)</td><td>-7 to +7</td></tr>
-            <tr><td>2's Complement</td><td>-2ⁿ⁻¹ to +(2ⁿ⁻¹-1)</td><td>-8 to +7</td></tr>
-          </tbody>
-        </table>
+      <div class="mcq-section-header"><div class="mcq-section-title">🎯 MCQ Practice — Number Systems</div></div>
+      <div class="mcq-grid">
+        <div class="mcq-block" id="mcq-1-1">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE 2019 style</span><span class="mcq-score" id="score-1-1"></span></div>
+          <div class="mcq-q">Q1. The decimal equivalent of the hexadecimal number 2BF₁₆ is:</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('1-1',this,'wrong')"><span class="mcq-opt-key">A</span>701</div>
+            <div class="mcq-opt" onclick="checkMCQ('1-1',this,'correct')"><span class="mcq-opt-key">B</span>703</div>
+            <div class="mcq-opt" onclick="checkMCQ('1-1',this,'wrong')"><span class="mcq-opt-key">C</span>695</div>
+            <div class="mcq-opt" onclick="checkMCQ('1-1',this,'wrong')"><span class="mcq-opt-key">D</span>711</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('1-1')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('1-1')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-1-1"><strong>Answer: B (703)</strong><br>2BF₁₆ = 2×16² + B×16¹ + F×16⁰ = 2×256 + 11×16 + 15×1 = 512 + 176 + 15 = <strong>703</strong>. Remember: B=11, F=15 in hex.</div>
+        </div>
+        <div class="mcq-block" id="mcq-1-2">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">HPCL style</span><span class="mcq-score" id="score-1-2"></span></div>
+          <div class="mcq-q">Q2. How many bits are required to represent the decimal number 1000 in binary?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('1-2',this,'wrong')"><span class="mcq-opt-key">A</span>8</div>
+            <div class="mcq-opt" onclick="checkMCQ('1-2',this,'wrong')"><span class="mcq-opt-key">B</span>9</div>
+            <div class="mcq-opt" onclick="checkMCQ('1-2',this,'correct')"><span class="mcq-opt-key">C</span>10</div>
+            <div class="mcq-opt" onclick="checkMCQ('1-2',this,'wrong')"><span class="mcq-opt-key">D</span>11</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('1-2')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('1-2')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-1-2"><strong>Answer: C (10 bits)</strong><br>Use formula: bits = ⌊log₂(N)⌋ + 1. log₂(1000) ≈ 9.96. So ⌊9.96⌋+1 = <strong>10 bits</strong>. Verify: 2⁹=512 &lt; 1000 ≤ 2¹⁰=1024. So 10 bits needed. 1000 in binary = 1111101000.</div>
+        </div>
+        <div class="mcq-block" id="mcq-1-3">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">BARC style</span><span class="mcq-score" id="score-1-3"></span></div>
+          <div class="mcq-q">Q3. What is the octal equivalent of (11010110)₂?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('1-3',this,'wrong')"><span class="mcq-opt-key">A</span>316₈</div>
+            <div class="mcq-opt" onclick="checkMCQ('1-3',this,'correct')"><span class="mcq-opt-key">B</span>326₈</div>
+            <div class="mcq-opt" onclick="checkMCQ('1-3',this,'wrong')"><span class="mcq-opt-key">C</span>336₈</div>
+            <div class="mcq-opt" onclick="checkMCQ('1-3',this,'wrong')"><span class="mcq-opt-key">D</span>346₈</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('1-3')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('1-3')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-1-3"><strong>Answer: B (326₈)</strong><br>Group binary into 3s from right: 11 | 010 | 110 → pad first group: 011 | 010 | 110 → 3 | 2 | 6 = <strong>326₈</strong>.</div>
+        </div>
       </div>
-    </div>
-
-    <div class="note">
-      <div class="note-label">📌 Exam Tip</div>
-      <p><strong>2's complement is used in all modern computers.</strong> It has only one representation of zero and allows subtraction using addition. GATE frequently tests range of signed numbers.</p>
     </div>
   </div>
 </section>
 
-<!-- ===== SECTION 2: CODES ===== -->
+<!-- ===================== SECTION 2: COMPUTER ARITHMETIC ===================== -->
 <section class="section" id="s2">
   <div class="section-header">
     <div class="section-num">2</div>
+    <div><div class="section-title">Computer Arithmetic</div>
+    <div class="section-subtitle">Signed Numbers · 1's & 2's Complement · Overflow · Multiplication · Division</div></div>
+  </div>
+  <div class="section-body">
+
     <div>
-      <div class="section-title">Codes — BCD, Gray, Excess-3, ASCII</div>
-      <div class="section-subtitle">Digital Encoding Schemes</div>
+      <h2>Signed Number Representations</h2>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Representation</th><th>Range (n bits)</th><th>Zeros</th><th>Example: -5 (4-bit)</th></tr></thead>
+        <tbody>
+          <tr><td>Sign-Magnitude</td><td>-(2ⁿ⁻¹-1) to +(2ⁿ⁻¹-1)</td><td>Two: +0, -0</td><td>1101 (MSB=sign bit)</td></tr>
+          <tr><td>1's Complement</td><td>-(2ⁿ⁻¹-1) to +(2ⁿ⁻¹-1)</td><td>Two: 0000, 1111</td><td>1010 (flip all bits)</td></tr>
+          <tr><td>2's Complement</td><td>-2ⁿ⁻¹ to +(2ⁿ⁻¹-1)</td><td>One: 0000</td><td>1011 (flip+add 1)</td></tr>
+          <tr><td>Excess-N / Biased</td><td>Used in floating point</td><td>One</td><td>Bias added to exponent</td></tr>
+        </tbody>
+      </table></div>
     </div>
+
+    <div class="formula">
+      <div class="formula-label">📐 2's Complement — Key Formulas</div>
+      <code>2's complement of X = (2ⁿ - X) where n = number of bits</code>
+      <code>Fast method: Copy from right up to and including first 1, then flip everything left</code>
+      <code>To check if negative: MSB = 1 means negative (in 2's complement)</code>
+      <code>-X in 2's complement = X' + 1 (flip all bits, add 1)</code>
+    </div>
+
+    <div>
+      <h2>Binary Addition & Subtraction</h2>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h3>4-bit: (+5) + (+3) = +8</h3>
+        <div class="code-block">  0101  (+5)
++ 0011  (+3)
+──────
+  <span class="cg">1000</span>  = +8 ✓ (no overflow)</div>
+      </div>
+      <div class="card">
+        <h3>4-bit: (+5) + (+4) = OVERFLOW!</h3>
+        <div class="code-block">  0101  (+5)
++ 0100  (+4)
+──────
+  <span class="cr">1001</span>  = -7 WRONG!
+Overflow: result exceeds +7</div>
+      </div>
+      <div class="card">
+        <h3>Subtraction via 2's Complement: 7-3</h3>
+        <div class="code-block">7   = 0111
+-3  → 2's comp of 3
+3   = 0011
+2's = <span class="cy">1101</span>
+  0111
++ 1101
+──────
+<span class="cg">1</span>0100 → ignore carry → <span class="cg">0100</span> = 4 ✓</div>
+      </div>
+      <div class="card">
+        <h3>Overflow Detection Rule</h3>
+        <div class="code-block"><span class="cy">Overflow</span> if:
+Carry INTO MSB ≠ Carry OUT of MSB
+
+OR:
+(+) + (+) = Negative → overflow
+(-) + (-) = Positive → overflow
+(+) + (-) → NEVER overflow</div>
+      </div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Trick — Sign Extension</div>
+      <p>When extending a signed number to more bits: <strong>copy the sign bit (MSB) into all new positions</strong>. Example: -3 in 4-bit = 1101. In 8-bit = <strong>1111</strong>1101. This preserves the value. (Positive numbers: fill with 0s.)</p>
+    </div>
+
+    <div>
+      <h2>Binary Multiplication</h2>
+      <p>Similar to decimal long multiplication. Shift and add. An n-bit × m-bit multiplication produces an (n+m)-bit result.</p>
+      <div class="code-block">Multiply 1011 (11) × 0101 (5):
+      1011
+   ×  0101
+   ──────
+      1011  ← 1011 × 1 (shift 0)
+     0000   ← 1011 × 0 (shift 1)
+    1011    ← 1011 × 1 (shift 2)
+   0000     ← 1011 × 0 (shift 3)
+  ──────────
+  <span class="cg">00110111</span>  = 55 ✓ (11×5=55)</div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Booth's Algorithm — Signed Multiplication</div>
+      <p>Booth's algorithm handles signed 2's complement multiplication. Key rule: examine 2 bits at a time (current + previous). <strong>10 → subtract multiplicand. 01 → add multiplicand. 00 or 11 → do nothing</strong>, just shift. Reduces number of additions needed.</p>
+    </div>
+
+    <div>
+      <h2>Binary Division — Restoring & Non-Restoring</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>Restoring Division</h3>
+          <p>Subtract divisor from partial remainder. If result is negative → <strong>restore</strong> (add back divisor), quotient bit = 0. If positive → quotient bit = 1. Repeat for each bit.</p>
+        </div>
+        <div class="card">
+          <h3>Non-Restoring Division</h3>
+          <p>Don't restore on negative remainder. Instead, <strong>add divisor in next step</strong> (instead of subtracting). Fewer operations. More efficient than restoring method.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MCQs Section 2 -->
+    <div>
+      <div class="mcq-section-header"><div class="mcq-section-title">🎯 MCQ Practice — Computer Arithmetic</div></div>
+      <div class="mcq-grid">
+        <div class="mcq-block" id="mcq-2-1">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE 2021 style</span><span class="mcq-score" id="score-2-1"></span></div>
+          <div class="mcq-q">Q4. The 2's complement representation of -17 using 8 bits is:</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('2-1',this,'wrong')"><span class="mcq-opt-key">A</span>10010001</div>
+            <div class="mcq-opt" onclick="checkMCQ('2-1',this,'wrong')"><span class="mcq-opt-key">B</span>11101110</div>
+            <div class="mcq-opt" onclick="checkMCQ('2-1',this,'correct')"><span class="mcq-opt-key">C</span>11101111</div>
+            <div class="mcq-opt" onclick="checkMCQ('2-1',this,'wrong')"><span class="mcq-opt-key">D</span>11110001</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('2-1')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('2-1')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-2-1"><strong>Answer: C</strong><br>+17 = 00010001. 1's complement = 11101110. Add 1 → <strong>11101111</strong>. Fast trick: copy from right up to first 1 of +17 (00010001 → keep 0001, flip rest → 1110<strong>1111</strong>).</div>
+        </div>
+        <div class="mcq-block" id="mcq-2-2">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">HPCL/BEL style</span><span class="mcq-score" id="score-2-2"></span></div>
+          <div class="mcq-q">Q5. In a 4-bit 2's complement system, what is the result of adding 0110 (+6) and 0101 (+5)?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('2-2',this,'wrong')"><span class="mcq-opt-key">A</span>+11, no overflow</div>
+            <div class="mcq-opt" onclick="checkMCQ('2-2',this,'wrong')"><span class="mcq-opt-key">B</span>+11, with overflow</div>
+            <div class="mcq-opt" onclick="checkMCQ('2-2',this,'correct')"><span class="mcq-opt-key">C</span>Result is 1011 which represents -5, overflow occurred</div>
+            <div class="mcq-opt" onclick="checkMCQ('2-2',this,'wrong')"><span class="mcq-opt-key">D</span>Result is 0001, no overflow</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('2-2')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('2-2')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-2-2"><strong>Answer: C</strong><br>0110 + 0101 = 1011. In 4-bit 2's complement, MSB=1 → negative. 1011 = -5. But 6+5=11 which exceeds max +7 for 4-bit. <strong>Overflow occurred</strong>: both inputs positive but result is negative → overflow. Carry into MSB=1, carry out of MSB=0 → they differ → overflow confirmed.</div>
+        </div>
+        <div class="mcq-block" id="mcq-2-3">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">ISRO style</span><span class="mcq-score" id="score-2-3"></span></div>
+          <div class="mcq-q">Q6. How many 0's are there in the 2's complement representation of -1 using 8 bits?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('2-3',this,'correct')"><span class="mcq-opt-key">A</span>0</div>
+            <div class="mcq-opt" onclick="checkMCQ('2-3',this,'wrong')"><span class="mcq-opt-key">B</span>1</div>
+            <div class="mcq-opt" onclick="checkMCQ('2-3',this,'wrong')"><span class="mcq-opt-key">C</span>7</div>
+            <div class="mcq-opt" onclick="checkMCQ('2-3',this,'wrong')"><span class="mcq-opt-key">D</span>8</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('2-3')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('2-3')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-2-3"><strong>Answer: A (0 zeros)</strong><br>+1 = 00000001. 1's complement = 11111110. Add 1 → <strong>11111111</strong>. All bits are 1! So there are <strong>zero 0's</strong>. This is a classic trick question — -1 in 2's complement is always all 1s regardless of bit width.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 3: FLOATING POINT ===================== -->
+<section class="section" id="s3">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <div><div class="section-title">Floating Point Representation</div>
+    <div class="section-subtitle">IEEE 754 · Single Precision · Double Precision · Normalization · Special Values</div></div>
+  </div>
+  <div class="section-body">
+
+    <div>
+      <h2>Why Floating Point?</h2>
+      <p>Fixed point numbers have limited range. Floating point uses <span class="hl">scientific notation</span> in binary — it "floats" the decimal point to represent very large and very small numbers. The trade-off is complexity and potential rounding errors.</p>
+    </div>
+
+    <div>
+      <h2>IEEE 754 Standard (The One Used in All Computers)</h2>
+      <p>Format: <strong>(-1)^S × 1.Mantissa × 2^(Exponent - Bias)</strong></p>
+    </div>
+
+    <div>
+      <h3>Single Precision (32-bit)</h3>
+      <div class="fp-visual">
+        <div class="fp-seg fp-sign"><span class="fp-label">Sign (S)</span>1 bit<br>bit 31</div>
+        <div class="fp-seg fp-exp"><span class="fp-label">Exponent (E)</span>8 bits<br>bits 30–23</div>
+        <div class="fp-seg fp-mant" style="flex:3"><span class="fp-label">Mantissa / Fraction (M)</span>23 bits<br>bits 22–0</div>
+      </div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Component</th><th>Single (32-bit)</th><th>Double (64-bit)</th></tr></thead>
+        <tbody>
+          <tr><td>Sign bits</td><td>1</td><td>1</td></tr>
+          <tr><td>Exponent bits</td><td>8</td><td>11</td></tr>
+          <tr><td>Mantissa bits</td><td>23</td><td>52</td></tr>
+          <tr><td>Bias</td><td>127</td><td>1023</td></tr>
+          <tr><td>Max value</td><td>≈ 3.4 × 10³⁸</td><td>≈ 1.8 × 10³⁰⁸</td></tr>
+          <tr><td>Min positive</td><td>≈ 1.2 × 10⁻³⁸</td><td>≈ 2.2 × 10⁻³⁰⁸</td></tr>
+          <tr><td>Precision (decimal)</td><td>~7 digits</td><td>~15 digits</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div>
+      <h2>IEEE 754 Special Values</h2>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Exponent (E)</th><th>Mantissa (M)</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>All 0s (0)</td><td>All 0s</td><td>±Zero</td></tr>
+          <tr><td>All 0s (0)</td><td>Non-zero</td><td>Denormalized (subnormal) number</td></tr>
+          <tr><td>All 1s (255)</td><td>All 0s</td><td>±Infinity</td></tr>
+          <tr><td>All 1s (255)</td><td>Non-zero</td><td>NaN (Not a Number)</td></tr>
+          <tr><td>1 to 254</td><td>Anything</td><td>Normal number</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div>
+      <h2>Step-by-Step: Convert Decimal to IEEE 754 Single</h2>
+      <div class="code-block">Convert <span class="cy2">-13.25</span> to IEEE 754 Single Precision:
+
+Step 1: Sign bit = <span class="cr">1</span> (negative)
+
+Step 2: Convert |13.25| to binary:
+  13  → 1101
+  0.25 → 0.01 (multiply: 0.25×2=0.5→0, 0.5×2=1.0→1)
+  13.25 = <span class="cy">1101.01</span>₂
+
+Step 3: Normalize (shift until 1.xxxxx × 2^n):
+  1101.01 = <span class="cy">1.10101</span> × 2³
+  Mantissa (after decimal point) = 10101
+
+Step 4: Exponent = 3 + 127 (bias) = 130 = <span class="cy2">10000010</span>₂
+
+Step 5: Mantissa = 10101 padded to 23 bits:
+  <span class="cp">10101000000000000000000</span>
+
+Final: <span class="cr">1</span> <span class="cy2">10000010</span> <span class="cp">10101000000000000000000</span>
+       S   Exponent        Mantissa</div>
+    </div>
+
+    <div>
+      <h2>Step-by-Step: IEEE 754 to Decimal</h2>
+      <div class="code-block">Given: 0 10000001 10000000000000000000000
+
+Sign S = 0 → <span class="cg">positive</span>
+Exponent E = 10000001₂ = 129₁₀
+Actual exponent = 129 - 127 = <span class="cy">2</span>
+Mantissa M = .10000000... = 0.5
+
+Value = (-1)⁰ × 1.5 × 2² = 1.5 × 4 = <span class="cg">6.0</span></div>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Trick — Bias Formula</div>
+      <p>Bias = 2^(e-1) - 1 where e = exponent bits. Single: 2^(8-1) - 1 = 127. Double: 2^(11-1) - 1 = 1023. Bias shifts the exponent so it's stored as unsigned (no separate sign for exponent).</p>
+    </div>
+
+    <div class="trick">
+      <div class="trick-label">⚡ Trick — Hidden/Implied Bit</div>
+      <p>IEEE 754 normal numbers always have a leading 1 before the decimal point (1.Mantissa). This <strong>leading 1 is NOT stored</strong> — it's implied! So 23 stored bits → 24 bits of precision for single. This is called the <strong>hidden bit</strong> or implicit leading bit.</p>
+    </div>
+
+    <div>
+      <h2>Floating Point Arithmetic Issues</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>Round-off Error</h3>
+          <p>Not all decimals can be exactly represented in binary. Example: 0.1 in binary is a repeating fraction → stored as approximation → accumulates error in loops.</p>
+        </div>
+        <div class="card">
+          <h3>Catastrophic Cancellation</h3>
+          <p>Subtracting two nearly equal numbers → significant loss of precision. Many significant digits cancel out. Example: 1.000001 - 1.000000 = 0.000001 but only 1 significant digit remains.</p>
+        </div>
+        <div class="card">
+          <h3>Overflow</h3>
+          <p>Result is too large for the exponent range. Result becomes ±∞ in IEEE 754.</p>
+        </div>
+        <div class="card">
+          <h3>Underflow</h3>
+          <p>Result is too small (close to zero). Falls into denormalized range or becomes zero. Less catastrophic than overflow.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2>Floating Point Addition Algorithm</h2>
+      <ol class="styled">
+        <li><strong>Align:</strong> Make both exponents equal (shift mantissa of smaller number right)</li>
+        <li><strong>Add/Subtract:</strong> Add the aligned mantissas</li>
+        <li><strong>Normalize:</strong> Adjust result so it's in form 1.xxx × 2^n</li>
+        <li><strong>Round:</strong> Round mantissa to fit available bits</li>
+        <li><strong>Check overflow/underflow</strong> of exponent</li>
+      </ol>
+    </div>
+
+    <div class="note">
+      <div class="note-label">📌 GATE Exam Tip — Floating Point</div>
+      <p>GATE frequently asks: (1) Total representable values in IEEE 754, (2) Machine epsilon, (3) NaN vs Infinity conditions. The number of distinct values in single precision = 2³² - (2 × special exponent patterns). Also: floating point addition is <strong>NOT associative</strong> due to rounding!</p>
+    </div>
+
+    <!-- MCQs Section 3 -->
+    <div>
+      <div class="mcq-section-header"><div class="mcq-section-title">🎯 MCQ Practice — Floating Point</div></div>
+      <div class="mcq-grid">
+        <div class="mcq-block" id="mcq-3-1">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE 2022 style</span><span class="mcq-score" id="score-3-1"></span></div>
+          <div class="mcq-q">Q7. In IEEE 754 single precision, what is the value of the number represented as: 1 10000000 10000000000000000000000?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('3-1',this,'wrong')"><span class="mcq-opt-key">A</span>+3.0</div>
+            <div class="mcq-opt" onclick="checkMCQ('3-1',this,'correct')"><span class="mcq-opt-key">B</span>-3.0</div>
+            <div class="mcq-opt" onclick="checkMCQ('3-1',this,'wrong')"><span class="mcq-opt-key">C</span>-1.5</div>
+            <div class="mcq-opt" onclick="checkMCQ('3-1',this,'wrong')"><span class="mcq-opt-key">D</span>+1.5</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('3-1')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('3-1')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-3-1"><strong>Answer: B (-3.0)</strong><br>S=1 (negative). E=10000000=128 → actual exp = 128-127 = 1. Mantissa = .100...= 0.5. Value = (-1)¹ × (1 + 0.5) × 2¹ = -1.5 × 2 = <strong>-3.0</strong>.</div>
+        </div>
+        <div class="mcq-block" id="mcq-3-2">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">HPCL/ISRO style</span><span class="mcq-score" id="score-3-2"></span></div>
+          <div class="mcq-q">Q8. What does IEEE 754 represent when Exponent field = all 1s and Mantissa field = all 0s?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('3-2',this,'wrong')"><span class="mcq-opt-key">A</span>Zero</div>
+            <div class="mcq-opt" onclick="checkMCQ('3-2',this,'wrong')"><span class="mcq-opt-key">B</span>NaN</div>
+            <div class="mcq-opt" onclick="checkMCQ('3-2',this,'correct')"><span class="mcq-opt-key">C</span>Infinity (±∞)</div>
+            <div class="mcq-opt" onclick="checkMCQ('3-2',this,'wrong')"><span class="mcq-opt-key">D</span>Denormalized number</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('3-2')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('3-2')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-3-2"><strong>Answer: C (±Infinity)</strong><br>Rule: All 1s exponent + all 0s mantissa = ±∞ (sign bit determines +∞ or -∞). All 1s exponent + non-zero mantissa = NaN. All 0s exponent + all 0s mantissa = ±0.</div>
+        </div>
+        <div class="mcq-block" id="mcq-3-3">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE 2020 style</span><span class="mcq-score" id="score-3-3"></span></div>
+          <div class="mcq-q">Q9. The bias in IEEE 754 double precision (64-bit) is:</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('3-3',this,'wrong')"><span class="mcq-opt-key">A</span>127</div>
+            <div class="mcq-opt" onclick="checkMCQ('3-3',this,'wrong')"><span class="mcq-opt-key">B</span>255</div>
+            <div class="mcq-opt" onclick="checkMCQ('3-3',this,'correct')"><span class="mcq-opt-key">C</span>1023</div>
+            <div class="mcq-opt" onclick="checkMCQ('3-3',this,'wrong')"><span class="mcq-opt-key">D</span>511</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('3-3')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('3-3')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-3-3"><strong>Answer: C (1023)</strong><br>Double precision uses 11-bit exponent. Bias = 2^(11-1) - 1 = 2^10 - 1 = 1024 - 1 = <strong>1023</strong>. Single precision: 8-bit exp → bias = 2^7-1 = 127.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 4: CODES ===================== -->
+<section class="section" id="s4">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <div><div class="section-title">Digital Codes & Error Detection</div>
+    <div class="section-subtitle">BCD · Gray · Excess-3 · Parity · Hamming Code</div></div>
   </div>
   <div class="section-body">
     <div>
       <h2>BCD — Binary Coded Decimal</h2>
-      <p>Each decimal digit is represented separately using <span class="hl">4 binary bits</span>.</p>
-      <div class="code-block" style="margin-top:10px">
-Decimal <span class="c-yellow">29</span>  →  BCD: <span class="c-cyan">0010</span> <span class="c-green">1001</span>
-         ↑          ↑      ↑
-         29        2=0010  9=1001
-      </div>
+      <p>Each decimal digit (0–9) gets its own 4-bit binary code. BCD codes 10–15 are <span class="hl">invalid</span> (unused). Used in digital displays and calculators.</p>
+      <div class="code-block">Decimal 295 in BCD:
+2   →  <span class="cy">0010</span>
+9   →  <span class="cy2">1001</span>
+5   →  <span class="cg">0101</span>
+BCD = <span class="cy">0010</span> <span class="cy2">1001</span> <span class="cg">0101</span></div>
     </div>
-
     <div class="trick">
-      <div class="trick-label">⚡ Trick — BCD Addition</div>
-      <p>If sum of two BCD digits <strong>exceeds 9 or produces a carry</strong>, add <span class="hl">6 (0110)</span> to correct it. Example: 8+5=13 → 1101 (invalid BCD!) → 1101+0110 = 1 0011 → BCD 13 ✓</p>
+      <div class="trick-label">⚡ BCD Addition — The +6 Trick</div>
+      <p>If BCD sum of two digits &gt; 9 <strong>OR</strong> generates a carry, <strong>add 6 (0110)</strong> to correct. Example: 8+7 = 15 = 1111 (invalid BCD) → 1111 + 0110 = 1 0101 → BCD: 1 5 ✓</p>
     </div>
-
     <div>
       <h2>Gray Code</h2>
-      <p>In Gray code, <strong>only 1 bit changes between consecutive numbers</strong>. Used in shaft encoders to avoid errors during transitions.</p>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>Decimal</th><th>Binary</th><th>Gray Code</th></tr></thead>
-          <tbody>
-            <tr><td>0</td><td>000</td><td>000</td></tr>
-            <tr><td>1</td><td>001</td><td>001</td></tr>
-            <tr><td>2</td><td>010</td><td>011</td></tr>
-            <tr><td>3</td><td>011</td><td>010</td></tr>
-            <tr><td>4</td><td>100</td><td>110</td></tr>
-            <tr><td>5</td><td>101</td><td>111</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <p>Only <strong>1 bit changes</strong> between consecutive values. Prevents glitches in encoders and ADC. Also called <span class="hl">Reflected Binary Code</span>.</p>
     </div>
-
     <div class="formula">
-      <div class="formula-label">📐 Conversion Formula</div>
-      <code>Binary → Gray: MSB same. Each next Gray bit = (Binary bit XOR previous Binary bit)</code>
-      <code>Gray → Binary: MSB same. Each next Binary bit = (Gray bit XOR previous Binary bit)</code>
+      <div class="formula-label">📐 Binary ↔ Gray Conversion</div>
+      <code>Binary → Gray: G[MSB] = B[MSB]. G[i] = B[i] XOR B[i+1] (left neighbor)</code>
+      <code>Gray → Binary: B[MSB] = G[MSB]. B[i] = B[i+1] XOR G[i]</code>
+      <code>Example: Binary 1011 → Gray: 1 (1⊕0=1) (0⊕1=1) (1⊕1=0) = 1110</code>
     </div>
-
-    <div class="grid2">
-      <div class="card">
-        <h3>Excess-3 (XS-3) Code</h3>
-        <p>BCD + 3 (0011). Used in arithmetic. Self-complementing — 9's complement of a digit gives the complement code.</p>
-        <div class="code-block" style="margin-top:8px">
-5 in BCD = 0101
-5 in XS-3 = 0101+0011 = <span class="c-green">1000</span>
-        </div>
-      </div>
-      <div class="card">
-        <h3>ASCII Code</h3>
-        <p>Uses <strong>7 bits</strong> (128 characters). Extended ASCII uses 8 bits (256 characters).</p>
-        <div class="code-block" style="margin-top:8px">
-'A' = <span class="c-cyan">65</span> = 1000001₂
-'a' = <span class="c-cyan">97</span> = 1100001₂
-'0' = <span class="c-cyan">48</span> = 0110000₂
-        </div>
-      </div>
-    </div>
-
-    <div class="trick">
-      <div class="trick-label">⚡ Trick — ASCII Memory Shortcut</div>
-      <p>'A'=65, 'a'=97 → difference is 32. So uppercase + 32 = lowercase. 'A' to 'Z' = 65 to 90. '0' to '9' = 48 to 57.</p>
-    </div>
-
     <div>
-      <h2>Error Detection — Parity Bit & Hamming Code</h2>
+      <h2>Hamming Code — Error Correction</h2>
+      <p>Adds parity bits at positions that are powers of 2 (1, 2, 4, 8...). Can <strong>detect AND correct single-bit errors</strong>. Each parity bit covers specific data bit positions.</p>
     </div>
-    <div class="grid2">
-      <div class="card">
-        <h3>Parity Bit</h3>
-        <p><strong>Even Parity:</strong> Total 1s in data+parity = even.<br><strong>Odd Parity:</strong> Total 1s = odd.<br>Detects only single-bit errors. Cannot correct.</p>
-      </div>
-      <div class="card">
-        <h3>Hamming Code</h3>
-        <p>Can <strong>detect and correct</strong> single-bit errors.<br>For n data bits, parity bits needed: 2ᵖ ≥ n+p+1.<br>Parity bits placed at positions: 1, 2, 4, 8, 16...</p>
-      </div>
+    <div class="formula">
+      <div class="formula-label">📐 Hamming Code — Key Formula</div>
+      <code>Condition: 2^p ≥ d + p + 1 (p=parity bits, d=data bits)</code>
+      <code>4 data bits → 3 parity bits (2³=8 ≥ 4+3+1=8 ✓)</code>
+      <code>8 data bits → 4 parity bits (2⁴=16 ≥ 8+4+1=13 ✓)</code>
+      <code>For SECDED (detect 2, correct 1): add 1 extra parity bit</code>
     </div>
     <div class="trick">
-      <div class="trick-label">⚡ Trick — Minimum Parity Bits</div>
-      <p>For 4 data bits → need 3 parity bits (since 2³=8 ≥ 4+3+1=8 ✓). For 8 data bits → need 4 parity bits (2⁴=16 ≥ 8+4+1=13 ✓).</p>
+      <div class="trick-label">⚡ Trick — Parity Bit Coverage</div>
+      <p>Parity bit at position 2^k covers all positions whose binary representation has bit k set. P1 (pos 1=0001) covers: 1,3,5,7,9... P2 (pos 2=0010) covers: 2,3,6,7,10,11... P4 (pos 4=0100) covers: 4,5,6,7,12,13...</p>
+    </div>
+    <!-- MCQs -->
+    <div>
+      <div class="mcq-section-header"><div class="mcq-section-title">🎯 MCQ Practice — Codes</div></div>
+      <div class="mcq-grid">
+        <div class="mcq-block" id="mcq-4-1">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE style</span><span class="mcq-score" id="score-4-1"></span></div>
+          <div class="mcq-q">Q10. What is the minimum number of parity bits required for a Hamming code to correct single-bit errors in a message of 11 data bits?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('4-1',this,'wrong')"><span class="mcq-opt-key">A</span>3</div>
+            <div class="mcq-opt" onclick="checkMCQ('4-1',this,'correct')"><span class="mcq-opt-key">B</span>4</div>
+            <div class="mcq-opt" onclick="checkMCQ('4-1',this,'wrong')"><span class="mcq-opt-key">C</span>5</div>
+            <div class="mcq-opt" onclick="checkMCQ('4-1',this,'wrong')"><span class="mcq-opt-key">D</span>6</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('4-1')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('4-1')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-4-1"><strong>Answer: B (4)</strong><br>Check: 2^p ≥ d+p+1. For p=4: 2⁴=16 ≥ 11+4+1=16 ✓. For p=3: 2³=8 ≥ 15? No! So minimum is <strong>4 parity bits</strong>.</div>
+        </div>
+        <div class="mcq-block" id="mcq-4-2">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">BEL/HPCL style</span><span class="mcq-score" id="score-4-2"></span></div>
+          <div class="mcq-q">Q11. The Gray code equivalent of binary 1100 is:</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('4-2',this,'wrong')"><span class="mcq-opt-key">A</span>1010</div>
+            <div class="mcq-opt" onclick="checkMCQ('4-2',this,'correct')"><span class="mcq-opt-key">B</span>1010</div>
+            <div class="mcq-opt" onclick="checkMCQ('4-2',this,'wrong')"><span class="mcq-opt-key">C</span>0110</div>
+            <div class="mcq-opt" onclick="checkMCQ('4-2',this,'wrong')"><span class="mcq-opt-key">D</span>1001</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('4-2')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('4-2')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-4-2"><strong>Answer: B (1010)</strong><br>Binary 1100: G[3]=1, G[2]=1⊕1=0, G[1]=1⊕0=1, G[0]=0⊕0=0 → <strong>1010</strong>.</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ===== SECTION 3: LOGIC GATES ===== -->
-<section class="section" id="s3">
+<!-- ===================== SECTION 5: LOGIC GATES ===================== -->
+<section class="section" id="s5">
   <div class="section-header">
-    <div class="section-num">3</div>
-    <div>
-      <div class="section-title">Logic Gates</div>
-      <div class="section-subtitle">AND · OR · NOT · NAND · NOR · XOR · XNOR</div>
-    </div>
+    <div class="section-num">5</div>
+    <div><div class="section-title">Logic Gates</div>
+    <div class="section-subtitle">All 7 Gates · Universal Gates · Gate Minimization</div></div>
   </div>
   <div class="section-body">
-    <div>
-      <h2>Basic Gates — Truth Tables</h2>
-    </div>
     <div class="grid3">
-      <div class="card">
-        <h3>AND Gate</h3>
-        <p>Output is 1 only when <strong>ALL inputs are 1</strong>.</p>
-        <div class="code-block" style="margin-top:8px;font-size:0.78rem">
-A B | Y
-0 0 | <span class="c-yellow">0</span>
-0 1 | <span class="c-yellow">0</span>
-1 0 | <span class="c-yellow">0</span>
-1 1 | <span class="c-green">1</span>
-        </div>
-      </div>
-      <div class="card">
-        <h3>OR Gate</h3>
-        <p>Output is 1 when <strong>at least ONE input is 1</strong>.</p>
-        <div class="code-block" style="margin-top:8px;font-size:0.78rem">
-A B | Y
-0 0 | <span class="c-yellow">0</span>
-0 1 | <span class="c-green">1</span>
-1 0 | <span class="c-green">1</span>
-1 1 | <span class="c-green">1</span>
-        </div>
-      </div>
-      <div class="card">
-        <h3>NOT Gate</h3>
-        <p>Inverts the input. Also called <strong>inverter</strong>.</p>
-        <div class="code-block" style="margin-top:8px;font-size:0.78rem">
-A  | Y
-0  | <span class="c-green">1</span>
-1  | <span class="c-yellow">0</span>
-        </div>
-      </div>
-      <div class="card">
-        <h3>NAND Gate</h3>
-        <p>NOT AND. Output is 0 only when <strong>ALL inputs are 1</strong>. Called <strong>Universal Gate</strong>.</p>
-        <div class="code-block" style="margin-top:8px;font-size:0.78rem">
-A B | Y
-0 0 | <span class="c-green">1</span>
-0 1 | <span class="c-green">1</span>
-1 0 | <span class="c-green">1</span>
-1 1 | <span class="c-yellow">0</span>
-        </div>
-      </div>
-      <div class="card">
-        <h3>NOR Gate</h3>
-        <p>NOT OR. Output is 1 only when <strong>ALL inputs are 0</strong>. Also <strong>Universal Gate</strong>.</p>
-        <div class="code-block" style="margin-top:8px;font-size:0.78rem">
-A B | Y
-0 0 | <span class="c-green">1</span>
-0 1 | <span class="c-yellow">0</span>
-1 0 | <span class="c-yellow">0</span>
-1 1 | <span class="c-yellow">0</span>
-        </div>
-      </div>
-      <div class="card">
-        <h3>XOR Gate</h3>
-        <p>Output is 1 when inputs are <strong>different</strong>. A⊕B</p>
-        <div class="code-block" style="margin-top:8px;font-size:0.78rem">
-A B | Y
-0 0 | <span class="c-yellow">0</span>
-0 1 | <span class="c-green">1</span>
-1 0 | <span class="c-green">1</span>
-1 1 | <span class="c-yellow">0</span>
-        </div>
-      </div>
+      <div class="card"><h3>AND: Y = A·B</h3><div class="code-block" style="font-size:.75rem">00→0, 01→0, 10→0, <span class="cg">11→1</span></div><p style="margin-top:6px;font-size:.82rem">Output 1 only when ALL inputs are 1</p></div>
+      <div class="card"><h3>OR: Y = A+B</h3><div class="code-block" style="font-size:.75rem"><span class="cy">00→0</span>, 01→1, 10→1, 11→1</div><p style="margin-top:6px;font-size:.82rem">Output 0 only when ALL inputs are 0</p></div>
+      <div class="card"><h3>NOT: Y = A'</h3><div class="code-block" style="font-size:.75rem">0→1, 1→0</div><p style="margin-top:6px;font-size:.82rem">Inverts. Also called Inverter/Complement</p></div>
+      <div class="card"><h3>NAND: Y = (A·B)'</h3><div class="code-block" style="font-size:.75rem">00→1, 01→1, 10→1, <span class="cr">11→0</span></div><p style="margin-top:6px;font-size:.82rem">Universal Gate. Easiest to build in CMOS.</p></div>
+      <div class="card"><h3>NOR: Y = (A+B)'</h3><div class="code-block" style="font-size:.75rem"><span class="cg">00→1</span>, 01→0, 10→0, 11→0</div><p style="margin-top:6px;font-size:.82rem">Universal Gate. Used in NOR-NOR implementations.</p></div>
+      <div class="card"><h3>XOR: Y = A⊕B</h3><div class="code-block" style="font-size:.75rem">00→0, <span class="cg">01→1, 10→1</span>, 11→0</div><p style="margin-top:6px;font-size:.82rem">Output 1 when inputs DIFFER. Parity detector.</p></div>
     </div>
-
     <div class="trick">
-      <div class="trick-label">⚡ Trick — Remember NAND & NOR</div>
-      <p><strong>NAND</strong> = AND + bubble on output (bubble = NOT). <strong>NOR</strong> = OR + bubble. <strong>XNOR</strong> = XOR + bubble = output 1 when inputs are SAME.</p>
+      <div class="trick-label">⚡ XOR Properties — GATE Favorite!</div>
+      <p>A⊕0=A · A⊕1=A' · A⊕A=0 · A⊕A'=1 · A⊕B=B⊕A · (A⊕B)⊕C=A⊕(B⊕C)<br>
+      <strong>Odd-parity trick:</strong> XOR of n bits = 1 if odd number of 1s, else 0.<br>
+      <strong>Swap without temp:</strong> A=A⊕B; B=A⊕B; A=A⊕B (swaps A and B!)</p>
     </div>
-
     <div>
-      <h2>Universal Gates — NAND and NOR</h2>
-      <p>Both NAND and NOR are called <span class="hl">Universal Gates</span> because any other gate (AND, OR, NOT, XOR) can be built using only NAND or only NOR gates.</p>
+      <h2>Building Any Gate from NAND/NOR</h2>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Gate</th><th>Using NAND</th><th>Using NOR</th></tr></thead>
+        <tbody>
+          <tr><td>NOT A</td><td>NAND(A,A)</td><td>NOR(A,A)</td></tr>
+          <tr><td>AND</td><td>NAND(NAND(A,B), NAND(A,B)) = NOT of NAND</td><td>NOR(NOR(A,A), NOR(B,B))</td></tr>
+          <tr><td>OR</td><td>NAND(NAND(A,A), NAND(B,B))</td><td>NOR(NOR(A,B), NOR(A,B))</td></tr>
+          <tr><td>XOR</td><td>4 NAND gates</td><td>5 NOR gates</td></tr>
+        </tbody>
+      </table></div>
     </div>
-
-    <div class="grid2">
-      <div class="card">
-        <h3>Build NOT using NAND</h3>
-        <div class="code-block">A → NAND(A,A) → A'</div>
-      </div>
-      <div class="card">
-        <h3>Build AND using NAND</h3>
-        <div class="code-block">NAND(A,B) → NOT → AND</div>
-      </div>
-      <div class="card">
-        <h3>Build OR using NAND</h3>
-        <div class="code-block">NOT(A) NAND NOT(B) → OR
-(De Morgan's theorem)</div>
-      </div>
-      <div class="card">
-        <h3>Build NOT using NOR</h3>
-        <div class="code-block">A → NOR(A,A) → A'</div>
-      </div>
-    </div>
-
+    <!-- MCQs -->
     <div>
-      <h2>XOR Properties (Very Important for GATE!)</h2>
-      <div class="formula">
-        <div class="formula-label">📐 XOR Key Properties</div>
-        <code>A ⊕ 0 = A &nbsp;&nbsp;&nbsp;&nbsp; (XOR with 0 gives same)</code>
-        <code>A ⊕ 1 = A' &nbsp;&nbsp;&nbsp; (XOR with 1 gives complement)</code>
-        <code>A ⊕ A = 0 &nbsp;&nbsp;&nbsp;&nbsp; (XOR with itself = 0)</code>
-        <code>A ⊕ A' = 1 &nbsp;&nbsp;&nbsp; (XOR with complement = 1)</code>
-        <code>A ⊕ B = B ⊕ A &nbsp; (Commutative)</code>
-        <code>A ⊕ (B⊕C) = (A⊕B)⊕C (Associative)</code>
+      <div class="mcq-section-header"><div class="mcq-section-title">🎯 MCQ Practice — Logic Gates</div></div>
+      <div class="mcq-grid">
+        <div class="mcq-block" id="mcq-5-1">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE style</span><span class="mcq-score" id="score-5-1"></span></div>
+          <div class="mcq-q">Q12. The function implemented by the circuit: Y = ((A NAND B) NAND (A NAND B)) is equivalent to:</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('5-1',this,'correct')"><span class="mcq-opt-key">A</span>AND (A·B)</div>
+            <div class="mcq-opt" onclick="checkMCQ('5-1',this,'wrong')"><span class="mcq-opt-key">B</span>OR (A+B)</div>
+            <div class="mcq-opt" onclick="checkMCQ('5-1',this,'wrong')"><span class="mcq-opt-key">C</span>NAND (A·B)'</div>
+            <div class="mcq-opt" onclick="checkMCQ('5-1',this,'wrong')"><span class="mcq-opt-key">D</span>XOR (A⊕B)</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('5-1')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('5-1')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-5-1"><strong>Answer: A (AND)</strong><br>NAND(A,B) = (AB)'. Then NAND((AB)', (AB)') = ((AB)'·(AB)')' = ((AB)')' = <strong>AB</strong>. Double negation cancels. So NAND→NAND with same inputs = AND.</div>
+        </div>
+        <div class="mcq-block" id="mcq-5-2">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">BEL style</span><span class="mcq-score" id="score-5-2"></span></div>
+          <div class="mcq-q">Q13. The output of an XOR gate is 1 when the number of 1s in the input is:</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('5-2',this,'wrong')"><span class="mcq-opt-key">A</span>Even</div>
+            <div class="mcq-opt" onclick="checkMCQ('5-2',this,'correct')"><span class="mcq-opt-key">B</span>Odd</div>
+            <div class="mcq-opt" onclick="checkMCQ('5-2',this,'wrong')"><span class="mcq-opt-key">C</span>Zero</div>
+            <div class="mcq-opt" onclick="checkMCQ('5-2',this,'wrong')"><span class="mcq-opt-key">D</span>All inputs are 1</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('5-2')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('5-2')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-5-2"><strong>Answer: B (Odd)</strong><br>XOR is an odd-parity function. For any number of inputs, XOR output = 1 when the count of 1s is odd. This makes XOR gates ideal for parity generation and checking in error detection circuits.</div>
+        </div>
       </div>
-    </div>
-
-    <div class="note">
-      <div class="note-label">📌 Gate Count Trick</div>
-      <p>In GATE exams, you may be asked "minimum gates needed to build a function." Remember: NAND/NOR-only implementations often require <strong>fewer gates</strong> than using AND/OR/NOT.</p>
     </div>
   </div>
 </section>
 
-<!-- ===== SECTION 4: BOOLEAN ALGEBRA ===== -->
-<section class="section" id="s4">
+<!-- ===================== SECTION 6: BOOLEAN ALGEBRA ===================== -->
+<section class="section" id="s6">
   <div class="section-header">
-    <div class="section-num">4</div>
-    <div>
-      <div class="section-title">Boolean Algebra</div>
-      <div class="section-subtitle">Laws · Theorems · SOP · POS · De Morgan's</div>
-    </div>
+    <div class="section-num">6</div>
+    <div><div class="section-title">Boolean Algebra</div>
+    <div class="section-subtitle">Laws · De Morgan's · SOP · POS · Canonical Forms · Duality</div></div>
   </div>
   <div class="section-body">
     <div>
-      <h2>Basic Laws (Must Memorize!)</h2>
-    </div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th>Law</th><th>AND Form</th><th>OR Form</th></tr></thead>
+      <h2>All Boolean Laws — Complete Table</h2>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Law Name</th><th>AND Form</th><th>OR Form</th></tr></thead>
         <tbody>
           <tr><td>Identity</td><td>A · 1 = A</td><td>A + 0 = A</td></tr>
           <tr><td>Null (Domination)</td><td>A · 0 = 0</td><td>A + 1 = 1</td></tr>
           <tr><td>Idempotent</td><td>A · A = A</td><td>A + A = A</td></tr>
           <tr><td>Complement</td><td>A · A' = 0</td><td>A + A' = 1</td></tr>
-          <tr><td>Double Negation</td><td colspan="2">(A')' = A</td></tr>
+          <tr><td>Involution (Double NOT)</td><td colspan="2">(A')' = A</td></tr>
           <tr><td>Commutative</td><td>A·B = B·A</td><td>A+B = B+A</td></tr>
-          <tr><td>Associative</td><td>A·(B·C) = (A·B)·C</td><td>A+(B+C) = (A+B)+C</td></tr>
-          <tr><td>Distributive</td><td>A·(B+C) = A·B + A·C</td><td>A+(B·C) = (A+B)·(A+C)</td></tr>
-          <tr><td>Absorption</td><td>A·(A+B) = A</td><td>A+(A·B) = A</td></tr>
+          <tr><td>Associative</td><td>(AB)C = A(BC)</td><td>(A+B)+C = A+(B+C)</td></tr>
+          <tr><td>Distributive</td><td>A(B+C) = AB+AC</td><td>A+(BC) = (A+B)(A+C)</td></tr>
+          <tr><td>Absorption</td><td>A(A+B) = A</td><td>A+AB = A</td></tr>
+          <tr><td>De Morgan's</td><td>(AB)' = A'+B'</td><td>(A+B)' = A'B'</td></tr>
+          <tr><td>Consensus</td><td>AB+A'C+BC = AB+A'C</td><td>(A+B)(A'+C)(B+C) = (A+B)(A'+C)</td></tr>
         </tbody>
-      </table>
+      </table></div>
     </div>
-
-    <div class="formula">
-      <div class="formula-label">📐 De Morgan's Theorems — Most Asked in GATE!</div>
-      <code>Theorem 1: (A · B)' = A' + B' &nbsp; [NAND = Bubbled OR]</code>
-      <code>Theorem 2: (A + B)' = A' · B' &nbsp; [NOR = Bubbled AND]</code>
-      <code>Memory Trick: "Break the bar, change the sign (· → + or + → ·)"</code>
-    </div>
-
     <div class="trick">
-      <div class="trick-label">⚡ Trick — De Morgan's Generalization</div>
-      <p>For any expression, to find complement: <strong>(1) Complement each variable, (2) Replace AND with OR and OR with AND.</strong> Example: (AB+C)' = (A'+B')·C'</p>
+      <div class="trick-label">⚡ De Morgan's — The Most Tested Theorem</div>
+      <p><strong>Rule:</strong> "Break the bar, change the sign." To find complement of any expression:<br>
+      1. Complement each literal (A→A', A'→A)<br>
+      2. Change AND(·) to OR(+) and OR(+) to AND(·)<br>
+      3. Swap 0s and 1s<br>
+      Example: (AB' + C)' → (A'+B)·C'</p>
     </div>
-
     <div>
-      <h2>SOP and POS Forms</h2>
+      <h2>Duality Principle</h2>
+      <p>Every Boolean theorem has a <span class="hl">dual</span> obtained by: swapping AND↔OR and swapping 0↔1 (don't complement variables). If a theorem is valid, its dual is also valid.</p>
+      <div class="code-block">Original: A + 0 = A
+Dual:     A · 1 = A  ← swap OR→AND and 0→1
+
+Original: A + AB = A (absorption)
+Dual:     A · (A+B) = A  ← also valid!</div>
+    </div>
+    <div>
+      <h2>SOP and POS — Canonical Forms</h2>
       <div class="grid2">
         <div class="card">
-          <h3>SOP — Sum of Products (Minterms)</h3>
-          <p><strong>Minterm:</strong> A product term that contains ALL variables (in normal or complemented form).<br>
-          <strong>SOP:</strong> OR of all minterms where output = 1.<br>
-          Notation: F = Σm(0,2,5)</p>
+          <h3>Sum of Products (SOP) — Minterms</h3>
+          <p>Minterm mᵢ: product term where each variable appears (normal if input bit=1, complemented if bit=0). SOP = OR of all minterms where F=1.</p>
+          <div class="code-block" style="margin-top:8px;font-size:.75rem">F=1 for rows 1,2,5 in truth table:
+F = A'B'C + A'BC' + AB'C
+  = Σm(1,2,5)</div>
         </div>
         <div class="card">
-          <h3>POS — Product of Sums (Maxterms)</h3>
-          <p><strong>Maxterm:</strong> A sum term containing ALL variables.<br>
-          <strong>POS:</strong> AND of all maxterms where output = 0.<br>
-          Notation: F = ΠM(1,3,4)</p>
+          <h3>Product of Sums (POS) — Maxterms</h3>
+          <p>Maxterm Mᵢ: sum term where each variable appears (complemented if input bit=1, normal if bit=0). POS = AND of all maxterms where F=0.</p>
+          <div class="code-block" style="margin-top:8px;font-size:.75rem">F=0 for rows 0,3,4,6,7:
+F = ΠM(0,3,4,6,7)
+If F=Σm(1,2,5), then
+complement = Σm(0,3,4,6,7)</div>
         </div>
       </div>
     </div>
-
     <div class="trick">
-      <div class="trick-label">⚡ Trick — SOP vs POS Relation</div>
-      <p>If F = Σm(0,2,5) with 3 variables (minterms 0 to 7), then F = ΠM(1,3,4,6,7). The remaining minterms become maxterms!</p>
+      <div class="trick-label">⚡ Trick — SOP↔POS Shortcut</div>
+      <p>For n-variable function with total 2ⁿ minterms: <strong>Minterms in SOP + Minterms in POS = all 2ⁿ minterms</strong>. So if F = Σm(0,2,5) with 3 vars → F = ΠM(1,3,4,6,7). Just take the complement set!</p>
     </div>
-
     <div>
-      <h2>Simplification Using Boolean Algebra</h2>
-      <p>Example: Simplify <strong>AB + AB'</strong></p>
-      <div class="code-block">
-AB + AB'
-= A(B + B')  ← Factor out A
-= A(1)        ← B + B' = 1
-= <span class="c-green">A</span>            ← Simplified!
+      <h2>Simplification Examples</h2>
+      <div class="code-block">Example 1: Simplify F = AB + AB' + A'B
+= A(B+B') + A'B     ← factor A
+= A·1 + A'B         ← B+B'=1
+= A + A'B            ← simplify
+= A + B              ← absorption (A+A'B = A+B) ✓
+
+Example 2: Simplify F = A'BC + ABC + AB'C
+= AC(B'+B) + ABC    ← group 1st and 3rd
+= AC + ABC           ← B'+B=1
+= AC(1+B)            ← factor AC
+= AC                 ← 1+B=1 ✓</div>
+    </div>
+    <div class="trick">
+      <div class="trick-label">⚡ Consensus Theorem Trick (Remove Redundant Terms)</div>
+      <p>If you see AB + A'C + BC → remove BC (it's redundant!). <strong>Rule:</strong> If term1 has X, term2 has X', and term3 is product of remaining literals of term1 and term2 → term3 is redundant (consensus term). Always check before K-map!</p>
+    </div>
+    <!-- MCQs -->
+    <div>
+      <div class="mcq-section-header"><div class="mcq-section-title">🎯 MCQ Practice — Boolean Algebra</div></div>
+      <div class="mcq-grid">
+        <div class="mcq-block" id="mcq-6-1">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE 2018 style</span><span class="mcq-score" id="score-6-1"></span></div>
+          <div class="mcq-q">Q14. Simplify: F = AB + A'C + BC</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('6-1',this,'wrong')"><span class="mcq-opt-key">A</span>AB + A'C + BC (cannot be simplified)</div>
+            <div class="mcq-opt" onclick="checkMCQ('6-1',this,'correct')"><span class="mcq-opt-key">B</span>AB + A'C</div>
+            <div class="mcq-opt" onclick="checkMCQ('6-1',this,'wrong')"><span class="mcq-opt-key">C</span>A'C + BC</div>
+            <div class="mcq-opt" onclick="checkMCQ('6-1',this,'wrong')"><span class="mcq-opt-key">D</span>AB + BC</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('6-1')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('6-1')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-6-1"><strong>Answer: B (AB + A'C)</strong><br>By Consensus Theorem: AB + A'C + BC = AB + A'C. Here term1=AB has A, term2=A'C has A', term3=BC = B·C = product of remaining literals (B from AB, C from A'C). So BC is the redundant consensus term and can be removed!</div>
+        </div>
+        <div class="mcq-block" id="mcq-6-2">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">HPCL/BEL style</span><span class="mcq-score" id="score-6-2"></span></div>
+          <div class="mcq-q">Q15. Which of the following is the dual of the expression: A·(B+C) = A·B + A·C?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('6-2',this,'wrong')"><span class="mcq-opt-key">A</span>A'+(B'·C') = A'·B' + A'·C'</div>
+            <div class="mcq-opt" onclick="checkMCQ('6-2',this,'correct')"><span class="mcq-opt-key">B</span>A+(B·C) = (A+B)·(A+C)</div>
+            <div class="mcq-opt" onclick="checkMCQ('6-2',this,'wrong')"><span class="mcq-opt-key">C</span>A'·(B'+C') = A'·B' + A'·C'</div>
+            <div class="mcq-opt" onclick="checkMCQ('6-2',this,'wrong')"><span class="mcq-opt-key">D</span>A·(B·C) = A·B + A·C</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('6-2')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('6-2')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-6-2"><strong>Answer: B</strong><br>Duality: swap AND↔OR, keep variables unchanged. A·(B+C) → A+(B·C). A·B + A·C → (A+B)·(A+C). Result: <strong>A+(B·C) = (A+B)·(A+C)</strong>. This is the distributive law of OR over AND.</div>
+        </div>
+        <div class="mcq-block" id="mcq-6-3">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">ISRO style</span><span class="mcq-score" id="score-6-3"></span></div>
+          <div class="mcq-q">Q16. The complement of the Boolean expression F = A'B + AB' is:</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('6-3',this,'wrong')"><span class="mcq-opt-key">A</span>A'B + AB'</div>
+            <div class="mcq-opt" onclick="checkMCQ('6-3',this,'wrong')"><span class="mcq-opt-key">B</span>AB + A'B'</div>
+            <div class="mcq-opt" onclick="checkMCQ('6-3',this,'correct')"><span class="mcq-opt-key">C</span>AB + A'B'</div>
+            <div class="mcq-opt" onclick="checkMCQ('6-3',this,'wrong')"><span class="mcq-opt-key">D</span>(A+B')(A'+B)</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('6-3')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('6-3')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-6-3"><strong>Answer: B/C (AB + A'B' = XNOR)</strong><br>F = A'B + AB' is XOR (A⊕B). So F' = (A⊕B)' = XNOR = <strong>AB + A'B'</strong> (output 1 when inputs are same). Both B and C say same thing — this is a common exam trick where 2 options are identical!</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== SECTION 5: K-MAP ===== -->
-<section class="section" id="s5">
-  <div class="section-header">
-    <div class="section-num">5</div>
-    <div>
-      <div class="section-title">Karnaugh Map (K-Map)</div>
-      <div class="section-subtitle">Graphical Boolean Simplification</div>
-    </div>
-  </div>
-  <div class="section-body">
-    <div>
-      <h2>What is a K-Map?</h2>
-      <p>K-Map is a grid-based tool to <span class="hl">simplify Boolean expressions visually</span>. Adjacent cells in K-Map differ by <strong>only 1 bit</strong> (Gray code order).</p>
-    </div>
-
-    <div class="grid2">
-      <div class="card">
-        <h3>2-Variable K-Map (2×2)</h3>
-        <div class="code-block" style="font-size:0.78rem">
-      AB
-     00  01  11  10
-    ┌───┬───┬───┬───┐
-  0 | 0 | 1 | 3 | 2 |
-    └───┴───┴───┴───┘
-(2-var: just 4 cells)
-        </div>
-      </div>
-      <div class="card">
-        <h3>3-Variable K-Map (2×4)</h3>
-        <div class="code-block" style="font-size:0.78rem">
-      AB
-   00  01  11  10
-  ┌───┬───┬───┬───┐
-0 | 0 | 1 | 3 | 2 |
-  ├───┼───┼───┼───┤
-1 | 4 | 5 | 7 | 6 |
-  └───┴───┴───┴───┘
-C
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <h2>K-Map Grouping Rules</h2>
-      <ul class="styled">
-        <li>Group only <span class="hl">1s</span> (for SOP minimization)</li>
-        <li>Group size must be a <span class="hl">power of 2</span>: 1, 2, 4, 8, 16...</li>
-        <li>Groups can be <span class="hl">rectangular or square only</span></li>
-        <li>Groups can <span class="hl">wrap around</span> (the K-map is like a torus — edges are adjacent!)</li>
-        <li>Make <span class="hl">largest possible groups</span> for maximum simplification</li>
-        <li>Every 1 must be covered by <span class="hl">at least one group</span></li>
-        <li>A cell can be part of <span class="hl">multiple groups</span></li>
-      </ul>
-    </div>
-
-    <div class="trick">
-      <div class="trick-label">⚡ Short Trick — K-Map Reading</div>
-      <p>For each group: <strong>variable stays in expression if it doesn't change</strong> in the group. If a variable is always 0 in the group → write as A'. If always 1 → write as A. If it changes (0 and 1 both) → <strong>eliminate that variable!</strong></p>
-    </div>
-
-    <div>
-      <h2>Don't Care Conditions</h2>
-      <p>Marked as <span class="hl">'X'</span> or <span class="hl">'d'</span> in K-Map. These are input combinations that <strong>never occur</strong> in real use. We can treat them as 0 or 1 — choose whichever makes groups bigger (helps in simplification).</p>
-    </div>
-
-    <div class="note">
-      <div class="note-label">📌 Exam Tip — Prime Implicants</div>
-      <p><strong>Prime Implicant (PI):</strong> Largest possible group of 1s.<br>
-      <strong>Essential Prime Implicant (EPI):</strong> A PI that covers at least one minterm not covered by any other PI. EPIs are always included in the final expression!</p>
-    </div>
-
-    <div class="formula">
-      <div class="formula-label">📐 4-Variable K-Map Layout (4×4 = 16 cells)</div>
-      <code>     CD:  00  01  11  10</code>
-      <code>AB:00 → cells: 0  1  3  2</code>
-      <code>AB:01 → cells: 4  5  7  6</code>
-      <code>AB:11 → cells: 12 13 15 14</code>
-      <code>AB:10 → cells: 8  9  11 10</code>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SECTION 6: COMBINATIONAL CIRCUITS ===== -->
-<section class="section" id="s6">
-  <div class="section-header">
-    <div class="section-num">6</div>
-    <div>
-      <div class="section-title">Combinational Circuits</div>
-      <div class="section-subtitle">Adder · Subtractor · Mux · Decoder · Encoder · Comparator</div>
-    </div>
-  </div>
-  <div class="section-body">
-    <div>
-      <h2>What is Combinational Logic?</h2>
-      <p>Output depends <strong>only on current inputs</strong> — no memory, no clock, no feedback. Output changes immediately when input changes.</p>
-    </div>
-
-    <div>
-      <h2>Half Adder</h2>
-      <p>Adds two 1-bit numbers. Two outputs: <span class="hl">Sum (S)</span> and <span class="hl">Carry (C)</span>.</p>
-      <div class="formula">
-        <div class="formula-label">📐 Half Adder Equations</div>
-        <code>Sum (S) = A ⊕ B &nbsp;&nbsp;&nbsp; (XOR gate)</code>
-        <code>Carry (C) = A · B &nbsp; (AND gate)</code>
-        <code>Gates needed: 1 XOR + 1 AND</code>
-      </div>
-    </div>
-
-    <div>
-      <h2>Full Adder</h2>
-      <p>Adds three 1-bit numbers (A, B, and Carry-in Cin). Used in multi-bit addition.</p>
-      <div class="formula">
-        <div class="formula-label">📐 Full Adder Equations</div>
-        <code>Sum (S) = A ⊕ B ⊕ Cin</code>
-        <code>Carry (Cout) = A·B + B·Cin + A·Cin</code>
-        <code>         OR = A·B + Cin·(A⊕B)</code>
-        <code>Gates: 2 XOR + 2 AND + 1 OR = 5 gates</code>
-        <code>Full Adder = 2 Half Adders + 1 OR gate</code>
-      </div>
-    </div>
-
-    <div class="trick">
-      <div class="trick-label">⚡ Trick — n-bit Ripple Carry Adder</div>
-      <p>To add two n-bit numbers: use <strong>1 Half Adder + (n-1) Full Adders</strong>. Critical path (delay) = n gate delays. Faster option: <strong>Carry Look-Ahead Adder (CLA)</strong> — parallel carry computation, delay = O(log n).</p>
-    </div>
-
-    <div>
-      <h2>Multiplexer (MUX)</h2>
-      <p>A digital switch — selects one of <span class="hl">2ⁿ inputs</span> based on <span class="hl">n select lines</span> and passes it to one output.</p>
-      <div class="grid2">
-        <div class="card">
-          <h3>2:1 MUX</h3>
-          <p>2 inputs (I0, I1), 1 select (S), 1 output.</p>
-          <div class="code-block" style="margin-top:8px">Y = S'·I0 + S·I1</div>
-        </div>
-        <div class="card">
-          <h3>4:1 MUX</h3>
-          <p>4 inputs (I0-I3), 2 selects (S1,S0), 1 output.</p>
-          <div class="code-block" style="margin-top:8px">Y = S1'S0'·I0 + S1'S0·I1
-  + S1S0'·I2 + S1S0·I3</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="trick">
-      <div class="trick-label">⚡ MUX as Function Generator (Exam Favorite!)</div>
-      <p>A <span class="hl2">2ⁿ:1 MUX</span> can implement any Boolean function of n+1 variables without extra gates! Fix one variable to select lines, connect 0/1 or the variable to data inputs.</p>
-    </div>
-
-    <div>
-      <h2>Demultiplexer (DEMUX)</h2>
-      <p>Opposite of MUX. Routes <strong>one input</strong> to one of <span class="hl">2ⁿ outputs</span> based on n select lines.</p>
-    </div>
-
-    <div>
-      <h2>Decoder</h2>
-      <p>Converts <span class="hl">n-bit binary input</span> to <span class="hl">2ⁿ unique output lines</span>. Exactly one output is HIGH at a time.</p>
-      <div class="grid2">
-        <div class="card">
-          <h3>2:4 Decoder</h3>
-          <p>Inputs: A, B → Outputs: Y0=A'B', Y1=A'B, Y2=AB', Y3=AB</p>
-        </div>
-        <div class="card">
-          <h3>Decoder as Minterm Generator</h3>
-          <p>3:8 decoder generates all 8 minterms. Can implement any Boolean function by OR-ing selected outputs!</p>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <h2>Encoder</h2>
-      <p>Opposite of decoder. <span class="hl">2ⁿ inputs → n-bit output</span>. Only one input should be HIGH at a time.</p>
-      <p><strong>Priority Encoder:</strong> If multiple inputs are HIGH, the highest-priority (highest numbered) input takes precedence.</p>
-    </div>
-
-    <div>
-      <h2>Comparator</h2>
-      <p>Compares two binary numbers A and B. Three outputs: <span class="hl">A>B</span>, <span class="hl">A=B</span>, <span class="hl">A&lt;B</span>.</p>
-      <div class="code-block">
-For 1-bit comparator:
-A=B:  XNOR(A,B) = A'B' + AB
-A>B:  A·B'
-A&lt;B:  A'·B
-      </div>
-    </div>
-
-    <div class="note">
-      <div class="note-label">📌 Important — ROM as Logic Implementer</div>
-      <p>A <strong>ROM (Read-Only Memory)</strong> with m address bits and n data bits can implement <strong>n Boolean functions</strong> of m variables simultaneously. ROM is programmed during manufacturing.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== SECTION 7: SEQUENTIAL CIRCUITS ===== -->
+<!-- ===================== SECTION 7: K-MAP ===================== -->
 <section class="section" id="s7">
   <div class="section-header">
     <div class="section-num">7</div>
-    <div>
-      <div class="section-title">Sequential Circuits</div>
-      <div class="section-subtitle">Memory · Clock · State Machines</div>
-    </div>
+    <div><div class="section-title">Minimization — Karnaugh Map (K-Map)</div>
+    <div class="section-subtitle">2/3/4/5-variable · Prime Implicants · Don't Cares · Quine-McCluskey</div></div>
   </div>
   <div class="section-body">
     <div>
-      <h2>Combinational vs Sequential</h2>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>Feature</th><th>Combinational</th><th>Sequential</th></tr></thead>
-          <tbody>
-            <tr><td>Memory</td><td>No</td><td>Yes</td></tr>
-            <tr><td>Output depends on</td><td>Current inputs only</td><td>Current inputs + past state</td></tr>
-            <tr><td>Clock needed</td><td>No</td><td>Yes (mostly)</td></tr>
-            <tr><td>Examples</td><td>Adder, MUX, Decoder</td><td>Flip-Flops, Counters, Registers</td></tr>
-          </tbody>
-        </table>
+      <h2>K-Map Layout — The Gray Code Trick</h2>
+      <p>K-Map cells are arranged so that <span class="hl">adjacent cells differ by exactly 1 bit</span>. This is why columns/rows follow Gray code order (00, 01, 11, 10) not binary order (00, 01, 10, 11).</p>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h3>3-Variable K-Map Layout</h3>
+        <div class="code-block" style="font-size:.76rem">       AB
+      00  01  11  10
+    ┌───┬───┬───┬───┐
+ C=0| 0 | 1 | 3 | 2 |  ← cell numbers (minterms)
+    ├───┼───┼───┼───┤
+ C=1| 4 | 5 | 7 | 6 |
+    └───┴───┴───┴───┘
+Note: 11 column comes BEFORE 10 (Gray code!)</div>
+      </div>
+      <div class="card">
+        <h3>4-Variable K-Map Layout</h3>
+        <div class="code-block" style="font-size:.76rem">       CD
+      00  01  11  10
+    ┌───┬───┬───┬───┐
+AB=00| 0 | 1 | 3 | 2 |
+    ├───┼───┼───┼───┤
+AB=01| 4 | 5 | 7 | 6 |
+    ├───┼───┼───┼───┤
+AB=11|12 |13 |15 |14 |
+    ├───┼───┼───┼───┤
+AB=10| 8 | 9 |11 |10 |
+    └───┴───┴───┴───┘</div>
       </div>
     </div>
-
     <div>
-      <h2>Latches vs Flip-Flops</h2>
-      <div class="grid2">
-        <div class="card">
-          <h3>Latch</h3>
-          <p>Level-triggered. Output changes whenever <strong>enable/clock is HIGH</strong>. Asynchronous. Example: SR Latch, D Latch.</p>
-        </div>
-        <div class="card">
-          <h3>Flip-Flop</h3>
-          <p>Edge-triggered. Output changes only at <strong>rising or falling edge</strong> of clock. Synchronous. More predictable.</p>
-        </div>
-      </div>
+      <h2>Grouping Rules</h2>
+      <ul class="styled">
+        <li>Group only <span class="hl">1s</span> for SOP. Group only <span class="hl">0s</span> for POS minimization.</li>
+        <li>Group sizes must be <span class="hl">powers of 2</span>: 1, 2, 4, 8, 16.</li>
+        <li>Groups must be <span class="hl">rectangular</span> — no L-shapes or diagonals.</li>
+        <li>K-map is like a <span class="hl">torus/donut</span> — left edge wraps to right, top wraps to bottom.</li>
+        <li>Make the <span class="hl">largest possible groups</span> — more cells = fewer variables in term.</li>
+        <li>Every 1 must be covered by at least one group. A cell may be in multiple groups.</li>
+        <li>Don't Cares (X/d) can be treated as 0 or 1 — use them to enlarge groups.</li>
+      </ul>
     </div>
-
-    <div class="trick">
-      <div class="trick-label">⚡ Trick — Latch vs FF Memory</div>
-      <p><strong>Latch</strong> = Level sensitive = like a transparent window (open when high). <strong>Flip-Flop</strong> = Edge sensitive = like a camera shutter (captures only at the click moment).</p>
-    </div>
-
-    <div>
-      <h2>Finite State Machine (FSM)</h2>
-      <p>A mathematical model of sequential logic. Has finite number of states, transitions between states based on inputs.</p>
-      <div class="grid2">
-        <div class="card">
-          <h3>Mealy Machine</h3>
-          <p>Output depends on <strong>current state AND current input</strong>. Reacts faster. Generally fewer states.</p>
-        </div>
-        <div class="card">
-          <h3>Moore Machine</h3>
-          <p>Output depends <strong>only on current state</strong>. More stable output. Generally more states.</p>
-        </div>
-      </div>
-    </div>
-
     <div class="formula">
-      <div class="formula-label">📐 State Diagram Components</div>
-      <code>Circle = State (Moore output written inside)</code>
-      <code>Arrow = Transition (labeled with input/output for Mealy)</code>
-      <code>Double circle = Initial state marker</code>
+      <div class="formula-label">📐 Group Size vs Variables Eliminated</div>
+      <code>Group of 1  → n variables in term (no elimination)</code>
+      <code>Group of 2  → (n-1) variables in term (1 variable eliminated)</code>
+      <code>Group of 4  → (n-2) variables in term (2 variables eliminated)</code>
+      <code>Group of 8  → (n-3) variables in term (3 variables eliminated)</code>
+      <code>Group of 2^n → 0 variables = constant 1 (entire K-map)</code>
+    </div>
+    <div>
+      <h2>Reading a K-Map Group</h2>
+      <div class="code-block">For a group: Include variable in final term IF:
+  - Variable is always 0 in group → write as A' (complemented)
+  - Variable is always 1 in group → write as A (uncomplemented)
+  - Variable is BOTH 0 and 1 in group → <span class="cg">ELIMINATE it!</span></div>
+    </div>
+    <div>
+      <h2>Prime Implicants & Essential Prime Implicants</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>Prime Implicant (PI)</h3>
+          <p>A group of 1s that cannot be enlarged further. Every group you form should be maximal (you can't add more cells without including a 0).</p>
+        </div>
+        <div class="card">
+          <h3>Essential Prime Implicant (EPI)</h3>
+          <p>A PI that covers at least one minterm <strong>not covered by any other PI</strong>. EPIs MUST be included in the minimal expression — no choice!</p>
+        </div>
+      </div>
+    </div>
+    <div class="trick">
+      <div class="trick-label">⚡ Trick — 4 Corners in 4-Variable K-Map</div>
+      <p>Cells 0, 2, 8, 10 (the four corners) form a valid group of 4! They wrap both horizontally and vertically. Result: A'C' (remove B and D since they vary). This is the most missed grouping by students!</p>
+    </div>
+    <div>
+      <h2>Quine-McCluskey (Tabular) Method</h2>
+      <p>Algorithmic version of K-Map for functions with many variables (5+). K-Map becomes impractical beyond 4-5 variables. Steps: (1) Group minterms by number of 1-bits, (2) Combine adjacent groups (differing by 1 bit), (3) Mark prime implicants, (4) Build PI table, (5) Select minimum cover using EPI.</p>
+    </div>
+    <!-- MCQs -->
+    <div>
+      <div class="mcq-section-header"><div class="mcq-section-title">🎯 MCQ Practice — K-Map & Minimization</div></div>
+      <div class="mcq-grid">
+        <div class="mcq-block" id="mcq-7-1">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE 2019 style</span><span class="mcq-score" id="score-7-1"></span></div>
+          <div class="mcq-q">Q17. For a 3-variable function F = Σm(0,1,2,3,6,7), the minimal SOP expression is:</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('7-1',this,'wrong')"><span class="mcq-opt-key">A</span>A'B' + AB + A'B</div>
+            <div class="mcq-opt" onclick="checkMCQ('7-1',this,'correct')"><span class="mcq-opt-key">B</span>A' + B</div>
+            <div class="mcq-opt" onclick="checkMCQ('7-1',this,'wrong')"><span class="mcq-opt-key">C</span>A' + AB</div>
+            <div class="mcq-opt" onclick="checkMCQ('7-1',this,'wrong')"><span class="mcq-opt-key">D</span>A'B' + AB</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('7-1')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('7-1')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-7-1"><strong>Answer: B (A' + B)</strong><br>K-Map: minterms 0,1,2,3 (A=0 → entire top row → A') + minterms 2,3,6,7 (B=1, C varies → group of 4 → B). Combine: <strong>A' + B</strong>. Verify: minterm 0(000)=A'✓, 1(001)=A'✓, 2(010)=A'+B✓, 3(011)=A'+B✓, 6(110)=B✓, 7(111)=B✓.</div>
+        </div>
+        <div class="mcq-block" id="mcq-7-2">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">HPCL/BARC style</span><span class="mcq-score" id="score-7-2"></span></div>
+          <div class="mcq-q">Q18. In K-Map, a group of 8 cells in a 4-variable (16-cell) K-Map results in a product term with how many literals?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('7-2',this,'wrong')"><span class="mcq-opt-key">A</span>3</div>
+            <div class="mcq-opt" onclick="checkMCQ('7-2',this,'wrong')"><span class="mcq-opt-key">B</span>3</div>
+            <div class="mcq-opt" onclick="checkMCQ('7-2',this,'correct')"><span class="mcq-opt-key">C</span>1</div>
+            <div class="mcq-opt" onclick="checkMCQ('7-2',this,'wrong')"><span class="mcq-opt-key">D</span>4</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('7-2')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('7-2')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-7-2"><strong>Answer: C (1 literal)</strong><br>In a 4-variable K-Map: group of 2^k eliminates k variables. Group of 8 = 2³ eliminates 3 variables → 4-3 = <strong>1 literal remains</strong>. Group of 16 = 2⁴ → constant 1 (0 literals). Group of 4 → 2 literals. Group of 2 → 3 literals.</div>
+        </div>
+        <div class="mcq-block" id="mcq-7-3">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE 2023 style</span><span class="mcq-score" id="score-7-3"></span></div>
+          <div class="mcq-q">Q19. An Essential Prime Implicant (EPI) is one that:</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('7-3',this,'wrong')"><span class="mcq-opt-key">A</span>Covers the maximum number of minterms</div>
+            <div class="mcq-opt" onclick="checkMCQ('7-3',this,'correct')"><span class="mcq-opt-key">B</span>Covers at least one minterm not covered by any other prime implicant</div>
+            <div class="mcq-opt" onclick="checkMCQ('7-3',this,'wrong')"><span class="mcq-opt-key">C</span>Cannot be combined with any other group</div>
+            <div class="mcq-opt" onclick="checkMCQ('7-3',this,'wrong')"><span class="mcq-opt-key">D</span>Is always a group of size 1</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('7-3')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('7-3')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-7-3"><strong>Answer: B</strong><br>An Essential Prime Implicant (EPI) is a prime implicant that contains at least one minterm which is <strong>not contained in any other prime implicant</strong>. EPIs are mandatory in the minimal expression — there's no alternative to cover that unique minterm.</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ===== SECTION 8: FLIP-FLOPS ===== -->
+<!-- ===================== SECTION 8: COMBINATIONAL CIRCUITS ===================== -->
 <section class="section" id="s8">
   <div class="section-header">
     <div class="section-num">8</div>
-    <div>
-      <div class="section-title">Flip-Flops</div>
-      <div class="section-subtitle">SR · D · JK · T Flip-Flops</div>
-    </div>
+    <div><div class="section-title">Combinational Circuits</div>
+    <div class="section-subtitle">Adders · Subtractors · MUX · Decoder · Encoder · Comparator · PLA</div></div>
   </div>
   <div class="section-body">
     <div>
-      <h2>SR Flip-Flop</h2>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>S</th><th>R</th><th>Q(next)</th><th>Action</th></tr></thead>
-          <tbody>
-            <tr><td>0</td><td>0</td><td>Q (no change)</td><td>Hold</td></tr>
-            <tr><td>0</td><td>1</td><td>0</td><td>Reset</td></tr>
-            <tr><td>1</td><td>0</td><td>1</td><td>Set</td></tr>
-            <tr><td>1</td><td>1</td><td>?? (invalid)</td><td>Forbidden!</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="trick" style="margin-top:12px">
-        <div class="trick-label">⚡ Trick — SR Memory</div>
-        <p><strong>S = Set (Q→1), R = Reset (Q→0).</strong> S=R=1 is forbidden (both outputs try to be 1 and 0 simultaneously = undefined state).</p>
-      </div>
+      <h2>Key Property: No Memory</h2>
+      <p>Output depends <strong>only on current inputs</strong>. No clock needed. Output changes as soon as input changes (after propagation delay).</p>
     </div>
-
     <div>
-      <h2>D Flip-Flop (Data / Delay)</h2>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>D</th><th>Q(next)</th><th>Action</th></tr></thead>
-          <tbody>
-            <tr><td>0</td><td>0</td><td>Reset</td></tr>
-            <tr><td>1</td><td>1</td><td>Set</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p style="margin-top:10px"><strong>Equation: Q(next) = D</strong>. The output simply follows the input D after the clock edge. Most commonly used flip-flop in practice.</p>
-    </div>
-
-    <div>
-      <h2>JK Flip-Flop — Universal Flip-Flop!</h2>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>J</th><th>K</th><th>Q(next)</th><th>Action</th></tr></thead>
-          <tbody>
-            <tr><td>0</td><td>0</td><td>Q</td><td>No Change</td></tr>
-            <tr><td>0</td><td>1</td><td>0</td><td>Reset</td></tr>
-            <tr><td>1</td><td>0</td><td>1</td><td>Set</td></tr>
-            <tr><td>1</td><td>1</td><td>Q'</td><td>Toggle!</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="formula" style="margin-top:12px">
-        <div class="formula-label">📐 JK Flip-Flop Equation</div>
-        <code>Q(next) = J·Q' + K'·Q</code>
-      </div>
-      <div class="trick" style="margin-top:12px">
-        <div class="trick-label">⚡ Trick — JK has no forbidden state!</div>
-        <p>JK solves SR's forbidden state problem. When J=K=1, output <strong>toggles</strong> every clock cycle. "J=Jump (Set), K=Kill (Reset)"</p>
-      </div>
-    </div>
-
-    <div>
-      <h2>T Flip-Flop (Toggle)</h2>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>T</th><th>Q(next)</th><th>Action</th></tr></thead>
-          <tbody>
-            <tr><td>0</td><td>Q</td><td>No Change</td></tr>
-            <tr><td>1</td><td>Q'</td><td>Toggle</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p style="margin-top:10px"><strong>Equation: Q(next) = T⊕Q.</strong> Used in counters! Each T-FF divides clock frequency by 2.</p>
-    </div>
-
-    <div>
-      <h2>Flip-Flop Conversions (GATE Favorite!)</h2>
-      <p>To convert one FF to another, find the excitation table and derive the conversion logic using K-Map.</p>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>Conversion</th><th>Logic</th></tr></thead>
-          <tbody>
-            <tr><td>JK → D</td><td>J = D, K = D'</td></tr>
-            <tr><td>JK → T</td><td>J = T, K = T</td></tr>
-            <tr><td>D → T</td><td>D = T⊕Q</td></tr>
-            <tr><td>D → JK</td><td>D = JQ' + K'Q</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div>
-      <h2>Setup Time & Hold Time</h2>
+      <h2>Half Adder & Full Adder</h2>
       <div class="grid2">
         <div class="card">
-          <h3>Setup Time (tsu)</h3>
-          <p>Minimum time the input data must be <strong>stable BEFORE</strong> the clock edge arrives.</p>
+          <h3>Half Adder (HA)</h3>
+          <p>Adds 2 bits: A and B.</p>
+          <div class="code-block" style="margin-top:8px">Sum S = A ⊕ B  (1 XOR gate)
+Carry C = A·B  (1 AND gate)
+Total: <span class="cg">2 gates</span></div>
         </div>
         <div class="card">
-          <h3>Hold Time (th)</h3>
-          <p>Minimum time the input data must remain <strong>stable AFTER</strong> the clock edge.</p>
+          <h3>Full Adder (FA)</h3>
+          <p>Adds 3 bits: A, B, Cin.</p>
+          <div class="code-block" style="margin-top:8px">S = A⊕B⊕Cin
+Cout = AB + BCin + ACin
+     = AB + Cin(A⊕B)
+FA = 2 HA + 1 OR gate</div>
         </div>
       </div>
       <div class="trick" style="margin-top:12px">
-        <div class="trick-label">⚡ Max Clock Frequency Formula</div>
-        <p>f_max = 1 / (t_propagation + t_setup + t_hold). Violating setup/hold time causes <strong>metastability</strong>.</p>
+        <div class="trick-label">⚡ Ripple Carry vs Carry Look-Ahead</div>
+        <p><strong>Ripple Carry Adder (RCA):</strong> n FAs in series. Carry ripples through. Delay = O(n). Simple but slow.<br>
+        <strong>Carry Look-Ahead Adder (CLA):</strong> Generate (G=AB) and Propagate (P=A⊕B) computed in parallel. Carry computed without waiting. Delay = O(log n). Faster but more hardware.</p>
+      </div>
+    </div>
+    <div>
+      <h2>Multiplexer (MUX)</h2>
+      <p>2ⁿ:1 MUX selects 1 of 2ⁿ inputs using n select lines. Think of it as a programmable switch.</p>
+      <div class="formula">
+        <div class="formula-label">📐 MUX as Universal Logic</div>
+        <code>A 2ⁿ:1 MUX can implement ANY Boolean function of (n+1) variables!</code>
+        <code>Method: Fix one variable on select lines, connect 0/1/variable to data inputs</code>
+        <code>Example: 4:1 MUX (2 select lines) → any 3-variable function</code>
+        <code>Example: 8:1 MUX (3 select lines) → any 4-variable function</code>
+      </div>
+    </div>
+    <div>
+      <h2>Decoder & Encoder</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>n:2ⁿ Decoder</h3>
+          <p>n inputs → 2ⁿ outputs. Exactly one output is HIGH at a time. The enabled output = binary value of input. <strong>Acts as a minterm generator!</strong></p>
+          <div class="code-block" style="margin-top:8px">3:8 decoder generates:
+m0=A'B'C', m1=A'B'C ...
+Any function = OR selected minterms</div>
+        </div>
+        <div class="card">
+          <h3>Priority Encoder</h3>
+          <p>Multiple inputs can be HIGH simultaneously. Highest-priority input wins. Outputs a valid V signal (HIGH when any input is active).</p>
+          <div class="code-block" style="margin-top:8px">Priority: I3 > I2 > I1 > I0
+If I3=1, output=11 (regardless of others)</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2>Comparator</h2>
+      <div class="formula">
+        <div class="formula-label">📐 n-bit Comparator Logic</div>
+        <code>A = B: A XNOR B for each bit, AND all results</code>
+        <code>A > B: Check from MSB downward — first bit where they differ</code>
+        <code>Cascading: Chain comparators for larger numbers using cascade inputs</code>
+      </div>
+    </div>
+    <div>
+      <h2>PLA, PAL, ROM Summary</h2>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Device</th><th>AND Array</th><th>OR Array</th><th>Flexibility</th></tr></thead>
+        <tbody>
+          <tr><td>ROM</td><td>Fixed (full decoder)</td><td>Programmable</td><td>Medium</td></tr>
+          <tr><td>PAL</td><td>Programmable</td><td>Fixed</td><td>Medium</td></tr>
+          <tr><td>PLA</td><td>Programmable</td><td>Programmable</td><td>Maximum</td></tr>
+          <tr><td>CPLD/FPGA</td><td>Both programmable + reconfigurable</td><td>Both</td><td>Maximum + reconfigurable</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <!-- MCQs -->
+    <div>
+      <div class="mcq-section-header"><div class="mcq-section-title">🎯 MCQ Practice — Combinational Circuits</div></div>
+      <div class="mcq-grid">
+        <div class="mcq-block" id="mcq-8-1">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE 2021 style</span><span class="mcq-score" id="score-8-1"></span></div>
+          <div class="mcq-q">Q20. A full adder can be constructed using how many half adders and what additional gate?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('8-1',this,'wrong')"><span class="mcq-opt-key">A</span>3 half adders, no gate needed</div>
+            <div class="mcq-opt" onclick="checkMCQ('8-1',this,'correct')"><span class="mcq-opt-key">B</span>2 half adders + 1 OR gate</div>
+            <div class="mcq-opt" onclick="checkMCQ('8-1',this,'wrong')"><span class="mcq-opt-key">C</span>2 half adders + 1 AND gate</div>
+            <div class="mcq-opt" onclick="checkMCQ('8-1',this,'wrong')"><span class="mcq-opt-key">D</span>1 half adder + 1 OR gate</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('8-1')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('8-1')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-8-1"><strong>Answer: B</strong><br>HA1 adds A+B → Sum1=A⊕B, Carry1=AB. HA2 adds Sum1+Cin → Sum=A⊕B⊕Cin, Carry2=Cin(A⊕B). Final Carry_out = Carry1 OR Carry2 = AB + Cin(A⊕B). The OR gate combines the two carries. <strong>2 HAs + 1 OR gate</strong>.</div>
+        </div>
+        <div class="mcq-block" id="mcq-8-2">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">HPCL style</span><span class="mcq-score" id="score-8-2"></span></div>
+          <div class="mcq-q">Q21. What is the minimum size MUX needed to implement any 4-variable Boolean function?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('8-2',this,'wrong')"><span class="mcq-opt-key">A</span>4:1 MUX</div>
+            <div class="mcq-opt" onclick="checkMCQ('8-2',this,'correct')"><span class="mcq-opt-key">B</span>8:1 MUX</div>
+            <div class="mcq-opt" onclick="checkMCQ('8-2',this,'wrong')"><span class="mcq-opt-key">C</span>16:1 MUX</div>
+            <div class="mcq-opt" onclick="checkMCQ('8-2',this,'wrong')"><span class="mcq-opt-key">D</span>2:1 MUX</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('8-2')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('8-2')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-8-2"><strong>Answer: B (8:1 MUX)</strong><br>A 2ⁿ:1 MUX can implement any function of (n+1) variables. For 4 variables: n+1=4 → n=3 → 2³:1 = <strong>8:1 MUX</strong>. Use 3 variables as select lines and set the 8 data inputs based on the truth table (function of the 4th variable).</div>
+        </div>
+        <div class="mcq-block" id="mcq-8-3">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE style</span><span class="mcq-score" id="score-8-3"></span></div>
+          <div class="mcq-q">Q22. A 3-to-8 decoder with enable can implement which of the following?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('8-3',this,'wrong')"><span class="mcq-opt-key">A</span>Only 3-variable functions</div>
+            <div class="mcq-opt" onclick="checkMCQ('8-3',this,'correct')"><span class="mcq-opt-key">B</span>Any 3-variable Boolean function using OR gates at output</div>
+            <div class="mcq-opt" onclick="checkMCQ('8-3',this,'wrong')"><span class="mcq-opt-key">C</span>Only SOP functions with 4 terms</div>
+            <div class="mcq-opt" onclick="checkMCQ('8-3',this,'wrong')"><span class="mcq-opt-key">D</span>Only single-output functions</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('8-3')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('8-3')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-8-3"><strong>Answer: B</strong><br>A 3:8 decoder generates all 8 minterms of 3 variables (m0 to m7). Any Boolean function = sum of some minterms. By connecting selected minterm outputs to an OR gate, we can implement <strong>any 3-variable function</strong>. Multiple OR gates → multiple functions simultaneously!</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== SECTION 9: REGISTERS & COUNTERS ===== -->
+<!-- ===================== SECTION 9: SEQUENTIAL ===================== -->
 <section class="section" id="s9">
   <div class="section-header">
     <div class="section-num">9</div>
-    <div>
-      <div class="section-title">Registers & Counters</div>
-      <div class="section-subtitle">Shift Registers · Ripple Counter · Mod-N Counter</div>
-    </div>
+    <div><div class="section-title">Sequential Circuits & FSM</div>
+    <div class="section-subtitle">Mealy · Moore · State Diagrams · State Minimization</div></div>
   </div>
   <div class="section-body">
     <div>
-      <h2>Registers</h2>
-      <p>A group of flip-flops that stores multiple bits. An n-bit register uses <span class="hl">n D flip-flops</span>.</p>
+      <h2>Sequential Circuit Structure</h2>
+      <p>Output depends on <span class="hl">current inputs + current state (memory)</span>. Consists of: combinational logic + flip-flops (memory) + clock.</p>
     </div>
-
-    <div>
-      <h2>Shift Registers</h2>
-      <p>Data is shifted left or right by one position with each clock pulse.</p>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>Type</th><th>Input</th><th>Output</th><th>Use</th></tr></thead>
-          <tbody>
-            <tr><td>SISO</td><td>Serial</td><td>Serial</td><td>Time delay</td></tr>
-            <tr><td>SIPO</td><td>Serial</td><td>Parallel</td><td>Serial to Parallel conversion</td></tr>
-            <tr><td>PISO</td><td>Parallel</td><td>Serial</td><td>Parallel to Serial conversion</td></tr>
-            <tr><td>PIPO</td><td>Parallel</td><td>Parallel</td><td>Buffer / Storage</td></tr>
-          </tbody>
-        </table>
+    <div class="grid2">
+      <div class="card">
+        <h3>Mealy Machine</h3>
+        <p>Output = f(State, Input). Output changes <strong>immediately</strong> when input changes. Generally fewer states than Moore. Output written on transitions.</p>
+      </div>
+      <div class="card">
+        <h3>Moore Machine</h3>
+        <p>Output = f(State) only. Output changes only at <strong>clock edge</strong>. More stable/glitch-free output. Output written inside state circles.</p>
       </div>
     </div>
-
     <div class="trick">
-      <div class="trick-label">⚡ Trick — Ring Counter vs Johnson Counter</div>
-      <p><strong>Ring Counter:</strong> Single 1 circulates through n FFs → n states, n FFs needed.<br>
-      <strong>Johnson Counter (Twisted Ring):</strong> Complement output fed back → 2n states with n FFs. More efficient!</p>
+      <div class="trick-label">⚡ Trick — Mealy vs Moore Conversion</div>
+      <p>Mealy → Moore: Each Mealy transition becomes a Moore state. Moore generally needs MORE states than equivalent Mealy. GATE often asks: "which is equivalent?" — both can compute same functions, just different number of states.</p>
     </div>
-
     <div>
-      <h2>Counters</h2>
-      <p>Sequential circuits that cycle through states in a defined sequence.</p>
-      <div class="grid2">
-        <div class="card">
-          <h3>Asynchronous (Ripple) Counter</h3>
-          <p>FFs are not clocked simultaneously. Output of one FF clocks the next. Simple but has <strong>propagation delay</strong>. n FFs count up to 2ⁿ states.</p>
+      <h2>State Minimization</h2>
+      <p>Two states are <span class="hl">equivalent</span> if they produce same outputs for all input sequences. We can merge equivalent states to minimize FSM. Methods: (1) Partition method, (2) Implication table.</p>
+    </div>
+    <div>
+      <h2>State Table to Circuit</h2>
+      <ol class="styled">
+        <li>Build the state transition table</li>
+        <li>Choose flip-flop type (D, JK, T)</li>
+        <li>Determine excitation inputs needed</li>
+        <li>Use K-Map to minimize excitation equations</li>
+        <li>Implement the combinational logic</li>
+      </ol>
+    </div>
+    <!-- MCQs -->
+    <div>
+      <div class="mcq-section-header"><div class="mcq-section-title">🎯 MCQ Practice — Sequential Circuits</div></div>
+      <div class="mcq-grid">
+        <div class="mcq-block" id="mcq-9-1">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE 2020 style</span><span class="mcq-score" id="score-9-1"></span></div>
+          <div class="mcq-q">Q23. In a Mealy machine, which of the following is true?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('9-1',this,'wrong')"><span class="mcq-opt-key">A</span>Output depends only on the current state</div>
+            <div class="mcq-opt" onclick="checkMCQ('9-1',this,'correct')"><span class="mcq-opt-key">B</span>Output depends on current state and current input</div>
+            <div class="mcq-opt" onclick="checkMCQ('9-1',this,'wrong')"><span class="mcq-opt-key">C</span>Output depends only on the current input</div>
+            <div class="mcq-opt" onclick="checkMCQ('9-1',this,'wrong')"><span class="mcq-opt-key">D</span>Output is independent of both state and input</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('9-1')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('9-1')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-9-1"><strong>Answer: B</strong><br>Mealy machine: output = λ(state, input). Moore machine: output = λ(state) only. Key difference for GATE: Mealy can react faster (combinational path from input to output), but Moore output is more stable (changes only with state change at clock edge).</div>
         </div>
-        <div class="card">
-          <h3>Synchronous Counter</h3>
-          <p>All FFs clocked simultaneously. <strong>Faster, no ripple delay.</strong> More complex combinational logic needed for large counts.</p>
+        <div class="mcq-block" id="mcq-9-2">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">HPCL style</span><span class="mcq-score" id="score-9-2"></span></div>
+          <div class="mcq-q">Q24. A sequential circuit has 4 flip-flops. What is the maximum number of distinct states it can have?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('9-2',this,'wrong')"><span class="mcq-opt-key">A</span>4</div>
+            <div class="mcq-opt" onclick="checkMCQ('9-2',this,'wrong')"><span class="mcq-opt-key">B</span>8</div>
+            <div class="mcq-opt" onclick="checkMCQ('9-2',this,'correct')"><span class="mcq-opt-key">C</span>16</div>
+            <div class="mcq-opt" onclick="checkMCQ('9-2',this,'wrong')"><span class="mcq-opt-key">D</span>32</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('9-2')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('9-2')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-9-2"><strong>Answer: C (16)</strong><br>n flip-flops → 2ⁿ possible states. 4 flip-flops → 2⁴ = <strong>16 states</strong>. This is because each FF stores 1 bit, and 4 bits can represent 16 different combinations (0000 to 1111).</div>
         </div>
       </div>
-    </div>
-
-    <div>
-      <h2>MOD-N Counter (Important!)</h2>
-      <p>A counter that counts from 0 to N-1, then resets to 0. Uses <span class="hl">NAND gate feedback</span> for resetting.</p>
-      <div class="formula">
-        <div class="formula-label">📐 MOD-N Counter Design</div>
-        <code>For MOD-N: minimum FFs = ⌈log₂(N)⌉</code>
-        <code>MOD-5: 3 FFs (2³=8 ≥ 5). Count: 000→001→010→011→100→000</code>
-        <code>MOD-6: 3 FFs. Count: 0→1→2→3→4→5→0</code>
-        <code>MOD-10 (Decade): 4 FFs. Count: 0→...→9→0</code>
-      </div>
-    </div>
-
-    <div class="trick">
-      <div class="trick-label">⚡ Frequency Division Trick</div>
-      <p>A <strong>MOD-N counter divides clock frequency by N.</strong> If input clock = 1 MHz and MOD-5 counter used → output = 200 kHz. A single T-FF divides by 2.</p>
     </div>
   </div>
 </section>
 
-<!-- ===== SECTION 10: MEMORY & ADC/DAC ===== -->
+<!-- ===================== SECTION 10: FLIP-FLOPS ===================== -->
 <section class="section" id="s10">
   <div class="section-header">
     <div class="section-num">10</div>
-    <div>
-      <div class="section-title">Memory, ADC & DAC</div>
-      <div class="section-subtitle">ROM · RAM · PLA · ADC · DAC</div>
-    </div>
+    <div><div class="section-title">Flip-Flops</div>
+    <div class="section-subtitle">SR · D · JK · T · Excitation Tables · Conversions · Timing</div></div>
   </div>
   <div class="section-body">
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>FF Type</th><th>Inputs</th><th>Q(next)</th><th>Special</th></tr></thead>
+      <tbody>
+        <tr><td>SR</td><td>S, R</td><td>S=1→1, R=1→0, S=R=0→Q, S=R=1→INVALID</td><td>Has forbidden state</td></tr>
+        <tr><td>D (Data)</td><td>D</td><td>Q(next) = D</td><td>Most used, no forbidden state</td></tr>
+        <tr><td>JK</td><td>J, K</td><td>JK=00→Q, 01→0, 10→1, 11→Q'</td><td>Universal, no forbidden state</td></tr>
+        <tr><td>T (Toggle)</td><td>T</td><td>T=0→Q, T=1→Q'</td><td>Used in counters</td></tr>
+      </tbody>
+    </table></div>
     <div>
-      <h2>Memory Types</h2>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>Type</th><th>Full Name</th><th>Volatile?</th><th>Writable?</th></tr></thead>
-          <tbody>
-            <tr><td>ROM</td><td>Read Only Memory</td><td>No</td><td>No (fixed)</td></tr>
-            <tr><td>PROM</td><td>Programmable ROM</td><td>No</td><td>Once only</td></tr>
-            <tr><td>EPROM</td><td>Erasable PROM</td><td>No</td><td>UV erase then write</td></tr>
-            <tr><td>EEPROM</td><td>Electrically Erasable PROM</td><td>No</td><td>Electrically erase/write</td></tr>
-            <tr><td>Flash</td><td>Flash Memory</td><td>No</td><td>Block erase, byte write</td></tr>
-            <tr><td>SRAM</td><td>Static RAM</td><td>Yes</td><td>Yes (fast, 6 transistors)</td></tr>
-            <tr><td>DRAM</td><td>Dynamic RAM</td><td>Yes</td><td>Yes (needs refresh, 1T+1C)</td></tr>
-          </tbody>
-        </table>
+      <h2>Excitation Tables — For State Machine Design</h2>
+      <p>Excitation table answers: "Given Q(current) and Q(next), what input must I provide?"</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>D FF Excitation</h3>
+          <div class="code-block" style="font-size:.78rem">Q  Q(next) | D
+0    0     | <span class="cy">0</span>
+0    1     | <span class="cy">1</span>
+1    0     | <span class="cy">0</span>
+1    1     | <span class="cy">1</span>
+D = Q(next) (always!)</div>
+        </div>
+        <div class="card">
+          <h3>T FF Excitation</h3>
+          <div class="code-block" style="font-size:.78rem">Q  Q(next) | T
+0    0     | <span class="cy">0</span>
+0    1     | <span class="cy">1</span>
+1    0     | <span class="cy">1</span>
+1    1     | <span class="cy">0</span>
+T = Q ⊕ Q(next)</div>
+        </div>
+        <div class="card">
+          <h3>JK FF Excitation</h3>
+          <div class="code-block" style="font-size:.78rem">Q  Q(next) | J  K
+0    0     | <span class="cy">0</span>  <span class="cy2">X</span>
+0    1     | <span class="cy">1</span>  <span class="cy2">X</span>
+1    0     | <span class="cy">X</span>  <span class="cy2">1</span>
+1    1     | <span class="cy">X</span>  <span class="cy2">0</span>
+X = don't care</div>
+        </div>
+        <div class="card">
+          <h3>SR FF Excitation</h3>
+          <div class="code-block" style="font-size:.78rem">Q  Q(next) | S  R
+0    0     | <span class="cy">0</span>  <span class="cy2">X</span>
+0    1     | <span class="cy">1</span>  <span class="cy2">0</span>
+1    0     | <span class="cy">0</span>  <span class="cy2">1</span>
+1    1     | <span class="cy">X</span>  <span class="cy2">0</span>
+S·R must = 0 always</div>
+        </div>
       </div>
     </div>
-
+    <div>
+      <h2>Timing Parameters</h2>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Parameter</th><th>Definition</th><th>Effect if violated</th></tr></thead>
+        <tbody>
+          <tr><td>Setup time (tsu)</td><td>Data must be stable BEFORE clock edge by this much</td><td>Metastability</td></tr>
+          <tr><td>Hold time (th)</td><td>Data must remain stable AFTER clock edge by this much</td><td>Metastability</td></tr>
+          <tr><td>Propagation delay (tpd)</td><td>Time from clock edge to output change</td><td>Limits max clock speed</td></tr>
+          <tr><td>Clock period (T)</td><td>T ≥ tpd + tsu + th</td><td>Setup/hold violations</td></tr>
+        </tbody>
+      </table></div>
+    </div>
     <div class="trick">
-      <div class="trick-label">⚡ Trick — SRAM vs DRAM</div>
-      <p><strong>SRAM:</strong> Faster, uses 6 transistors per bit, expensive, used as Cache.<br><strong>DRAM:</strong> Slower, uses 1 transistor + 1 capacitor per bit, cheaper, needs periodic refresh, used as Main Memory (RAM).</p>
+      <div class="trick-label">⚡ Trick — Maximum Clock Frequency</div>
+      <p>f_max = 1 / (t_cq + t_logic + t_setup). Where t_cq = clock to output delay, t_logic = combinational logic delay, t_setup = setup time. <strong>Any path longer than clock period causes setup violation!</strong></p>
     </div>
-
+    <!-- MCQs -->
     <div>
-      <h2>PLA (Programmable Logic Array)</h2>
-      <p>Programmable AND array + Programmable OR array. Used to implement any Boolean function.</p>
-      <div class="note">
-        <div class="note-label">📌 PLA vs ROM vs PAL</div>
-        <p><strong>ROM:</strong> Fixed AND (decoder) + Programmable OR.<br>
-        <strong>PAL:</strong> Programmable AND + Fixed OR.<br>
-        <strong>PLA:</strong> Programmable AND + Programmable OR (most flexible).</p>
-      </div>
-    </div>
-
-    <div>
-      <h2>DAC — Digital to Analog Converter</h2>
-      <p>Converts a binary number (digital) to a proportional analog voltage.</p>
-      <div class="formula">
-        <div class="formula-label">📐 DAC Resolution & Formulas</div>
-        <code>Resolution = 1 / (2ⁿ - 1) × Vref &nbsp;&nbsp; (n = number of bits)</code>
-        <code>Output Voltage = D × Vref / 2ⁿ</code>
-        <code>% Resolution = (1 / 2ⁿ) × 100%</code>
-        <code>8-bit DAC: 256 levels, Resolution = Vref/256</code>
-      </div>
-      <div class="trick" style="margin-top:12px">
-        <div class="trick-label">⚡ Types of DAC</div>
-        <p><strong>R-2R Ladder:</strong> Uses only 2 resistor values (R and 2R). Most practical.<br>
-        <strong>Weighted Resistor DAC:</strong> Uses resistors R, 2R, 4R, 8R... Simple but impractical for many bits.</p>
-      </div>
-    </div>
-
-    <div>
-      <h2>ADC — Analog to Digital Converter</h2>
-      <p>Converts analog voltage to digital binary number.</p>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>ADC Type</th><th>Speed</th><th>Cost</th><th>Method</th></tr></thead>
-          <tbody>
-            <tr><td>Flash ADC</td><td>Fastest</td><td>Highest</td><td>2ⁿ-1 comparators in parallel</td></tr>
-            <tr><td>Successive Approximation (SAR)</td><td>Medium</td><td>Medium</td><td>Binary search approach</td></tr>
-            <tr><td>Dual Slope</td><td>Slow</td><td>Low</td><td>Integration method, high accuracy</td></tr>
-            <tr><td>Sigma-Delta</td><td>Very slow</td><td>Low</td><td>Oversampling + noise shaping</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="trick" style="margin-top:12px">
-        <div class="trick-label">⚡ Trick — SAR ADC</div>
-        <p>SAR ADC takes exactly <strong>n clock cycles</strong> to convert an n-bit result. Works like binary search: tries MSB first, then decides to keep or flip, moves to next bit.</p>
+      <div class="mcq-section-header"><div class="mcq-section-title">🎯 MCQ Practice — Flip-Flops</div></div>
+      <div class="mcq-grid">
+        <div class="mcq-block" id="mcq-10-1">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE 2022 style</span><span class="mcq-score" id="score-10-1"></span></div>
+          <div class="mcq-q">Q25. A JK flip-flop is converted to a T flip-flop by:</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('10-1',this,'wrong')"><span class="mcq-opt-key">A</span>Connecting J=T and K=T'</div>
+            <div class="mcq-opt" onclick="checkMCQ('10-1',this,'correct')"><span class="mcq-opt-key">B</span>Connecting J=K=T</div>
+            <div class="mcq-opt" onclick="checkMCQ('10-1',this,'wrong')"><span class="mcq-opt-key">C</span>Connecting J=T' and K=T</div>
+            <div class="mcq-opt" onclick="checkMCQ('10-1',this,'wrong')"><span class="mcq-opt-key">D</span>Connecting J=1 and K=T</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('10-1')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('10-1')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-10-1"><strong>Answer: B (J=K=T)</strong><br>T FF: Q(next) = T⊕Q. JK FF: Q(next) = JQ' + K'Q. For T behavior: when T=0 → no change → J=0,K=0. When T=1 → toggle → J=1,K=1. So J=K=T gives T behavior. Verify: T=1 → J=K=1 → toggle ✓. T=0 → J=K=0 → no change ✓.</div>
+        </div>
+        <div class="mcq-block" id="mcq-10-2">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">BARC/ISRO style</span><span class="mcq-score" id="score-10-2"></span></div>
+          <div class="mcq-q">Q26. In a D flip-flop, if D=0 and Q=1 before the clock edge, then Q after the clock edge will be:</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('10-2',this,'correct')"><span class="mcq-opt-key">A</span>0</div>
+            <div class="mcq-opt" onclick="checkMCQ('10-2',this,'wrong')"><span class="mcq-opt-key">B</span>1</div>
+            <div class="mcq-opt" onclick="checkMCQ('10-2',this,'wrong')"><span class="mcq-opt-key">C</span>Depends on previous state</div>
+            <div class="mcq-opt" onclick="checkMCQ('10-2',this,'wrong')"><span class="mcq-opt-key">D</span>Undefined</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('10-2')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('10-2')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-10-2"><strong>Answer: A (0)</strong><br>D FF rule: Q(next) = D. Always! Regardless of current Q. So if D=0, then after clock edge Q becomes <strong>0</strong>. Previous state (Q=1) is completely replaced by D. This is why it's called Data/Delay FF — it stores D after clock.</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== SECTION 11: QUICK TRICKS SHEET ===== -->
+<!-- ===================== SECTION 11: REGISTERS & COUNTERS ===================== -->
 <section class="section" id="s11">
   <div class="section-header">
-    <div class="section-num" style="background:var(--gold);color:#000">★</div>
+    <div class="section-num">11</div>
+    <div><div class="section-title">Registers & Counters</div>
+    <div class="section-subtitle">Shift Registers · MOD-N Counters · Ring · Johnson · Timing</div></div>
+  </div>
+  <div class="section-body">
     <div>
-      <div class="section-title">⚡ Master Quick Tricks Sheet</div>
-      <div class="section-subtitle">All Short Tricks for Exam — Memorize These!</div>
+      <h2>Shift Register Types</h2>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Type</th><th>Input</th><th>Output</th><th>Gates/FF needed</th><th>Application</th></tr></thead>
+        <tbody>
+          <tr><td>SISO</td><td>Serial</td><td>Serial</td><td>n D-FFs</td><td>Delay line, signal pipeline</td></tr>
+          <tr><td>SIPO</td><td>Serial</td><td>Parallel</td><td>n D-FFs</td><td>Serial→Parallel (USB receiver)</td></tr>
+          <tr><td>PISO</td><td>Parallel</td><td>Serial</td><td>n D-FFs + MUX</td><td>Parallel→Serial (USB transmitter)</td></tr>
+          <tr><td>PIPO</td><td>Parallel</td><td>Parallel</td><td>n D-FFs</td><td>Buffer, fast storage</td></tr>
+          <tr><td>BIPOLAR</td><td>Both</td><td>Both</td><td>n D-FFs + control</td><td>CPU registers</td></tr>
+        </tbody>
+      </table></div>
     </div>
+    <div>
+      <h2>Ring vs Johnson Counter</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>Ring Counter</h3>
+          <p>Output of last FF fed back to input of first FF. A single circulating 1.</p>
+          <div class="code-block" style="margin-top:8px">n FFs → n states
+State: 0001→0010→0100→1000→0001
+4 FFs, 4 states
+No decoding needed! Each FF = unique state</div>
+        </div>
+        <div class="card">
+          <h3>Johnson (Twisted Ring) Counter</h3>
+          <p>Complement of last FF output fed back. More efficient!</p>
+          <div class="code-block" style="margin-top:8px">n FFs → 2n states
+4-bit: 0000→1000→1100→1110→1111
+→0111→0011→0001→0000
+4 FFs, 8 states</div>
+        </div>
+      </div>
+    </div>
+    <div class="formula">
+      <div class="formula-label">📐 Counter Summary Formulas</div>
+      <code>n T-FFs in ripple: MOD-2ⁿ counter, divides frequency by 2ⁿ</code>
+      <code>MOD-N counter: needs ⌈log₂N⌉ flip-flops</code>
+      <code>Ring counter: n FFs → n states</code>
+      <code>Johnson counter: n FFs → 2n states</code>
+      <code>MOD-N resets when count reaches N (NAND feedback)</code>
+    </div>
+    <div class="trick">
+      <div class="trick-label">⚡ Trick — Frequency Division</div>
+      <p>A MOD-N counter divides input clock by N. Chain of MOD counters multiply their divisions. Example: MOD-5 followed by MOD-4 = divides by 20. BCD (MOD-10) counter = divide by 10 → used in digital clocks!</p>
+    </div>
+    <!-- MCQs -->
+    <div>
+      <div class="mcq-section-header"><div class="mcq-section-title">🎯 MCQ Practice — Counters & Registers</div></div>
+      <div class="mcq-grid">
+        <div class="mcq-block" id="mcq-11-1">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE style</span><span class="mcq-score" id="score-11-1"></span></div>
+          <div class="mcq-q">Q27. A Johnson counter with 5 flip-flops has how many distinct states?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('11-1',this,'wrong')"><span class="mcq-opt-key">A</span>5</div>
+            <div class="mcq-opt" onclick="checkMCQ('11-1',this,'wrong')"><span class="mcq-opt-key">B</span>16</div>
+            <div class="mcq-opt" onclick="checkMCQ('11-1',this,'correct')"><span class="mcq-opt-key">C</span>10</div>
+            <div class="mcq-opt" onclick="checkMCQ('11-1',this,'wrong')"><span class="mcq-opt-key">D</span>32</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('11-1')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('11-1')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-11-1"><strong>Answer: C (10)</strong><br>Johnson counter: n FFs → 2n states. 5 FFs → 2×5 = <strong>10 states</strong>. Ring counter with 5 FFs would give only 5 states. Johnson uses complement feedback, doubling the state count.</div>
+        </div>
+        <div class="mcq-block" id="mcq-11-2">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">HPCL/BEL style</span><span class="mcq-score" id="score-11-2"></span></div>
+          <div class="mcq-q">Q28. A MOD-12 counter requires minimum how many flip-flops?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('11-2',this,'wrong')"><span class="mcq-opt-key">A</span>3</div>
+            <div class="mcq-opt" onclick="checkMCQ('11-2',this,'correct')"><span class="mcq-opt-key">B</span>4</div>
+            <div class="mcq-opt" onclick="checkMCQ('11-2',this,'wrong')"><span class="mcq-opt-key">C</span>6</div>
+            <div class="mcq-opt" onclick="checkMCQ('11-2',this,'wrong')"><span class="mcq-opt-key">D</span>12</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('11-2')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('11-2')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-11-2"><strong>Answer: B (4)</strong><br>FFs needed = ⌈log₂(N)⌉ = ⌈log₂(12)⌉ = ⌈3.58⌉ = <strong>4</strong>. Verify: 2³=8 &lt; 12 ≤ 2⁴=16, so 4 FFs needed. With 4 FFs we get 16 possible states but use only 12 (0000 to 1011), reset at 1100.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 12: MEMORY & ADC/DAC ===================== -->
+<section class="section" id="s12">
+  <div class="section-header">
+    <div class="section-num">12</div>
+    <div><div class="section-title">Memory, ADC & DAC</div>
+    <div class="section-subtitle">SRAM · DRAM · ROM · Flash · DAC Types · ADC Types</div></div>
+  </div>
+  <div class="section-body">
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Memory</th><th>Type</th><th>Volatile?</th><th>Structure</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td>SRAM</td><td>RAM</td><td>Yes</td><td>6 transistors/bit</td><td>Cache (L1,L2,L3)</td></tr>
+        <tr><td>DRAM</td><td>RAM</td><td>Yes</td><td>1T+1C/bit, needs refresh</td><td>Main memory</td></tr>
+        <tr><td>ROM</td><td>ROM</td><td>No</td><td>Fixed at manufacture</td><td>BIOS, lookup tables</td></tr>
+        <tr><td>EPROM</td><td>ROM</td><td>No</td><td>UV erasable</td><td>Prototyping</td></tr>
+        <tr><td>EEPROM</td><td>ROM</td><td>No</td><td>Electrically erasable byte by byte</td><td>Config storage</td></tr>
+        <tr><td>Flash</td><td>ROM</td><td>No</td><td>Erase in blocks</td><td>SSDs, USB drives, phones</td></tr>
+      </tbody>
+    </table></div>
+    <div class="formula">
+      <div class="formula-label">📐 DAC Key Formulas</div>
+      <code>Resolution = Vref / (2ⁿ - 1) ≈ Vref / 2ⁿ for large n</code>
+      <code>Output Voltage = (Digital input / 2ⁿ) × Vref</code>
+      <code>% Resolution = (1/(2ⁿ-1)) × 100%</code>
+      <code>8-bit DAC: 256 levels, resolution ≈ 0.39% of full scale</code>
+    </div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>ADC Type</th><th>Speed</th><th>Comparators</th><th>Conversion Time</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td>Flash ADC</td><td>Fastest</td><td>2ⁿ - 1</td><td>1 clock cycle</td><td>Highest</td></tr>
+        <tr><td>SAR (Successive Approx)</td><td>Medium</td><td>1</td><td>n clock cycles</td><td>Medium</td></tr>
+        <tr><td>Dual Slope</td><td>Slow</td><td>1</td><td>Variable</td><td>Low</td></tr>
+        <tr><td>Sigma-Delta</td><td>Very slow</td><td>1-bit</td><td>Very long</td><td>Low</td></tr>
+        <tr><td>Pipeline</td><td>Fast</td><td>Per stage</td><td>n cycles latency</td><td>Medium-High</td></tr>
+      </tbody>
+    </table></div>
+    <!-- MCQs -->
+    <div>
+      <div class="mcq-section-header"><div class="mcq-section-title">🎯 MCQ Practice — Memory & ADC/DAC</div></div>
+      <div class="mcq-grid">
+        <div class="mcq-block" id="mcq-12-1">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE/HPCL style</span><span class="mcq-score" id="score-12-1"></span></div>
+          <div class="mcq-q">Q29. A 10-bit DAC has a reference voltage of 5V. What is the resolution (step size)?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('12-1',this,'wrong')"><span class="mcq-opt-key">A</span>≈ 9.8 mV</div>
+            <div class="mcq-opt" onclick="checkMCQ('12-1',this,'correct')"><span class="mcq-opt-key">B</span>≈ 4.88 mV</div>
+            <div class="mcq-opt" onclick="checkMCQ('12-1',this,'wrong')"><span class="mcq-opt-key">C</span>≈ 19.6 mV</div>
+            <div class="mcq-opt" onclick="checkMCQ('12-1',this,'wrong')"><span class="mcq-opt-key">D</span>≈ 2.44 mV</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('12-1')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('12-1')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-12-1"><strong>Answer: B (≈4.88 mV)</strong><br>Resolution = Vref / (2ⁿ - 1) = 5 / (2¹⁰ - 1) = 5 / 1023 ≈ <strong>4.88 mV</strong>. Or approximately: 5 / 1024 = 4.88 mV. Each step in the output corresponds to about 4.88 mV change.</div>
+        </div>
+        <div class="mcq-block" id="mcq-12-2">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">ISRO/BEL style</span><span class="mcq-score" id="score-12-2"></span></div>
+          <div class="mcq-q">Q30. Which type of memory requires periodic refresh to retain data?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('12-2',this,'wrong')"><span class="mcq-opt-key">A</span>SRAM</div>
+            <div class="mcq-opt" onclick="checkMCQ('12-2',this,'correct')"><span class="mcq-opt-key">B</span>DRAM</div>
+            <div class="mcq-opt" onclick="checkMCQ('12-2',this,'wrong')"><span class="mcq-opt-key">C</span>Flash</div>
+            <div class="mcq-opt" onclick="checkMCQ('12-2',this,'wrong')"><span class="mcq-opt-key">D</span>EEPROM</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('12-2')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('12-2')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-12-2"><strong>Answer: B (DRAM)</strong><br>DRAM stores each bit in a capacitor + transistor pair. Capacitors leak charge over time (few milliseconds), so data must be periodically refreshed (read and rewritten). SRAM uses flip-flops — holds data as long as power is on without refreshing. Both are volatile (lose data when power off).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 13: MASTER TRICKS ===================== -->
+<section class="section" id="s13">
+  <div class="section-header">
+    <div class="section-num" style="background:var(--gold);color:#000">★</div>
+    <div><div class="section-title">Master Quick Tricks & Formula Sheet</div>
+    <div class="section-subtitle">All Shortcuts for GATE · HPCL · BARC · BEL · ISRO — Memorize These!</div></div>
   </div>
   <div class="section-body">
 
-    <div>
-      <h2>🔢 Number System Tricks</h2>
-      <ul class="styled">
-        <li><strong>Hex digit count:</strong> One hex digit = 4 binary bits. 8-bit = 2 hex digits. 32-bit = 8 hex digits.</li>
-        <li><strong>Octal digit count:</strong> One octal digit = 3 binary bits. 9-bit = 3 octal digits.</li>
-        <li><strong>Maximum value:</strong> n-bit binary = 2ⁿ - 1. Example: 8-bit max = 255.</li>
-        <li><strong>2's complement fast:</strong> Start from right, copy until first 1 (inclusive), then flip everything left.</li>
-        <li><strong>Overflow detection (2's complement):</strong> If carry into MSB ≠ carry out of MSB → overflow occurred.</li>
-      </ul>
-    </div>
-
+    <div><h2>🔢 Number Systems & Arithmetic</h2>
+    <ul class="styled">
+      <li>Bits to represent N values: ⌈log₂N⌉ bits</li>
+      <li>n-bit max unsigned value: 2ⁿ - 1</li>
+      <li>2's complement range: <strong>-2ⁿ⁻¹ to +2ⁿ⁻¹ - 1</strong></li>
+      <li>1's complement range: <strong>-(2ⁿ⁻¹-1) to +(2ⁿ⁻¹-1)</strong>, two zeros</li>
+      <li>Overflow: Carry_in to MSB ≠ Carry_out from MSB</li>
+      <li>Sign extension: copy MSB into new positions</li>
+      <li>Multiplication result: n-bit × m-bit = (n+m)-bit result</li>
+      <li>-1 in 2's complement = all 1s (regardless of bit width)</li>
+      <li>-2ⁿ⁻¹ in 2's complement = 1 followed by all 0s</li>
+    </ul></div>
     <hr class="div"/>
 
-    <div>
-      <h2>🔌 Gate & Boolean Tricks</h2>
-      <ul class="styled">
-        <li><strong>De Morgan's:</strong> "Break the bar, change the operator." (A+B)' = A'·B'</li>
-        <li><strong>Bubble = NOT:</strong> Any inverted gate = same gate with bubble. NAND = AND+bubble = bubble OR.</li>
-        <li><strong>Absorption:</strong> A + AB = A. A(A+B) = A. (Absorb the smaller term)</li>
-        <li><strong>Consensus theorem:</strong> AB + A'C + BC = AB + A'C (BC is redundant!)</li>
-        <li><strong>XOR shortcut:</strong> Count number of 1s in input. XOR = 1 if odd count, 0 if even count.</li>
-        <li><strong>XNOR shortcut:</strong> XNOR = 1 if even count of 1s (same values).</li>
-      </ul>
-    </div>
-
+    <div><h2>🌊 Floating Point — IEEE 754</h2>
+    <ul class="styled">
+      <li>Single: 1 sign + 8 exponent + 23 mantissa = 32 bits. Bias = 127.</li>
+      <li>Double: 1 sign + 11 exponent + 52 mantissa = 64 bits. Bias = 1023.</li>
+      <li>Bias formula: 2^(e-1) - 1 where e = exponent bits</li>
+      <li>Hidden bit: leading 1 is implicit, NOT stored → 23 stored + 1 hidden = 24 bits precision</li>
+      <li>All-1 exponent + all-0 mantissa = ±Infinity</li>
+      <li>All-1 exponent + non-zero mantissa = NaN</li>
+      <li>All-0 exponent + all-0 mantissa = ±Zero</li>
+      <li>All-0 exponent + non-zero mantissa = Denormalized (subnormal)</li>
+      <li>Floating point addition is NOT associative due to rounding!</li>
+    </ul></div>
     <hr class="div"/>
 
-    <div>
-      <h2>🗺️ K-Map Tricks</h2>
-      <ul class="styled">
-        <li><strong>Group of 1 → 4 literals, Group of 2 → 3 literals, Group of 4 → 2 literals, Group of 8 → 1 literal, Group of 16 → 0 literals (constant).</strong></li>
-        <li><strong>Wrap-around:</strong> Four corners of a 4-var K-Map form a valid group of 4!</li>
-        <li><strong>Don't cares:</strong> Always try to include them to make bigger groups. Never need to cover them all.</li>
-        <li><strong>POS simplification:</strong> Group 0s in K-Map, then complement the result.</li>
-        <li><strong>Number of PI check:</strong> In 4-var K-Map, max possible PI = 16 groups.</li>
-      </ul>
-    </div>
-
+    <div><h2>🔌 Gates & Boolean</h2>
+    <ul class="styled">
+      <li>De Morgan: (AB)' = A'+B'. (A+B)' = A'B'. "Break bar, change sign."</li>
+      <li>Consensus: AB + A'C + BC → BC is redundant, remove it</li>
+      <li>Absorption: A + AB = A. A(A+B) = A</li>
+      <li>XOR = odd-parity. XNOR = even-parity.</li>
+      <li>XOR swap: A=A⊕B; B=A⊕B; A=A⊕B (no temp variable!)</li>
+      <li>NAND/NOR are universal — can build any gate from one type</li>
+      <li>Duality: swap AND↔OR and 0↔1 (not variables) to get dual theorem</li>
+      <li>SOP minterms + POS minterms = all 2ⁿ minterms</li>
+    </ul></div>
     <hr class="div"/>
 
-    <div>
-      <h2>⚡ Flip-Flop Tricks</h2>
-      <ul class="styled">
-        <li><strong>D FF most used:</strong> Eliminates forbidden state. Q(next) = D. Used in registers.</li>
-        <li><strong>T FF for counter:</strong> Toggle on T=1. n T-FFs = MOD-2ⁿ counter.</li>
-        <li><strong>JK is universal:</strong> Can act as D (J=D, K=D') or T (J=K=T) flip-flop.</li>
-        <li><strong>Propagation delay:</strong> n-stage ripple counter delay = n × t_pd.</li>
-        <li><strong>Race condition:</strong> In JK master-slave, output changes only on full clock cycle (no racing).</li>
-      </ul>
-    </div>
-
+    <div><h2>🗺️ K-Map Tricks</h2>
+    <ul class="styled">
+      <li>Group of 2^k in n-variable K-Map → (n-k) literals in term</li>
+      <li>4 corners of 4-variable K-Map = valid group of 4!</li>
+      <li>Wrap-around: left↔right, top↔bottom (torus structure)</li>
+      <li>Don't cares: include to enlarge groups, never required to cover all</li>
+      <li>EPI: must be in final solution — covers minterm no other PI covers</li>
+      <li>POS minimization: group 0s, then apply De Morgan to result</li>
+    </ul></div>
     <hr class="div"/>
 
-    <div>
-      <h2>📊 Counter & Register Tricks</h2>
-      <ul class="styled">
-        <li><strong>n FFs in ripple counter → MOD-2ⁿ counter → divides frequency by 2ⁿ.</strong></li>
-        <li><strong>MOD-N counter FFs needed = ⌈log₂N⌉.</strong> MOD-5 → 3 FFs. MOD-10 → 4 FFs.</li>
-        <li><strong>Ring counter:</strong> n FFs → n states (one 1 circulates).</li>
-        <li><strong>Johnson counter:</strong> n FFs → 2n states (most efficient twisted ring).</li>
-        <li><strong>Shift register delay:</strong> n-stage SISO register delays data by n clock cycles.</li>
-      </ul>
-    </div>
-
+    <div><h2>⚡ Flip-Flop Tricks</h2>
+    <ul class="styled">
+      <li>D FF: Q(next)=D. Most used. No forbidden state.</li>
+      <li>T FF: Q(next)=T⊕Q. Toggle when T=1.</li>
+      <li>JK FF: Universal. JK=11 → toggle. J=set (like SR S). K=kill (like SR R).</li>
+      <li>JK→D: J=D, K=D'. JK→T: J=K=T. D→T: D=T⊕Q.</li>
+      <li>T FF excitation: T = Q ⊕ Q(next). JK excitation: J=Q'·Q(next), K=Q·Q(next)'</li>
+      <li>Latch = level-triggered. Flip-Flop = edge-triggered.</li>
+      <li>Setup time violation → metastability → unpredictable output</li>
+    </ul></div>
     <hr class="div"/>
 
-    <div>
-      <h2>💾 Memory & ADC/DAC Tricks</h2>
-      <ul class="styled">
-        <li><strong>SRAM vs DRAM:</strong> SRAM = 6 transistors = Cache. DRAM = 1T+1C = Main RAM.</li>
-        <li><strong>Flash ADC:</strong> 2ⁿ - 1 comparators, n-bit output. Fastest but most expensive.</li>
-        <li><strong>SAR ADC:</strong> n clock cycles for n bits. Like binary search.</li>
-        <li><strong>DAC resolution improves with more bits:</strong> 1-bit more → error halved.</li>
-        <li><strong>ROM as logic:</strong> 2ⁿ × m ROM implements m Boolean functions of n variables.</li>
-      </ul>
-    </div>
-
+    <div><h2>📊 Counter & Register Tricks</h2>
+    <ul class="styled">
+      <li>n FFs ripple counter → MOD-2ⁿ → divides frequency by 2ⁿ</li>
+      <li>MOD-N FFs needed: ⌈log₂N⌉</li>
+      <li>Ring counter: n FFs → n states (self-decoding!)</li>
+      <li>Johnson counter: n FFs → 2n states (more efficient)</li>
+      <li>SISO n-stage: delays data by exactly n clock cycles</li>
+      <li>Chained MOD counters: multiply their moduli (MOD-5×MOD-4 = MOD-20)</li>
+    </ul></div>
     <hr class="div"/>
 
+    <div><h2>💾 Memory & ADC/DAC</h2>
+    <ul class="styled">
+      <li>SRAM: 6T/bit, fast, expensive → Cache</li>
+      <li>DRAM: 1T+1C/bit, needs refresh, cheap → Main RAM</li>
+      <li>Flash: block erase, byte write → SSDs/phones</li>
+      <li>ROM as logic: 2ⁿ×m ROM → m functions of n variables simultaneously</li>
+      <li>Flash ADC: fastest, 2ⁿ-1 comparators, 1 clock cycle, most expensive</li>
+      <li>SAR ADC: n clock cycles for n bits, binary search method</li>
+      <li>DAC resolution = Vref / (2ⁿ - 1). More bits = finer resolution.</li>
+      <li>R-2R ladder DAC: only 2 resistor values, most practical for many bits</li>
+    </ul></div>
+
+    <div class="formula">
+      <div class="formula-label">📐 Golden Formula Reference Sheet</div>
+      <code>Bits for N: ⌈log₂N⌉  |  n-bit max: 2ⁿ-1  |  2's comp range: [-2ⁿ⁻¹, 2ⁿ⁻¹-1]</code>
+      <code>IEEE 754 bias: 2^(e-1)-1  |  Single=127  |  Double=1023</code>
+      <code>HA: S=A⊕B, C=AB  |  FA: S=A⊕B⊕Cin, Cout=AB+Cin(A⊕B)</code>
+      <code>De Morgan: (AB)'=A'+B'  |  (A+B)'=A'·B'</code>
+      <code>JK: Q+=JQ'+K'Q  |  D: Q+=D  |  T: Q+=T⊕Q</code>
+      <code>K-Map group 2^k: eliminates k variables, (n-k) remain</code>
+      <code>MOD-N FFs: ⌈log₂N⌉  |  Ring: n states  |  Johnson: 2n states</code>
+      <code>Hamming: 2^p ≥ d+p+1  |  DAC: Vout = D×Vref/2ⁿ</code>
+      <code>Max freq = 1/(tpd + tsu + th)  |  Gray: adjacent cells differ by 1 bit</code>
+    </div>
+
+    <!-- Final MCQs - Mixed -->
     <div>
-      <h2>🎯 GATE Exam Special Topics</h2>
-      <div class="grid2">
-        <div class="card">
-          <h3>Always Check These</h3>
-          <ul class="styled">
-            <li>Min gates in a circuit</li>
-            <li>K-Map with don't cares</li>
-            <li>FF excitation tables</li>
-            <li>MOD-N counter design</li>
-            <li>MUX implementing Boolean functions</li>
-          </ul>
+      <div class="mcq-section-header"><div class="mcq-section-title">🎯 Mixed MCQ Rapid Fire — GATE/PSU Style</div></div>
+      <div class="mcq-grid">
+        <div class="mcq-block" id="mcq-13-1">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">GATE 2023</span><span class="mcq-score" id="score-13-1"></span></div>
+          <div class="mcq-q">Q31. Which of the following is NOT a property of floating point arithmetic?</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('13-1',this,'wrong')"><span class="mcq-opt-key">A</span>Commutativity: a+b = b+a</div>
+            <div class="mcq-opt" onclick="checkMCQ('13-1',this,'correct')"><span class="mcq-opt-key">B</span>Associativity: (a+b)+c = a+(b+c)</div>
+            <div class="mcq-opt" onclick="checkMCQ('13-1',this,'wrong')"><span class="mcq-opt-key">C</span>Representation of ±infinity</div>
+            <div class="mcq-opt" onclick="checkMCQ('13-1',this,'wrong')"><span class="mcq-opt-key">D</span>Representation of NaN</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('13-1')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('13-1')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-13-1"><strong>Answer: B (Associativity)</strong><br>Floating point arithmetic is NOT associative due to rounding! Example: (1e15 + (-1e15)) + 1 = 1, but 1e15 + ((-1e15) + 1) = 0 (because (-1e15+1) rounds to -1e15). Commutativity (a+b=b+a) IS guaranteed in IEEE 754.</div>
         </div>
-        <div class="card">
-          <h3>Common Mistakes to Avoid</h3>
-          <ul class="styled">
-            <li>K-Map: forgetting wrap-around groups</li>
-            <li>2's comp range: -2ⁿ⁻¹ to +2ⁿ⁻¹-1</li>
-            <li>SR FF: S=R=1 is forbidden!</li>
-            <li>Gray code: only 1 bit changes</li>
-            <li>Latch ≠ Flip-Flop (level vs edge)</li>
-          </ul>
+        <div class="mcq-block" id="mcq-13-2">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">HPCL 2022</span><span class="mcq-score" id="score-13-2"></span></div>
+          <div class="mcq-q">Q32. The expression A⊕B⊕A⊕B equals:</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('13-2',this,'correct')"><span class="mcq-opt-key">A</span>0</div>
+            <div class="mcq-opt" onclick="checkMCQ('13-2',this,'wrong')"><span class="mcq-opt-key">B</span>1</div>
+            <div class="mcq-opt" onclick="checkMCQ('13-2',this,'wrong')"><span class="mcq-opt-key">C</span>A⊕B</div>
+            <div class="mcq-opt" onclick="checkMCQ('13-2',this,'wrong')"><span class="mcq-opt-key">D</span>A+B</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('13-2')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('13-2')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-13-2"><strong>Answer: A (0)</strong><br>A⊕B⊕A⊕B = (A⊕A)⊕(B⊕B) = 0⊕0 = <strong>0</strong>. XOR with itself is always 0. XOR is associative and commutative, so we can regroup. An even number of any XOR term cancels out!</div>
+        </div>
+        <div class="mcq-block" id="mcq-13-3">
+          <div class="mcq-header"><span class="mcq-badge">MCQ</span><span class="mcq-source">BARC style</span><span class="mcq-score" id="score-13-3"></span></div>
+          <div class="mcq-q">Q33. In 2's complement representation using 8 bits, the most negative number is:</div>
+          <div class="mcq-options">
+            <div class="mcq-opt" onclick="checkMCQ('13-3',this,'wrong')"><span class="mcq-opt-key">A</span>-127</div>
+            <div class="mcq-opt" onclick="checkMCQ('13-3',this,'correct')"><span class="mcq-opt-key">B</span>-128</div>
+            <div class="mcq-opt" onclick="checkMCQ('13-3',this,'wrong')"><span class="mcq-opt-key">C</span>-255</div>
+            <div class="mcq-opt" onclick="checkMCQ('13-3',this,'wrong')"><span class="mcq-opt-key">D</span>-126</div>
+          </div>
+          <div class="mcq-actions">
+            <button class="mcq-btn" onclick="showExplanation('13-3')">Show Explanation</button>
+            <button class="mcq-btn reset-btn" onclick="resetMCQ('13-3')">Reset</button>
+          </div>
+          <div class="mcq-explanation" id="exp-13-3"><strong>Answer: B (-128)</strong><br>8-bit 2's complement range: -2^(n-1) to +2^(n-1)-1 = -2⁷ to +2⁷-1 = <strong>-128 to +127</strong>. The number 10000000 = -128. Note: -128 has no positive equivalent in 8-bit 2's complement (taking 2's complement of 10000000 gives 10000000 again!). This asymmetry is a key GATE trap.</div>
         </div>
       </div>
     </div>
 
-    <div class="formula">
-      <div class="formula-label">📐 Golden Formulas Summary</div>
-      <code>n-bit: max value = 2ⁿ - 1 | 2's comp range = [-2ⁿ⁻¹, 2ⁿ⁻¹ - 1]</code>
-      <code>Parity bits: 2ᵖ ≥ n + p + 1 | MOD-N FFs: ⌈log₂N⌉</code>
-      <code>Full Adder: S = A⊕B⊕Cin | Cout = AB + BCin + ACin</code>
-      <code>JK FF: Q(next) = JQ' + K'Q | D FF: Q(next) = D</code>
-      <code>T FF: Q(next) = T⊕Q | DAC: Vout = D × Vref / 2ⁿ</code>
-      <code>De Morgan: (AB)' = A'+B' | (A+B)' = A'·B'</code>
+    <!-- TOPIC WEIGHTAGE -->
+    <div>
+      <h2>📊 GATE & PSU Exam Weightage Guide</h2>
+      <div class="prog-row"><div class="prog-lbl">K-Map & Minimization</div><div class="prog-bar"><div class="prog-fill" style="width:92%"></div></div><div class="prog-pct">92%</div></div>
+      <div class="prog-row"><div class="prog-lbl">Flip-Flops</div><div class="prog-bar"><div class="prog-fill" style="width:88%"></div></div><div class="prog-pct">88%</div></div>
+      <div class="prog-row"><div class="prog-lbl">Computer Arithmetic</div><div class="prog-bar"><div class="prog-fill" style="width:85%"></div></div><div class="prog-pct">85%</div></div>
+      <div class="prog-row"><div class="prog-lbl">Number Systems</div><div class="prog-bar"><div class="prog-fill" style="width:85%"></div></div><div class="prog-pct">85%</div></div>
+      <div class="prog-row"><div class="prog-lbl">Floating Point (IEEE)</div><div class="prog-bar"><div class="prog-fill" style="width:82%"></div></div><div class="prog-pct">82%</div></div>
+      <div class="prog-row"><div class="prog-lbl">Boolean Algebra</div><div class="prog-bar"><div class="prog-fill" style="width:80%"></div></div><div class="prog-pct">80%</div></div>
+      <div class="prog-row"><div class="prog-lbl">Combinational Ckts</div><div class="prog-bar"><div class="prog-fill" style="width:78%"></div></div><div class="prog-pct">78%</div></div>
+      <div class="prog-row"><div class="prog-lbl">Sequential Ckts/FSM</div><div class="prog-bar"><div class="prog-fill" style="width:75%"></div></div><div class="prog-pct">75%</div></div>
+      <div class="prog-row"><div class="prog-lbl">Counters & Registers</div><div class="prog-bar"><div class="prog-fill" style="width:70%"></div></div><div class="prog-pct">70%</div></div>
+      <div class="prog-row"><div class="prog-lbl">Codes (BCD/Gray/Ham)</div><div class="prog-bar"><div class="prog-fill" style="width:65%"></div></div><div class="prog-pct">65%</div></div>
+      <div class="prog-row"><div class="prog-lbl">Memory (SRAM/DRAM)</div><div class="prog-bar"><div class="prog-fill" style="width:60%"></div></div><div class="prog-pct">60%</div></div>
+      <div class="prog-row"><div class="prog-lbl">ADC / DAC</div><div class="prog-bar"><div class="prog-fill" style="width:50%"></div></div><div class="prog-pct">50%</div></div>
     </div>
 
     <div class="note">
-      <div class="note-label">📌 Final Advice for GATE & HPCL</div>
-      <p>Focus on <strong>K-Map minimization, Flip-Flop conversions, Number Systems, and Combinational Circuit design</strong>. These appear most frequently. Practice previous year GATE questions — the same concepts repeat with different numbers. Time yourself while solving problems!</p>
+      <div class="note-label">📌 Final Strategy for GATE & PSU</div>
+      <p><strong>GATE:</strong> Focus heavily on K-Map, Flip-Flop conversions, Boolean simplification, and Floating Point IEEE 754. At least 2–3 questions each exam.<br>
+      <strong>HPCL/BARC/BEL:</strong> More direct — number conversions, gate truth tables, 2's complement, memory types. Less derivation, more recall.<br>
+      <strong>ISRO:</strong> Similar to GATE, often includes FSM state minimization and Mealy/Moore machine questions.<br><br>
+      Always verify: Check answer by substituting minterms back. Time yourself — aim for 2 minutes per Digital Electronics question.</p>
     </div>
-
-  </div>
-</section>
-
-<!-- TOPIC WEIGHTAGE -->
-<section class="section">
-  <div class="section-header">
-    <div class="section-num" style="background:var(--green);color:#000">%</div>
-    <div>
-      <div class="section-title">Exam Weightage Guide</div>
-      <div class="section-subtitle">Focus areas for GATE & HPCL</div>
-    </div>
-  </div>
-  <div class="section-body">
-    <div class="progress-section"><div class="progress-label">K-Map</div><div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div><div class="progress-pct">90%</div></div>
-    <div class="progress-section"><div class="progress-label">Number Sys</div><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div><div class="progress-pct">85%</div></div>
-    <div class="progress-section"><div class="progress-label">Flip-Flops</div><div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div><div class="progress-pct">80%</div></div>
-    <div class="progress-section"><div class="progress-label">Comb. Ckts</div><div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div><div class="progress-pct">80%</div></div>
-    <div class="progress-section"><div class="progress-label">Counters</div><div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div><div class="progress-pct">70%</div></div>
-    <div class="progress-section"><div class="progress-label">Boolean Alg</div><div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div><div class="progress-pct">70%</div></div>
-    <div class="progress-section"><div class="progress-label">Codes/BCD</div><div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div><div class="progress-pct">60%</div></div>
-    <div class="progress-section"><div class="progress-label">ADC/DAC</div><div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div><div class="progress-pct">50%</div></div>
   </div>
 </section>
 
@@ -1660,32 +1815,63 @@ A&lt;B:  A'·B
 </div>
 
 <script>
-  let isDark = true;
-  function toggleTheme() {
-    isDark = !isDark;
-    document.body.classList.toggle('light-mode', !isDark);
-    document.getElementById('theme-btn').textContent = isDark ? '☀ Light Mode' : '🌙 Dark Mode';
+let isDark=true;
+function toggleTheme(){isDark=!isDark;document.body.classList.toggle('light-mode',!isDark);document.getElementById('theme-btn').textContent=isDark?'☀ Light Mode':'🌙 Dark Mode';}
+
+function checkMCQ(id,el,result){
+  const block=document.getElementById('mcq-'+id);
+  if(block.dataset.answered)return;
+  block.dataset.answered='1';
+  el.classList.add(result);
+  if(result==='wrong'){
+    block.querySelectorAll('.mcq-opt').forEach(o=>{
+      if(o.onclick.toString().includes("'correct'"))o.classList.add('correct');
+    });
   }
-  // Smooth scroll & active nav
-  document.querySelectorAll('.nav-item').forEach(link => {
-    link.addEventListener('click', function(e) {
-      document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
-      this.classList.add('active');
-    });
+  const scoreEl=document.getElementById('score-'+id);
+  if(scoreEl)scoreEl.textContent=result==='correct'?'✓ Correct':'✗ Incorrect';
+  showExplanation(id);
+}
+
+function showExplanation(id){
+  const exp=document.getElementById('exp-'+id);
+  if(exp)exp.style.display='block';
+}
+
+function resetMCQ(id){
+  const block=document.getElementById('mcq-'+id);
+  delete block.dataset.answered;
+  block.querySelectorAll('.mcq-opt').forEach(o=>{o.classList.remove('correct','wrong');});
+  const exp=document.getElementById('exp-'+id);
+  if(exp)exp.style.display='none';
+  const scoreEl=document.getElementById('score-'+id);
+  if(scoreEl)scoreEl.textContent='';
+}
+
+function showAllAnswers(){
+  document.querySelectorAll('.mcq-explanation').forEach(e=>e.style.display='block');
+  document.querySelectorAll('.mcq-block').forEach(b=>{
+    if(!b.dataset.answered){
+      b.dataset.answered='shown';
+      const correct=b.querySelector('.mcq-opt[onclick*="correct"]');
+      if(correct)correct.classList.add('correct');
+    }
   });
-  // Intersection observer for active nav
-  const sections = document.querySelectorAll('section[id]');
-  const navItems = document.querySelectorAll('.nav-item');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        navItems.forEach(n => n.classList.remove('active'));
-        const active = document.querySelector(`.nav-item[href="#${e.target.id}"]`);
-        if (active) active.classList.add('active');
-      }
-    });
-  }, { rootMargin: '-30% 0px -60% 0px' });
-  sections.forEach(s => obs.observe(s));
+}
+
+// Active nav highlight
+const sections=document.querySelectorAll('section[id]');
+const navItems=document.querySelectorAll('.nav-item');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navItems.forEach(n=>n.classList.remove('active'));
+      const a=document.querySelector(`.nav-item[href="#${e.target.id}"]`);
+      if(a)a.classList.add('active');
+    }
+  });
+},{rootMargin:'-25% 0px -65% 0px'});
+sections.forEach(s=>obs.observe(s));
 </script>
 </body>
 </html>
